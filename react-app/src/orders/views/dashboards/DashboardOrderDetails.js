@@ -154,6 +154,11 @@ export const DashboardOrderDetails = () => {
 											</tbody>
 										</Table>
 								</Row>
+										<Form.Label>Amount</Form.Label>
+										<Form.Control type="currency" placeholder="$300" />
+									</Form.Group>
+								</Row>
+
 								<Row>
 								<Col  md="auto">
 								<Button variant="danger" type="submit">
