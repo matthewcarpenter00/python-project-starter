@@ -1,1 +1,12 @@
-/* TODO Add site wide styles */
+
+
+form {
+    background-color: white;
+    box-shadow: 5px 5px 5px rgba(0,0,0,.2);
+}
+
+@media (max-width: 575.98px) {
+    form {
+        width: 100%;
+    }
+}
