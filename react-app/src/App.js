@@ -36,46 +36,34 @@ function App() {
   }
 
   return (
-
-    
-    <div className='mt-5'>
-      <BrowserRouter>
-        {/* <NavBar /> */}
-        <Switch>
-          <Route exact path='/'>
-            <Redirect to='/new-order' /> : <OrderForm />
-          </Route>
-          <Route path='/login' exact={true}>
-            <LoginForm />
-          </Route>
-          <Route path='/sign-up' exact={true}>
-            <SignUpForm />
-          </Route>
-          <ProtectedRoute path='/users' exact={true}>
-            <UsersList />
-          </ProtectedRoute>
-          <ProtectedRoute path='/users/:userId' exact={true}>
-            <User />
-          </ProtectedRoute>
-          <ProtectedRoute path='/new-order' exact={true}>
-            <OrderForm />
-          </ProtectedRoute>
-          <ProtectedRoute path='/new-client' exact={true}>
-            <ContactForm />
-          </ProtectedRoute>
-          <ProtectedRoute path='/select-product' exact={true}>
-            <SelectProduct />
-          </ProtectedRoute>
-          <ProtectedRoute path='/product-order/delivey' exact={true}>
-            <DeliveryForm />
-          </ProtectedRoute>
-          <ProtectedRoute path='/product-order/:productId' exact={true}>
-            <SelectProductDetails />
-          </ProtectedRoute>
-          <ProtectedRoute path='/order-review' exact={true}>
-            <OrderReview />
-          </ProtectedRoute>
-<Route exact path="/profile/user">
+    <BrowserRouter>
+      <NavBar />
+      <Switch>
+        <Route path='/login' exact={true}>
+          <LoginForm />
+        </Route>
+        <Route path='/sign-up' exact={true}>
+          <SignUpForm />
+        </Route>
+        <Route path='/new-order' exact={true}>
+          <OrderForm />
+        </Route>
+        <ProtectedRoute path='/users' exact={true}>
+          <UsersList />
+        </ProtectedRoute>
+        <ProtectedRoute path='/users/:userId' exact={true}>
+          <User />
+        </ProtectedRoute>
+        <ProtectedRoute path='/new-client' exact={true}>
+          <ContactForm />
+        </ProtectedRoute>
+        <ProtectedRoute path='/select-product' exact={true}>
+          <SelectProduct />
+        </ProtectedRoute>
+        <ProtectedRoute path='/product-order/:productId' exact={true}>
+          <SelectProductDetails />
+        </ProtectedRoute>
+        <Route exact path="/profile/user">
 						<UserHome />
 				</Route>
         <Route exact path="/profile/user/:id">
@@ -87,7 +75,7 @@ function App() {
            
         </Switch>
       </BrowserRouter>
-    </div>
+    
 
   );
 }
