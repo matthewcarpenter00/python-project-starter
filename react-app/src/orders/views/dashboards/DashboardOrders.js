@@ -16,7 +16,6 @@ import paginationFactory from "react-bootstrap-table2-paginator";
 
 
 import Tabs from 'react-bootstrap/Tabs';
-import Tab from 'react-bootstrap/Tab';
 
 
 
