@@ -5,18 +5,26 @@ import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+<<<<<<< HEAD
 import { useHistory } from "react-router";
 import PropTypes from "prop-types";
+=======
+>>>>>>> develop
 
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 import { useState } from "react";
 
 
+<<<<<<< HEAD
 
 export const DashboardOrders = ({ user, userId }) => {
 	const params = useParams();
 	const history = useHistory();
+=======
+export const DashboardOrders = () => {
+	const params = useParams();
+>>>>>>> develop
 
 	// const { store, actions } = useContext(Context);
 	let { id } = useParams();
@@ -46,12 +54,16 @@ export const DashboardOrders = ({ user, userId }) => {
 							<div className="h-100 p-5 bg-light border rounded-3">
 							<Row>
 								<Col>
+<<<<<<< HEAD
 									<Button 
 									onClick={() => {
 										history.push(`/profile/user/${userId}/neworder`);
 										}}
 									variant="dark"
 									className="mb-3">
+=======
+									<Button href="/new-order" variant="dark" className="mb-3">
+>>>>>>> develop
 										+new order
 									</Button>
 								</Col>
@@ -83,9 +95,13 @@ export const DashboardOrders = ({ user, userId }) => {
 												</tr>
 											</thead>
 											<tbody>
+<<<<<<< HEAD
 												<tr onClick={() => {
 							history.push(`/profile/user/${userId}/orderdetails`);
 						}}>
+=======
+												<tr>
+>>>>>>> develop
 													<td>001</td>
 													<td>04/01/22</td>
 													<td>JDA Flooring</td>
@@ -206,9 +222,12 @@ export const DashboardOrders = ({ user, userId }) => {
 			</div>
 		</>
 	);
+<<<<<<< HEAD
 };
 
 DashboardOrders.propTypes = {
 	user: PropTypes.object,
 	userId: PropTypes.string,
+=======
+>>>>>>> develop
 };

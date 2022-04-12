@@ -10,8 +10,11 @@ import { DashboardProducts } from "./dashboards/DashboardProducts";
 import { DashboardCustomers } from "./dashboards/DashboardCustomers";
 import { DashboardMyAccount } from "./dashboards/DashboardMyAccount";
 import { DashboardOrderDetails } from "./dashboards/DashboardOrderDetails";
+<<<<<<< HEAD
 import { DashboardNewOrder } from "./dashboards/DashboardNewOrder";
 import { DashboardCustomerDetails } from "./dashboards/DashboardCustomerDetails";
+=======
+>>>>>>> develop
 
 
 export const UserHome = props => {
@@ -35,10 +38,13 @@ export const UserHome = props => {
 			return <DashboardProducts />;
 		} else if (profile == "orderdetails") {
 			return <DashboardOrderDetails />;
+<<<<<<< HEAD
 		} else if (profile == "neworder") {
 			return <DashboardNewOrder />;
 		} else if (profile == "customerdetails") {
 			return <DashboardCustomerDetails />;
+=======
+>>>>>>> develop
 		} else {
 			return <DashboardOrders />;
 		}

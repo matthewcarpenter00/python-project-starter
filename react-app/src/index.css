@@ -1,4 +1,11 @@
+<<<<<<< HEAD
 
+=======
+/* TODO Add site wide styles */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+>>>>>>> develop
 
 form {
     background-color: white;
@@ -14,6 +21,10 @@ form {
 label {
     font-weight: 600;
 
+<<<<<<< HEAD
 }
 
 
+=======
+}
+>>>>>>> develop
