@@ -118,11 +118,42 @@ export const DashboardOrderDetails = () => {
 									</Form.Group>
 
 									<Form.Group as={Col} controlId="formCustomer">
-										<Form.Label>Amount</Form.Label>
+										<Form.Label>Total Amount</Form.Label>
 										<Form.Control type="currency" placeholder="$300" />
 									</Form.Group>
 								</Row>
-
+								<Row className="mb-3">
+									<h4>Order Summary</h4>
+								<Table striped bordered hover responsive="lg" className="table" >
+											<thead className="thead-dark">
+												<tr>
+													<th scope="col">#</th>
+													<th scope="col">Product</th>
+													<th scope="col">Qty</th>
+													<th scope="col">Price</th>
+													<th scope="col">Notes</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>1</td>
+													<td>Vinyl Deco Model</td>
+													<td>14</td>
+													<td>$180</td>
+													<td>none</td>
+												</tr>
+											</tbody>
+											<tbody>
+												<tr>
+													<td>2</td>
+													<td>T-moulding</td>
+													<td>2</td>
+													<td>$80</td>
+													<td>2 inches wide</td>
+												</tr>
+											</tbody>
+										</Table>
+								</Row>
 								<Row>
 								<Col  md="auto">
 								<Button variant="danger" type="submit">
