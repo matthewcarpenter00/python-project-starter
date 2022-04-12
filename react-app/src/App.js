@@ -1,10 +1,6 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useState, useEffect } from "react";
-<<<<<<< HEAD
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
-=======
-import { BrowserRouter, Route, Switch } from "react-router-dom";
->>>>>>> develop
 import { useDispatch } from "react-redux";
 import LoginForm from "./components/auth/LoginForm";
 import SignUpForm from "./components/auth/SignUpForm";
@@ -17,16 +13,12 @@ import { OrderForm } from "./orders/views/OrderForm";
 import { ContactForm } from "./orders/views/ContactForm";
 import { SelectProduct } from "./orders/views/SelectProduct";
 import { SelectProductDetails } from "./orders/views/SelectProductDetails";
-<<<<<<< HEAD
 
 import { UserHome } from "./orders/views/UserHome";
 
 import { DeliveryForm } from "./orders/views/DeliveryForm";
 import { OrderReview } from "./orders/views/OrderReview";
 
-=======
-import { UserHome } from "./orders/views/UserHome";
->>>>>>> develop
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -80,16 +72,11 @@ function App() {
 				<Route exact path="/profile/user/:id/:profileoption">
 							<UserHome />
 				</Route>
-<<<<<<< HEAD
            
         </Switch>
       </BrowserRouter>
     
 
-=======
-      </Switch>
-    </BrowserRouter>
->>>>>>> develop
   );
 }
 

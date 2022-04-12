@@ -3,7 +3,7 @@ import { useHistory } from "react-router";
 import PropTypes from "prop-types";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-import { Container, Row, Button } from "react-bootstrap";
+import { Container, Row, Button, Table } from "react-bootstrap";
 import Col from 'react-bootstrap/Col';
 
 
@@ -24,13 +24,13 @@ export const DashboardCustomers = ({ user, userId }) => {
 						{/* title section */}
 						<Container>
 							<Row>
-								<Col>
+								<Col sm="9">
 								<h1>Customers</h1>
 								</Col>
 
 								<Col>
-									<Button variant="dark">
-										+Add Customer
+									<Button variant="dark" className="mb-3 float-right">
+										+ add customer
 									</Button>
 								</Col>
 							</Row>
@@ -40,7 +40,8 @@ export const DashboardCustomers = ({ user, userId }) => {
 						
                         <div className="container">
 			<div className="h-100 p-5 bg-light border rounded-3">
-				<table className="table">
+				<Table striped bordered hover responsive="lg" className="table">
+				
 					<thead className="thead-dark">
 						<tr>
 							<th scope="col">Customer ID</th>
@@ -63,7 +64,7 @@ export const DashboardCustomers = ({ user, userId }) => {
 							<td>chester@tester.com</td>
 						</tr>
 					</tbody>
-				</table>
+				</Table>
 			</div>
 		</div>
 					</div>

@@ -37,26 +37,6 @@ export const SelectProductDetails = () => {
   if (!currentProduct) return "Loading";
   return (
     <Container fluid>
-<<<<<<< HEAD
-      <Form
-        noValidate
-        validated={validated}
-        onSubmit={handleSubmit}
-        className='p-4'
-      >
-        <Row>
-          <Col />
-          <Col md={5}>
-            <Card className='mb-3'>
-              <Card.Header className='bg-secondary'>
-                {currentProduct.title}
-              </Card.Header>
-
-              <Form.Label>PO#/ Job Name</Form.Label>
-              <Form.Control
-                required
-                minLength='2'
-=======
       <Row>
         <Col />
         <Col md={5}>
@@ -67,7 +47,6 @@ export const SelectProductDetails = () => {
             <Form onSubmit={handleSubmit} className='p-4'>
               <Form.Label>PO#/ Job Name</Form.Label>
               <Form.Control
->>>>>>> develop
                 className='custom-input'
                 type='text'
                 placeholder='Your answer'
@@ -75,40 +54,6 @@ export const SelectProductDetails = () => {
                 name='poJobName'
                 onChange={handleInputChange}
               />
-<<<<<<< HEAD
-              <Form.Control.Feedback type='invalid'>
-                Must be min Two Characters Long or more.
-              </Form.Control.Feedback>
-
-              <Row xs={2}>
-                {arrayProduct.map((product) => (
-                  <Product
-                    key={product.title}
-                    {...product}
-                    styles={product.styles}
-                    handleClick={() => {
-                      setProductModel(product.title);
-                      arrayProduct.map((_product) =>
-                        _product.id === product.id
-                          ? (_product.styles = "text-white bg-dark")
-                          : (_product.styles = "")
-                      );
-                    }}
-                  />
-                ))}
-              </Row>
-            </Card>
-          </Col>
-          <Col md={6}>
-            <FormTitleCard />
-
-            <FormInputCard inputLabel='Quantity'>
-              <Form.Control
-                required
-                className='custom-input'
-                type='number'
-                placeholder='Your quantity'
-=======
             </Form>
 
             <Row xs={2}>
@@ -126,23 +71,11 @@ export const SelectProductDetails = () => {
                 className='custom-input'
                 type='text'
                 placeholder='Your answer'
->>>>>>> develop
                 value={quantity}
                 name='quantity'
                 onChange={handleInputChange}
               />
             </FormInputCard>
-<<<<<<< HEAD
-            <FormInputCard inputLabel={currentProduct.notesLabel}>
-              <Form.Control
-                required
-                as='textarea'
-                rows={3}
-                className='custom-input'
-                placeholder='Your Answer'
-                value={notes}
-                name='notes'
-=======
             <FormInputCard inputLabel='Special size / Notes'>
               <Form.Control
                 className='custom-input'
@@ -160,7 +93,6 @@ export const SelectProductDetails = () => {
                 placeholder='Your Answer'
                 value={addOns}
                 name='addOns'
->>>>>>> develop
                 onChange={handleInputChange}
               />
             </FormInputCard>
@@ -170,13 +102,6 @@ export const SelectProductDetails = () => {
                   type='submit'
                   variant='dark'
                   size='lg'
-<<<<<<< HEAD
-                  onClick={() => setNextAction("add_more_products")}
-                >
-                  Yes, add more products
-                </Button>
-                <Button type='submit' variant='dark' size='lg'>
-=======
                   //   onClick={() => setClientType("new-client")}
                 >
                   Yes, add more products
@@ -187,30 +112,10 @@ export const SelectProductDetails = () => {
                   variant='dark'
                   size='lg'
                 >
->>>>>>> develop
                   No, i'm finished
                 </Button>
               </div>
             </FormInputCard>
-<<<<<<< HEAD
-          </Col>
-          <Col />
-        </Row>
-        <Row className='mb-4'>
-          <Col>
-            <Button
-              onClick={() => history.push("/new-order")}
-              variant='secondary'
-              className='float-end'
-            >
-              Back to start
-            </Button>
-          </Col>
-          <Col xs={6} />
-          <Col />
-        </Row>
-      </Form>
-=======
           </Form>
         </Col>
         <Col />
@@ -228,7 +133,6 @@ export const SelectProductDetails = () => {
         <Col xs={6} />
         <Col />
       </Row>
->>>>>>> develop
     </Container>
   );
 };
