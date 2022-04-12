@@ -6,9 +6,6 @@ export const setCustomer = (customer) => ({
   payload: customer,
 });
 
-<<<<<<< HEAD
-const initialState = { customer: null };
-=======
 export const setOrderDetails = (orderDetails) => ({
   type: SET_ORDER_DETAILS,
   payload: orderDetails,
@@ -38,7 +35,7 @@ const initialState = {
   },
   orderCart: [],
 };
->>>>>>> 9457272 (add customer page)
+// (add customer page)
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
