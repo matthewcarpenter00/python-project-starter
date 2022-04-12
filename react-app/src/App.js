@@ -19,7 +19,6 @@ import { UserHome } from "./orders/views/UserHome";
 import { DeliveryForm } from "./orders/views/DeliveryForm";
 import { OrderReview } from "./orders/views/OrderReview";
 
-
 function App() {
   const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch();
@@ -36,53 +35,55 @@ function App() {
   }
 
   return (
-    <BrowserRouter>
-      <NavBar />
-      <Switch>
-        <Route path='/login' exact={true}>
-          <LoginForm />
-        </Route>
-        <Route path='/sign-up' exact={true}>
-          <SignUpForm />
-        </Route>
-        <Route path='/new-order' exact={true}>
-          <OrderForm />
-        </Route>
-        <Route path='/order-review' exact={true}>
-          <OrderReview />
-        </Route>
-        <Route path='/delivery-form' exact={true}>
-          <DeliveryForm />
-        </Route>
-        <Route path='/users' exact={true}>
-          <UsersList />
-        </Route>
-        <Route path='/users/:userId' exact={true}>
-          <User />
-        </Route>
-        <Route path='/new-client' exact={true}>
-          <ContactForm />
-        </Route>
-        <Route path='/select-product' exact={true}>
-          <SelectProduct />
-        </Route>
-        <Route path='/product-order/:productId' exact={true}>
-          <SelectProductDetails />
-        </Route>
-        <Route exact path="/profile/user">
-						<UserHome />
-				</Route>
-        <Route exact path="/profile/user/:id">
-							<UserHome />
-				</Route>
-				<Route exact path="/profile/user/:id/:profileoption">
-							<UserHome />
-				</Route>
-           
+    <div className='mt-5'>
+      <BrowserRouter>
+        {/* <NavBar /> */}
+        <Switch>
+          <Route exact path='/'>
+            <Redirect to='/new-order' /> : <OrderForm />
+          </Route>
+          <Route path='/login' exact={true}>
+            <LoginForm />
+          </Route>
+          <Route path='/sign-up' exact={true}>
+            <SignUpForm />
+          </Route>
+          <ProtectedRoute path='/users' exact={true}>
+            <UsersList />
+          </ProtectedRoute>
+          <ProtectedRoute path='/users/:userId' exact={true}>
+            <User />
+          </ProtectedRoute>
+          <ProtectedRoute path='/new-order' exact={true}>
+            <OrderForm />
+          </ProtectedRoute>
+          <ProtectedRoute path='/new-client' exact={true}>
+            <ContactForm />
+          </ProtectedRoute>
+          <ProtectedRoute path='/select-product' exact={true}>
+            <SelectProduct />
+          </ProtectedRoute>
+          <ProtectedRoute path='/product-order/delivey' exact={true}>
+            <DeliveryForm />
+          </ProtectedRoute>
+          <ProtectedRoute path='/product-order/:productId' exact={true}>
+            <SelectProductDetails />
+          </ProtectedRoute>
+          <ProtectedRoute path='/order-review' exact={true}>
+            <OrderReview />
+          </ProtectedRoute>
+          <Route exact path='/profile/user'>
+            <UserHome />
+          </Route>
+          <Route exact path='/profile/user/:id'>
+            <UserHome />
+          </Route>
+          <Route exact path='/profile/user/:id/:profileoption'>
+            <UserHome />
+          </Route>
         </Switch>
       </BrowserRouter>
-    
-
+    </div>
   );
 }
 
