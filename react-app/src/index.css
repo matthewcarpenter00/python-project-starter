@@ -1,7 +1,4 @@
-/* TODO Add site wide styles */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+
 
 form {
     background-color: white;
@@ -18,3 +15,5 @@ label {
     font-weight: 600;
 
 }
+
+

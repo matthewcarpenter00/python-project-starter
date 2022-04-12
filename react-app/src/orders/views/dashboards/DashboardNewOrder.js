@@ -9,7 +9,7 @@ import Form from 'react-bootstrap/Form';
 
 
 
-export const DashboardOrderDetails = () => {
+export const DashboardNewOrder = () => {
 	const params = useParams();
 	// const { store, actions } = useContext(Context);
 	let { id } = useParams();
@@ -29,24 +29,7 @@ export const DashboardOrderDetails = () => {
 						{/* Dashboard title area */}
 						<Container>
 							<Row>
-								<h2>Order<strong> #001</strong></h2>
-							</Row>
-							<Row>
-								<Col  md="auto">
-									<Button href="/" variant="dark" className="mb-3">
-										print production label
-									</Button>
-								</Col>
-								<Col  md="auto">
-									<Button href="/" variant="dark" className="mb-3">
-										print product label
-									</Button>
-								</Col>
-								<Col  md="auto">
-									<Button href="/" variant="dark" className="mb-3">
-										generate invoice
-									</Button>
-								</Col>
+								<h2>New Order</h2>
 							</Row>
 						</Container>
 
@@ -56,17 +39,17 @@ export const DashboardOrderDetails = () => {
 								<Row className="mb-3">
 									<Form.Group as={Col} controlId="formOrderID">
 									<Form.Label>Order ID</Form.Label>
-									<Form.Control plaintext readOnly defaultValue="001"  />
+									<Form.Control plaintext readOnly defaultValue="023"  />
 									</Form.Group>
 
 									<Form.Group as={Col} controlId="formCustomer">
 										<Form.Label>Customer</Form.Label>
-										<Form.Control plaintext readOnly defaultValue="JDA Flooring" />
+										<Form.Control type="text" placeholder="Customer Name"/>
 									</Form.Group>
 
 									<Form.Group as={Col} controlId="formOrderDate">
 									<Form.Label>Date Placed</Form.Label>
-									<Form.Control plaintext readOnly defaultValue="04/01/22"  />
+									<Form.Control type="date" placeholder=""/>
 									</Form.Group>
 
 									
@@ -75,7 +58,7 @@ export const DashboardOrderDetails = () => {
 								<Row className="mb-3">
 									<Form.Group as={Col}  controlId="formJobName">
 									<Form.Label>PO/Job Name</Form.Label>
-									<Form.Control type="text" placeholder="12 grey"/>
+									<Form.Control type="text" placeholder="PO/Job Name"/>
 									</Form.Group>
 									
 									<Form.Group as={Col}  controlId="formRoute">
@@ -114,7 +97,7 @@ export const DashboardOrderDetails = () => {
 
 									<Form.Group as={Col}  controlId="formTierLevel">
 									<Form.Label>Invoice #</Form.Label>
-									<Form.Control type="text" placeholder="00125"/>
+									<Form.Control type="text" placeholder="0001"/>
 									</Form.Group>
 
 									<Form.Group as={Col} controlId="formCustomer">
@@ -137,31 +120,16 @@ export const DashboardOrderDetails = () => {
 											<tbody>
 												<tr>
 													<td>1</td>
-													<td>Vinyl Deco Stairnose</td>
-													<td>14</td>
-													<td>$220</td>
-													<td>corner edge</td>
+													<td><Form.Control type="text" placeholder="Product Name"/></td>
+													<td><Form.Control type="text" placeholder="qty"/></td>
+													<td><Form.Control type="text" placeholder="$0"/></td>
+													<td><Form.Control type="text" placeholder="Notes"/></td>
 												</tr>
 											</tbody>
-											<tbody>
-												<tr>
-													<td>2</td>
-													<td>White Riser</td>
-													<td>12</td>
-													<td>$100</td>
-													<td>none</td>
-												</tr>
-											</tbody>
-											<tbody>
-												<tr>
-													<td>3</td>
-													<td>T-moulding</td>
-													<td>1</td>
-													<td>$80</td>
-													<td>2 inches wide</td>
-												</tr>
-											</tbody>
+			
 										</Table>
+
+									
 								</Row>
 								<Row>
 								<Col  md="auto">
@@ -170,7 +138,7 @@ export const DashboardOrderDetails = () => {
 								</Button>
 								</Col>
 								<Col><Button variant="success" type="submit">
-									Update Order
+									Save Order
 								</Button>
 								</Col>
 								</Row>

@@ -5,14 +5,18 @@ import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import { useHistory } from "react-router";
+import PropTypes from "prop-types";
 
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 import { useState } from "react";
 
 
-export const DashboardOrders = () => {
+
+export const DashboardOrders = ({ user, userId }) => {
 	const params = useParams();
+	const history = useHistory();
 
 	// const { store, actions } = useContext(Context);
 	let { id } = useParams();
@@ -42,7 +46,12 @@ export const DashboardOrders = () => {
 							<div className="h-100 p-5 bg-light border rounded-3">
 							<Row>
 								<Col>
-									<Button href="/new-order" variant="dark" className="mb-3">
+									<Button 
+									onClick={() => {
+										history.push(`/profile/user/${userId}/neworder`);
+										}}
+									variant="dark"
+									className="mb-3">
 										+new order
 									</Button>
 								</Col>
@@ -74,7 +83,9 @@ export const DashboardOrders = () => {
 												</tr>
 											</thead>
 											<tbody>
-												<tr>
+												<tr onClick={() => {
+							history.push(`/profile/user/${userId}/orderdetails`);
+						}}>
 													<td>001</td>
 													<td>04/01/22</td>
 													<td>JDA Flooring</td>
@@ -195,4 +206,9 @@ export const DashboardOrders = () => {
 			</div>
 		</>
 	);
+};
+
+DashboardOrders.propTypes = {
+	user: PropTypes.object,
+	userId: PropTypes.string,
 };
