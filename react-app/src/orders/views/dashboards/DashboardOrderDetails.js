@@ -75,7 +75,7 @@ export const DashboardOrderDetails = () => {
 								<Row className="mb-3">
 									<Form.Group as={Col}  controlId="formJobName">
 									<Form.Label>PO/Job Name</Form.Label>
-									<Form.Control type="text" placeholder="12 grey"/>
+									<Form.Control plaintext readOnly defaultValue="12 grey"/>
 									</Form.Group>
 									
 									<Form.Group as={Col}  controlId="formRoute">
