@@ -38,16 +38,25 @@ export const OrderForm = () => {
     reset();
   };
   return (
-    // <div className="mt-5 d-flex justify-content-center align-items-center">
-      // {/* <Form  className="rounded p-4 p-sm-3"> */}
-    <div className="mt-5 d-flex justify-content-center">
+   <div className="mt-5  d-flex justify-content-center align-items-center">
+      {/* <Form  className="rounded p-4 p-sm-3">  */}
+    <div className="mt-5 d-flex justify-content-center ">
       <Row>
         <Col />
+<<<<<<< HEAD
         <Col sm={12}>
         <h1 className='border-bottom px-4'>Order Request Form</h1>
           <Form onSubmit={handleSubmit}>
            
             <FormInputCard inputLabel='E-mail'>
+=======
+        <Col xs={12}>
+      
+        <h1 className='border-bottom px-4 mb-3'>Order Request Form</h1>
+
+          <Form noValidate validated={validated} onSubmit={handleSubmit}>
+            <FormInputCard inputLabel='Email'>
+>>>>>>> 9457272 (add customer page)
               <Form.Control
                 className='custom-input'
                 type='email'
@@ -96,6 +105,6 @@ export const OrderForm = () => {
       </Row>
     </div>
    
-    // </div>
+   </div>
   );
 };

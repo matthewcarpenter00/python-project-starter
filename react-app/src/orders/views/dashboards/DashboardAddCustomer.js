@@ -11,7 +11,7 @@ import { useState } from "react";
 import { useHistory } from "react-router";
 
 
-export const DashboardCustomerDetails = ({ user, userId }) => {
+export const DashboardAddCustomer = ({ user, userId }) => {
 	const params = useParams();
 	const history = useHistory();
 	
@@ -34,7 +34,7 @@ export const DashboardCustomerDetails = ({ user, userId }) => {
 						<Container>
 							<Row>
 								<Col>
-								<h2>customer profile</h2>
+								<h2>new customer</h2>
 								</Col>
 								<Col  md="auto">
 									<Button
@@ -46,11 +46,7 @@ export const DashboardCustomerDetails = ({ user, userId }) => {
 										All Customers
 									</Button>
 								</Col>
-								<Col  md="auto">
-									<Button variant="dark">
-										+Add Customer
-									</Button>
-								</Col>
+							
 							</Row>
 						</Container>
 
@@ -67,7 +63,7 @@ export const DashboardCustomerDetails = ({ user, userId }) => {
 								<Row className="mb-3">
 									<Form.Group  controlId="formJobName">
 										<Form.Label>Company</Form.Label>
-										<Form.Control type="text" placeholder="JDA Flooring"/>
+										<Form.Control type="text" placeholder="Company Name"/>
 									</Form.Group>
 								</Row>
 
@@ -81,7 +77,7 @@ export const DashboardCustomerDetails = ({ user, userId }) => {
 												<option value="3">C</option>
 												<option value="1">D</option>
 												<option value="2">E</option>
-												<option value="3">F</option>
+											
 										</Form.Select>
 									</Form.Group>
 								</Row>
@@ -91,20 +87,20 @@ export const DashboardCustomerDetails = ({ user, userId }) => {
 								<Row className="mb-3">
 									<Form.Group as={Col}  controlId="formTierLevel">
 										<Form.Label>Contact Name</Form.Label>
-										<Form.Control type="text" placeholder="Jay Daza"/>
+										<Form.Control type="text" placeholder="Contact Name"/>
 									</Form.Group>
 								</Row>
 
 								<Row className="mb-3">
 									<Form.Group as={Col}  controlId="formTierLevel">
 										<Form.Label>Telephone</Form.Label>
-										<Form.Control type="text" placeholder="305-305-3051"/>
+										<Form.Control type="text" placeholder="305-305-3053"/>
 									</Form.Group>
 								</Row>
 								<Row className="mb-3">
 									<Form.Group as={Col}  controlId="formTierLevel">
 										<Form.Label>E-mail</Form.Label>
-										<Form.Control type="email" placeholder="jdaflooring@gmail.com"/>
+										<Form.Control type="email" placeholder="name@company.com"/>
 									</Form.Group>
 								</Row>
 								<Form.Group className="mb-3" controlId="formGridAddress1">
@@ -127,7 +123,8 @@ export const DashboardCustomerDetails = ({ user, userId }) => {
       <Form.Label>State</Form.Label>
       <Form.Select defaultValue="Choose...">
         <option>Choose...</option>
-        <option>...</option>
+        <option>FL</option>
+		<option>GA</option>
       </Form.Select>
     </Form.Group>
 
@@ -160,7 +157,7 @@ export const DashboardCustomerDetails = ({ user, userId }) => {
 	);
 };
 
-DashboardCustomerDetails.propTypes = {
+DashboardAddCustomer.propTypes = {
 	user: PropTypes.object,
 	userId: PropTypes.string,
 };

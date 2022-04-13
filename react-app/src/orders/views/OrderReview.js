@@ -166,7 +166,7 @@ export const OrderReview = () => {
             onClick={() => {
               startPlacingOrder();
             }}
-            variant='secondary'
+            variant='dark'
           >
             Submit Order
           </Button>

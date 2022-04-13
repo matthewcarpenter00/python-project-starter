@@ -6,7 +6,39 @@ export const setCustomer = (customer) => ({
   payload: customer,
 });
 
+<<<<<<< HEAD
 const initialState = { customer: null };
+=======
+export const setOrderDetails = (orderDetails) => ({
+  type: SET_ORDER_DETAILS,
+  payload: orderDetails,
+});
+
+export const setOrderCart = (product) => ({
+  type: SET_ORDER_CART,
+  payload: product,
+});
+
+const initialState = {
+  customer: {
+    fullName: "",
+    company: "",
+    tierLevel: "",
+    email: "",
+    phoneNumber: "",
+    address: "",
+    unit: "",
+    zipCode: "",
+  },
+  orderDetails: {
+    product: "",
+    notes: "",
+    quantity: "",
+    poJobName: "",
+  },
+  orderCart: [],
+};
+>>>>>>> 9457272 (add customer page)
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {

@@ -29,8 +29,12 @@ export const DashboardCustomers = ({ user, userId }) => {
 								</Col>
 
 								<Col>
-									<Button variant="dark" className="mb-3 float-right">
-										+ add customer
+									<Button onClick={() => {
+										history.push(`/profile/user/${userId}/addcustomer`);
+										}} 
+										variant="dark"
+										className="mb-3 float-right">
+									+ add customer
 									</Button>
 								</Col>
 							</Row>

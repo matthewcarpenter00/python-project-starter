@@ -18,6 +18,7 @@ import { UserHome } from "./orders/views/UserHome";
 
 import { DeliveryForm } from "./orders/views/DeliveryForm";
 import { OrderReview } from "./orders/views/OrderReview";
+import { ProductionLabel } from "./orders/views/ProductionLabel";
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -35,15 +36,18 @@ function App() {
   }
 
   return (
-    <div className='mt-5'>
+    <div >
       <BrowserRouter>
         {/* <NavBar /> */}
         <Switch>
           <Route exact path='/'>
-            <Redirect to='/new-order' /> : <OrderForm />
+            <Redirect to='/login' /> : <LoginForm />
           </Route>
           <Route path='/login' exact={true}>
             <LoginForm />
+          </Route>
+          <Route path='/production-label' exact={true}>
+            <ProductionLabel />
           </Route>
           <Route path='/sign-up' exact={true}>
             <SignUpForm />
@@ -54,7 +58,25 @@ function App() {
           <ProtectedRoute path='/users/:userId' exact={true}>
             <User />
           </ProtectedRoute>
-          <ProtectedRoute path='/new-order' exact={true}>
+          <Route path='/new-order' exact={true}>
+            <OrderForm />
+          </Route>
+          <Route path='/new-client' exact={true}>
+            <ContactForm />
+          </Route>
+          <Route path='/select-product' exact={true}>
+            <SelectProduct />
+          </Route>
+          <Route path='/product-order/delivey' exact={true}>
+            <DeliveryForm />
+          </Route>
+          <Route path='/product-order/:productId' exact={true}>
+            <SelectProductDetails />
+          </Route>
+          <Route path='/order-review' exact={true}>
+            <OrderReview />
+          </Route>
+          {/* <ProtectedRoute path='/new-order' exact={true}>
             <OrderForm />
           </ProtectedRoute>
           <ProtectedRoute path='/new-client' exact={true}>
@@ -71,7 +93,7 @@ function App() {
           </ProtectedRoute>
           <ProtectedRoute path='/order-review' exact={true}>
             <OrderReview />
-          </ProtectedRoute>
+          </ProtectedRoute> */}
           <Route exact path='/profile/user'>
             <UserHome />
           </Route>

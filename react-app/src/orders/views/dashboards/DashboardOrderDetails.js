@@ -7,19 +7,17 @@ import Col from 'react-bootstrap/Col';
 import { Button, Table } from "react-bootstrap";
 import Form from 'react-bootstrap/Form';
 import { useState } from "react";
-import Modal from 'react-bootstrap/Modal';
+// import Modal from 'react-bootstrap/Modal';
+import { useHistory } from "react-router";
 
 
 export const DashboardOrderDetails = () => {
 	const params = useParams();
+	const history = useHistory();
 	// const { store, actions } = useContext(Context);
 	let { id } = useParams();
 
-	// const formatter = new Intl.NumberFormat("en-US", {
-	// 	style: "currency",
-	// 	currency: "USD",
-	// 	minimumFractionDigits: 0
-	// });
+
 
 	const [show, setShow] = useState(false);
   	const handleClose = () => setShow(false);
@@ -40,10 +38,12 @@ export const DashboardOrderDetails = () => {
 							</Row>
 							<Row>
 								<Col  md="auto">
-									<Button onClick={handleShow} variant="dark" className="mb-3">
+									<Button onClick={() => {
+										history.push(`/production-label`);
+										}} variant="dark" className="mb-3">
 										print production label
 									</Button>
-									<Modal show={show} onHide={handleClose} >
+									{/* <Modal show={show} onHide={handleClose} >
 
 										<Modal.Header closeButton >
 										<Modal.Title>Production Label</Modal.Title>
@@ -91,7 +91,7 @@ export const DashboardOrderDetails = () => {
 										</Button>
 										</Modal.Footer>
 									
-									</Modal>
+									</Modal> */}
 								</Col>
 								<Col  md="auto">
 									<Button href="/" variant="dark" className="mb-3">
@@ -164,7 +164,6 @@ export const DashboardOrderDetails = () => {
 											<option value="3">C</option>
 											<option value="1">D</option>
 											<option value="2">E</option>
-											<option value="3">F</option>
 										</Form.Select>
 									</Form.Group>
 

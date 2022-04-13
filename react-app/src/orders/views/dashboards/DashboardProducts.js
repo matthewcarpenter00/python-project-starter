@@ -59,16 +59,17 @@ export const DashboardProducts = ({ user, userId }) => {
 							<th scope="col">Name</th>
 							<th scope="col">Material</th>
 							<th scope="col">Description</th>
+							<th scope="col">Price</th>
 					
 						</tr>
 					</thead>
 					<tbody>
 						<tr>
 							<td>001</td>
-							<td>Deco StairNose</td>
+							<td>End Cap:ECAX</td>
 							<td>Vinyl</td>
-							<td>somewthing here or not</td>
-						
+							<td>Custom End Cap / Reducer Fabrication</td>
+							<td>$14.00</td>
 						</tr>
 					</tbody>
 				</Table>
