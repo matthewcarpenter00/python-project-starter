@@ -210,7 +210,7 @@ export const DashboardOrders = ({ user, userId }) => {
 													<td>04/01/22</td>
 													<td>JDA Flooring</td>
 													<td>A</td>
-													<td>$300</td>
+													<td>$290</td>
 													<td>South</td>
 													<td>In Production</td>
 												</tr>
@@ -258,7 +258,8 @@ export const DashboardOrders = ({ user, userId }) => {
 									</Tab>
 								</Tabs>
 							</Row>
-							<Row>
+							{/* Bootstrap Table test to use with quickbooks api */}
+							{/* <Row>
 								<BootstrapTable 
 									keyField="id"
 									data={data}
@@ -271,7 +272,7 @@ export const DashboardOrders = ({ user, userId }) => {
 									>
 
 								</BootstrapTable>
-							</Row>
+							</Row> */}
 						
 							</div>
 						</Container>

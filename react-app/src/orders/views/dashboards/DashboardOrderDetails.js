@@ -6,7 +6,8 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { Button, Table } from "react-bootstrap";
 import Form from 'react-bootstrap/Form';
-
+import { useState } from "react";
+import Modal from 'react-bootstrap/Modal';
 
 
 export const DashboardOrderDetails = () => {
@@ -19,6 +20,12 @@ export const DashboardOrderDetails = () => {
 	// 	currency: "USD",
 	// 	minimumFractionDigits: 0
 	// });
+
+	const [show, setShow] = useState(false);
+  	const handleClose = () => setShow(false);
+  	const handleShow = () => setShow(true);
+	 
+	const [fullscreen, setFullscreen] = useState(true);
 
 
 	return (
@@ -33,9 +40,58 @@ export const DashboardOrderDetails = () => {
 							</Row>
 							<Row>
 								<Col  md="auto">
-									<Button href="/" variant="dark" className="mb-3">
+									<Button onClick={handleShow} variant="dark" className="mb-3">
 										print production label
 									</Button>
+									<Modal show={show} onHide={handleClose} >
+
+										<Modal.Header closeButton >
+										<Modal.Title>Production Label</Modal.Title>
+										</Modal.Header>
+										<Modal.Body>
+											<Row className="mb-3">
+												<Col>Order ID</Col>
+												<Col>001</Col>
+											</Row>
+											<hr />
+											<Row className="mb-3">
+												<Col>Customer</Col>
+												<Col>JDA Flooring</Col>
+											</Row>
+											<hr />
+											<Row className="mb-3">
+												<Col>Product 1</Col>
+												<Col>Vinyl Stairnose Deco</Col>
+											</Row>
+											<hr />
+											<Row className="mb-3">
+												<Col>Quantity</Col>
+												<Col>14</Col>
+											</Row>
+											<hr />
+											<Row className="mb-3">
+												<Col>Route</Col>
+												<Col>South</Col>
+											</Row>
+											<hr />
+											<Row className="mb-3">
+												<Col>Date</Col>
+												<Col>04/01/22</Col>
+											</Row>
+											<hr />
+											<Row className="mb-3">
+												<Col>Notes</Col>
+												<Col>2 inch thick</Col>
+											</Row>
+											<hr />
+										</Modal.Body>
+										<Modal.Footer>
+										<Button variant="dark" onClick={handleClose}>
+											Print
+										</Button>
+										</Modal.Footer>
+									
+									</Modal>
 								</Col>
 								<Col  md="auto">
 									<Button href="/" variant="dark" className="mb-3">
@@ -119,7 +175,7 @@ export const DashboardOrderDetails = () => {
 
 									<Form.Group as={Col} controlId="formCustomer">
 										<Form.Label>Amount</Form.Label>
-										<Form.Control type="currency" placeholder="$400" />
+										<Form.Control type="currency" placeholder="$290" />
 									</Form.Group>
 								</Row>
 								<Row>
@@ -127,6 +183,7 @@ export const DashboardOrderDetails = () => {
 											<thead className="thead-dark">
 												<tr>
 													<th scope="col">#</th>
+													<th scope="col">Tier</th>
 													<th scope="col">Product</th>
 													<th scope="col">Qty</th>
 													<th scope="col">Price</th>
@@ -137,27 +194,30 @@ export const DashboardOrderDetails = () => {
 											<tbody>
 												<tr>
 													<td>1</td>
+													<td>A</td>
 													<td>Vinyl Deco Stairnose</td>
 													<td>14</td>
-													<td>$220</td>
+													<td>$168</td>
 													<td>corner edge</td>
 												</tr>
 											</tbody>
 											<tbody>
 												<tr>
 													<td>2</td>
+													<td>A</td>
 													<td>White Riser</td>
 													<td>12</td>
-													<td>$100</td>
+													<td>$108</td>
 													<td>none</td>
 												</tr>
 											</tbody>
 											<tbody>
 												<tr>
 													<td>3</td>
+													<td>A</td>
 													<td>T-moulding</td>
 													<td>1</td>
-													<td>$80</td>
+													<td>$14</td>
 													<td>2 inches wide</td>
 												</tr>
 											</tbody>

@@ -48,21 +48,27 @@ function App() {
         <Route path='/new-order' exact={true}>
           <OrderForm />
         </Route>
-        <ProtectedRoute path='/users' exact={true}>
+        <Route path='/order-review' exact={true}>
+          <OrderReview />
+        </Route>
+        <Route path='/delivery-form' exact={true}>
+          <DeliveryForm />
+        </Route>
+        <Route path='/users' exact={true}>
           <UsersList />
-        </ProtectedRoute>
-        <ProtectedRoute path='/users/:userId' exact={true}>
+        </Route>
+        <Route path='/users/:userId' exact={true}>
           <User />
-        </ProtectedRoute>
-        <ProtectedRoute path='/new-client' exact={true}>
+        </Route>
+        <Route path='/new-client' exact={true}>
           <ContactForm />
-        </ProtectedRoute>
-        <ProtectedRoute path='/select-product' exact={true}>
+        </Route>
+        <Route path='/select-product' exact={true}>
           <SelectProduct />
-        </ProtectedRoute>
-        <ProtectedRoute path='/product-order/:productId' exact={true}>
+        </Route>
+        <Route path='/product-order/:productId' exact={true}>
           <SelectProductDetails />
-        </ProtectedRoute>
+        </Route>
         <Route exact path="/profile/user">
 						<UserHome />
 				</Route>

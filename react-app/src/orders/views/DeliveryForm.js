@@ -8,9 +8,9 @@ import { useHistory } from "react-router-dom";
 const bodyTxt = "Roundtrip shipping $30";
 
 const deliveryOptions = [
-  { id: 1, name: "Step Solution" },
-  { id: 2, name: "Client" },
-  { id: 3, name: "Rush 24 hour - Pick Up Option $90" },
+  { id: 1, name: "Step Solution - $30" },
+  { id: 2, name: "Client - Free" },
+  { id: 3, name: "Rush 24 hour by Step Solution - $90" },
 ];
 
 export const DeliveryForm = () => {
@@ -34,7 +34,7 @@ export const DeliveryForm = () => {
       <Row>
         <Col />
         <Col xs={6}>
-          <ContactFormTitle title='Delivery' bodyTxt={bodyTxt} />
+        <h1 className='border-bottom px-4'>Select Fullfilment</h1>
           <Form autoComplete='off' onSubmit={handleSubmit}>
             <FormInputCard inputLabel='Pick Up / Drop Off by'>
               {deliveryOptions.map(({ id, name }) => (
@@ -57,7 +57,7 @@ export const DeliveryForm = () => {
       </Row>
       <Row className='mb-4'>
         <Col className='text-center'>
-          <Button onClick={handleSubmit} variant='secondary'>
+          <Button onClick={handleSubmit} variant='dark'>
             Review Order
           </Button>
         </Col>
@@ -65,11 +65,11 @@ export const DeliveryForm = () => {
       <Row className='mb-4'>
         <Col>
           <Button
-            onClick={() => history.push("/new-order")}
+            onClick={() => history.push("/product-order/vinyl01")}
             variant='secondary'
             className='float-end'
           >
-            Back to start
+            Back to Product Details
           </Button>
         </Col>
         <Col xs={6} />

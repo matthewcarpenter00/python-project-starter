@@ -40,11 +40,21 @@ export const SelectProductDetails = () => {
       <Row>
         <Col />
         <Col md={5}>
-          <Card className='mb-3'>
-            <Card.Header className='bg-secondary'>
+          <div>
+            <h1>
               {currentProduct.title}
-            </Card.Header>
-            <Form onSubmit={handleSubmit} className='p-4'>
+            </h1>
+          
+            <Row xs={2}>
+              {arrayProduct.map((product) => (
+                <Product key={product.title} {...product} />
+              ))}
+            </Row>
+          </div>
+        </Col>
+        <Col md={6} className="mt-5">
+          {/* <FormTitleCard /> */}
+          <Form onSubmit={handleSubmit} className='p-4'>
               <Form.Label>PO#/ Job Name</Form.Label>
               <Form.Control
                 className='custom-input'
@@ -55,16 +65,6 @@ export const SelectProductDetails = () => {
                 onChange={handleInputChange}
               />
             </Form>
-
-            <Row xs={2}>
-              {arrayProduct.map((product) => (
-                <Product key={product.title} {...product} />
-              ))}
-            </Row>
-          </Card>
-        </Col>
-        <Col md={6}>
-          <FormTitleCard />
           <Form onSubmit={handleSubmit}>
             <FormInputCard inputLabel='Quantity'>
               <Form.Control
@@ -86,7 +86,7 @@ export const SelectProductDetails = () => {
                 onChange={handleInputChange}
               />
             </FormInputCard>
-            <FormInputCard inputLabel='Add ons'>
+            {/* <FormInputCard inputLabel='Add ons'>
               <Form.Control
                 className='custom-input'
                 type='text'
@@ -95,7 +95,7 @@ export const SelectProductDetails = () => {
                 name='addOns'
                 onChange={handleInputChange}
               />
-            </FormInputCard>
+            </FormInputCard> */}
             <FormInputCard inputLabel='Do you need to order anything else?'>
               <div className='d-flex d-flex justify-content-evenly'>
                 <Button
@@ -103,16 +103,18 @@ export const SelectProductDetails = () => {
                   variant='dark'
                   size='lg'
                   //   onClick={() => setClientType("new-client")}
+                  onClick={()=> history.push("/select-product")}
                 >
                   Yes, add more products
                 </Button>
                 <Button
                   //   onClick={() => setClientType("recurrent-client")}
+                  onClick={()=> history.push("/delivery-form")}
                   type='submit'
                   variant='dark'
                   size='lg'
                 >
-                  No, i'm finished
+                  No, I'm finished
                 </Button>
               </div>
             </FormInputCard>
@@ -123,11 +125,11 @@ export const SelectProductDetails = () => {
       <Row className='mb-4'>
         <Col>
           <Button
-            onClick={() => history.push("/new-order")}
+            onClick={() => history.push("/select-product")}
             variant='secondary'
             className='float-end'
           >
-            Back to start
+            Back to Products
           </Button>
         </Col>
         <Col xs={6} />

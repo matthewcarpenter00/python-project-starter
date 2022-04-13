@@ -38,13 +38,16 @@ export const OrderForm = () => {
     reset();
   };
   return (
-    <Container fluid>
+    // <div className="mt-5 d-flex justify-content-center align-items-center">
+      // {/* <Form  className="rounded p-4 p-sm-3"> */}
+    <div className="mt-5 d-flex justify-content-center">
       <Row>
         <Col />
-        <Col xs={6}>
-          <FormTitleCard />
+        <Col sm={12}>
+        <h1 className='border-bottom px-4'>Order Request Form</h1>
           <Form onSubmit={handleSubmit}>
-            <FormInputCard inputLabel='Email'>
+           
+            <FormInputCard inputLabel='E-mail'>
               <Form.Control
                 className='custom-input'
                 type='email'
@@ -54,6 +57,7 @@ export const OrderForm = () => {
                 onChange={handleInputChange}
               />
             </FormInputCard>
+            
             <FormInputCard inputLabel='Company'>
               <Form.Control
                 className='custom-input'
@@ -90,6 +94,8 @@ export const OrderForm = () => {
         </Col>
         <Col />
       </Row>
-    </Container>
+    </div>
+   
+    // </div>
   );
 };

@@ -30,7 +30,7 @@ export const ContactForm = () => {
       <Row>
         <Col />
         <Col xs={6}>
-          <ContactFormTitle title='Contact Details' bodyTxt={bodyTxt} />
+        <h1 className='border-bottom px-4'>Contact Details</h1>
           <Form onSubmit={handleSubmit}>
             <FormInputCard inputLabel='Full Name'>
               <Form.Control
@@ -100,7 +100,7 @@ export const ContactForm = () => {
         <Col>
           <Button
             onClick={() => history.push("select-product")}
-            variant='secondary'
+            variant='dark'
           >
             Next: Choose Products
           </Button>

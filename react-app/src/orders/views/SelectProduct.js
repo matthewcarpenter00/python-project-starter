@@ -10,12 +10,12 @@ export const SelectProduct = () => {
   const history = useHistory();
 
   return (
-    <Container fluid>
+    <Container fluid className="mt-5">
       <Row>
         <Col />
         <Col xs={6}>
           <Card className='mb-3'>
-            <Card.Header className='bg-secondary'>Select a Product</Card.Header>
+          <h1 className='border-bottom px-4'>Select a Product</h1>
             <Row xs={2}>
               {arrayProduct.map((product) => (
                 <Product
