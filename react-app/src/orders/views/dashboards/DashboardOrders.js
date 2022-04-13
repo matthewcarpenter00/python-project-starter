@@ -5,14 +5,24 @@ import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import { useHistory } from "react-router";
+import PropTypes from "prop-types";
+import filterFactory, { selectFilter } from "react-bootstrap-table2-filter";
+
+import { useState, useEffect } from "react";
+import axios from "axios";
+import BootstrapTable from "react-bootstrap-table-next";
+import paginationFactory from "react-bootstrap-table2-paginator";
+
 
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
-import { useState } from "react";
 
 
-export const DashboardOrders = () => {
+
+export const DashboardOrders = ({ user, userId }) => {
 	const params = useParams();
+	const history = useHistory();
 
 	// const { store, actions } = useContext(Context);
 	let { id } = useParams();
@@ -24,16 +34,76 @@ export const DashboardOrders = () => {
 	// });
 	const [key, setKey] = useState('home');
 
+	const [data, setData] = useState([]);
+	useEffect(() => {
+	  getData();
+	}, []);
+
+	// api
+	const getData = () => {
+	  axios("https://jsonplaceholder.typicode.com/comments").then((res) => {
+		console.log(res.data);
+		setData(res.data);
+	  });
+	};
+	// to edit text in cell
+	const lineFormatter = (data, row) => {
+		return <span onClick={() => {
+			history.push(`/profile/user/${userId}/orderdetails`);
+			}} >{data}</span>
+	}
+
+	// flter routers
+	const selectOptions = {
+		0: 'south',
+		1: 'north',
+		2: 'orlando'
+	  };
+
+	// column info using api datafields
+
+	const columns=[ {
+		dataField: "postId",
+		text: "ID",
+		// click head to sort
+		sort: true,	
+		// format the cell, add text or create on click
+		formatter: lineFormatter,	
+	  },{
+		dataField: "email",
+		text: "Email",
+		formatter: lineFormatter,		
+	  },
+	  {
+		dataField: "name",
+		text: "Name",
+		formatter: lineFormatter,
+	  }];
+
 	return (
 		<>
 			<div className="w-100 d-flex p-4">
 				<div className="w-100 h-100 p-2 rounded-3">
 					<div className="dashboard-page">
-						<div className="title-area container-fluid p-2">
-							<h1>
-								<strong>Orders </strong>
-							</h1>
-						</div>
+						{/* title section */}
+						<Container>
+							<Row>
+								<Col sm="9">
+								<h1>Orders</h1>
+								</Col>
+
+								<Col>
+								<Button 
+									onClick={() => {
+										history.push(`/profile/user/${userId}/neworder`);
+										}}
+									variant="dark"
+									className="mb-3 float-right">
+										+ new order
+									</Button>
+								</Col>
+							</Row>
+						</Container>
 
 						{/* Dashboard content */}
 						
@@ -41,18 +111,15 @@ export const DashboardOrders = () => {
 					
 							<div className="h-100 p-5 bg-light border rounded-3">
 							<Row>
-								<Col>
-									<Button href="/new-order" variant="dark" className="mb-3">
-										+new order
-									</Button>
-								</Col>
-								<Col>
-									<Button variant="light" >
+									<Col className="mb-3">
+									<Button variant="outline-dark" >
 										Print View
 									</Button>
-								</Col>
-							</Row>
-
+									</Col>
+							</Row>		
+							
+							<Row>
+					
 								<Tabs
 									id="controlled-tab-example"
 									activeKey={key}
@@ -74,7 +141,10 @@ export const DashboardOrders = () => {
 												</tr>
 											</thead>
 											<tbody>
-												<tr>
+												<tr onClick={() => {
+													history.push(`/profile/user/${userId}/orderdetails`);
+												}}>
+												
 													<td>001</td>
 													<td>04/01/22</td>
 													<td>JDA Flooring</td>
@@ -140,7 +210,7 @@ export const DashboardOrders = () => {
 													<td>04/01/22</td>
 													<td>JDA Flooring</td>
 													<td>A</td>
-													<td>$300</td>
+													<td>$290</td>
 													<td>South</td>
 													<td>In Production</td>
 												</tr>
@@ -187,6 +257,22 @@ export const DashboardOrders = () => {
 										</Table>
 									</Tab>
 								</Tabs>
+							</Row>
+							{/* Bootstrap Table test to use with quickbooks api */}
+							{/* <Row>
+								<BootstrapTable 
+									keyField="id"
+									data={data}
+									columns={columns}
+									striped
+									hover
+									condensed
+									pagination={paginationFactory()}
+									filter={filterFactory()}
+									>
+
+								</BootstrapTable>
+							</Row> */}
 						
 							</div>
 						</Container>
@@ -195,4 +281,9 @@ export const DashboardOrders = () => {
 			</div>
 		</>
 	);
+};
+
+DashboardOrders.propTypes = {
+	user: PropTypes.object,
+	userId: PropTypes.string,
 };

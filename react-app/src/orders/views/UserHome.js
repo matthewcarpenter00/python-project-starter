@@ -10,6 +10,9 @@ import { DashboardProducts } from "./dashboards/DashboardProducts";
 import { DashboardCustomers } from "./dashboards/DashboardCustomers";
 import { DashboardMyAccount } from "./dashboards/DashboardMyAccount";
 import { DashboardOrderDetails } from "./dashboards/DashboardOrderDetails";
+import { DashboardNewOrder } from "./dashboards/DashboardNewOrder";
+import { DashboardCustomerDetails } from "./dashboards/DashboardCustomerDetails";
+import { DashboardAddCustomer } from "./dashboards/DashboardAddCustomer";
 
 
 export const UserHome = props => {
@@ -25,7 +28,7 @@ export const UserHome = props => {
 
 
 	const clickedProfile = profile => {
-		if (profile == "DashboardMyAccount") {
+		if (profile == "myaccount") {
 			return <DashboardMyAccount />;
 		} else if (profile == "customers") {
 			return <DashboardCustomers />;
@@ -33,6 +36,12 @@ export const UserHome = props => {
 			return <DashboardProducts />;
 		} else if (profile == "orderdetails") {
 			return <DashboardOrderDetails />;
+		} else if (profile == "neworder") {
+			return <DashboardNewOrder />;
+		} else if (profile == "customerdetails") {
+			return <DashboardCustomerDetails />;
+		} else if (profile == "addcustomer") {
+			return <DashboardAddCustomer />;
 		} else {
 			return <DashboardOrders />;
 		}

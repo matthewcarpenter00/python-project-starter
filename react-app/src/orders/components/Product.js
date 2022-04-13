@@ -3,11 +3,26 @@ import { Card, Button, Col } from "react-bootstrap";
 import PropTypes from "prop-types";
 import Image from 'react-bootstrap/Image'
 
+<<<<<<< HEAD
 export const Product = ({ src, alt, title, description, handleClick }) => {
   return (
     <Col className='d-grid justify-content-around mb-2 mt-2'>
       <Card className='text-center' style={{ width: "15rem" }}>
         <Card.Body className='m-4 rounded border border-dark'>
+=======
+export const Product = ({
+  src,
+  alt,
+  title,
+  description,
+  styles,
+  handleClick,
+}) => {
+  return (
+    <Col className='d-grid justify-content-around mb-2 mt-2'>
+      <Card className='text-center' style={{ width: "15rem" }}>
+        <Card.Body className={`m-4 rounded border border-dark  ${styles}`}>
+>>>>>>> 9457272 (add customer page)
           <Card.Title>{title}</Card.Title>
           <Card.Text>{description}</Card.Text>
           <Image src={src} className='rounded mx-auto d-block img-fluid' alt={alt} />

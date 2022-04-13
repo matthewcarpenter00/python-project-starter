@@ -24,6 +24,11 @@ const NavBar = () => {
           </NavLink>
         </li> */}
         <Nav className="justify-content-end">
+        <NavLink to='/new-order' exact={true}>
+            <Button variant="light">
+             Order Form
+            </Button>
+          </NavLink>
           <NavLink to='/sign-up' exact={true}>
             <Button variant="light">
              Sign Up

@@ -44,18 +44,7 @@ export const SideBar = ({ user, userId }) => {
 						<span className="ms-4 sidebar-item ">orders</span>
 					</a>
 				</li>
-				<li className="m-2">
-					<a
-						style={{ cursor: "pointer" }}
-						className={active ? "nav-link text-white " + activeOption : "nav-link text-white"}
-						aria-current="page"
-						onClick={() => {
-							history.push(`/profile/user/${userId}/orderdetails`);
-						}}>
-						<i className="fas fa-home" />
-						<span className="ms-4 sidebar-item ">order details</span>
-					</a>
-				</li>
+		
 				<li className="m-2">
 					<a
 						style={{ cursor: "pointer" }}
