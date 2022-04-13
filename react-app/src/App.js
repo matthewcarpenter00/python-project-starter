@@ -38,7 +38,7 @@ function App() {
   return (
     <div >
       <BrowserRouter>
-        {/* <NavBar /> */}
+        <NavBar />
         <Switch>
           <Route exact path='/'>
             <Redirect to='/login' /> : <LoginForm />
@@ -76,7 +76,7 @@ function App() {
           <Route path='/order-review' exact={true}>
             <OrderReview />
           </Route>
-          {/* <ProtectedRoute path='/new-order' exact={true}>
+          <ProtectedRoute path='/new-order' exact={true}>
             <OrderForm />
           </ProtectedRoute>
           <ProtectedRoute path='/new-client' exact={true}>
@@ -93,7 +93,7 @@ function App() {
           </ProtectedRoute>
           <ProtectedRoute path='/order-review' exact={true}>
             <OrderReview />
-          </ProtectedRoute> */}
+          </ProtectedRoute>
           <Route exact path='/profile/user'>
             <UserHome />
           </Route>
