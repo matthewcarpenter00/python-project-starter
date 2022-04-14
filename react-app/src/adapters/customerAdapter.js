@@ -1,9 +1,9 @@
 export const createCustomerDto = (customer) => {
   return {
     name: customer.fullName,
-    address: customer.address.label,
+    address: customer.address,
     email: customer.email,
     phone: customer.phoneNumber,
-    tierLevel: "2",
+    tierLevel: customer.tierLevel,
   };
 };

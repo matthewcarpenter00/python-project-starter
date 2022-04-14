@@ -25,8 +25,11 @@ const initialState = {
     email: "",
     phoneNumber: "",
     address: "",
-    unit: "",
+    address2: "",
     zipCode: "",
+    tierLevel: "",
+    state: "",
+    city: "",
   },
   orderDetails: {
     product: "",

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { useHistory } from "react-router";
 import PropTypes from "prop-types";
 import { useState } from "react";
@@ -11,6 +11,14 @@ export const DashboardCustomers = ({ user, userId }) => {
   const history = useHistory();
   // const { store, actions } = useContext(Context);
   let { id } = useParams();
+  const [customers, setCustomers] = useState([]);
+
+  // fetch customers
+  useEffect(() => {
+    fetch("https://stepsolution-api.herokuapp.com/customers")
+      .then((response) => response.json())
+      .then((customers) => setCustomers(customers));
+  });
 
   return (
     <>
@@ -23,6 +31,9 @@ export const DashboardCustomers = ({ user, userId }) => {
                 <Col sm='9'>
                   <h1>Customers</h1>
                 </Col>
+
+                {/* will be replaced for table */}
+                {JSON.stringify(customers, null, 4)}
 
                 <Col>
                   <Button
