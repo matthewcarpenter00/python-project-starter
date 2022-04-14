@@ -1,53 +1,19 @@
-<<<<<<< HEAD
-import React from "react";
-=======
 
 import React, { useState } from "react";
 
->>>>>>> 9457272 (add customer page)
 import { useHistory } from "react-router-dom";
 import "../order-styles.css";
 import { Col, Container, Form, Row, Button } from "react-bootstrap";
 import { useForm } from "../../hooks/useForm";
 import { FormInputCard } from "../components/FormInputCard";
 import { ContactFormTitle } from "../components/ContactFormTitle";
-<<<<<<< HEAD
-
-const initialForm = {
-  fullName: "",
-  company: "",
-  email: "",
-  phoneNumber: "",
-  address: "",
-};
-=======
 import { useDispatch, useSelector } from "react-redux";
 import { setCustomer } from "../../store/orders";
 import GooglePlacesAutocomplete from "react-google-places-autocomplete";
->>>>>>> 9457272 (add customer page)
 
 const bodyTxt = `if this is your first time filling out an order on our new form please fill out your contact details so we can  update your profile.`;
 
 export const ContactForm = () => {
-<<<<<<< HEAD
-  const history = useHistory();
-  const [formValues, handleInputChange, reset] = useForm(initialForm);
-  const { fullName, company, email, phoneNumber, address } = formValues;
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    reset();
-  };
-  return (
-    <Container fluid>
-      <Row>
-        <Col />
-        <Col xs={6}>
-        <h1 className='border-bottom px-4'>Contact Details</h1>
-          <Form onSubmit={handleSubmit}>
-            <FormInputCard inputLabel='Full Name'>
-              <Form.Control
-=======
   const [address, setAddress] = useState(null);
   const history = useHistory();
   const customer = useSelector((state) => state.orders.customer);
@@ -81,7 +47,6 @@ export const ContactForm = () => {
               <Form.Control
                 required
                 minLength='2'
->>>>>>> 9457272 (add customer page)
                 className='custom-input'
                 type='text'
                 placeholder='Your answer'
@@ -89,11 +54,6 @@ export const ContactForm = () => {
                 name='fullName'
                 onChange={handleInputChange}
               />
-<<<<<<< HEAD
-            </FormInputCard>
-            <FormInputCard inputLabel='Company'>
-              <Form.Control
-=======
               <Form.Control.Feedback type='invalid'>
                 Must be min Two Characters Long or more.
               </Form.Control.Feedback>
@@ -102,7 +62,6 @@ export const ContactForm = () => {
               <Form.Control
                 required
                 minLength='2'
->>>>>>> 9457272 (add customer page)
                 className='custom-input'
                 type='text'
                 placeholder='Your answer'
@@ -110,13 +69,6 @@ export const ContactForm = () => {
                 name='company'
                 onChange={handleInputChange}
               />
-<<<<<<< HEAD
-            </FormInputCard>
-            <FormInputCard inputLabel='Contact E-mail (if different)'>
-              <Form.Control
-                className='custom-input'
-                type='text'
-=======
               <Form.Control.Feedback type='invalid'>
                 Must be min Two Characters Long or more.
               </Form.Control.Feedback>
@@ -126,7 +78,6 @@ export const ContactForm = () => {
                 required
                 className='custom-input'
                 type='email'
->>>>>>> 9457272 (add customer page)
                 placeholder='Your answer'
                 value={email}
                 name='email'
@@ -135,12 +86,9 @@ export const ContactForm = () => {
             </FormInputCard>
             <FormInputCard inputLabel='Phone Number'>
               <Form.Control
-<<<<<<< HEAD
-=======
                 required
                 minLength='2'
                 pattern='((\(\d{3}\) ?)|(\d{3}-))?\d{3}-\d{4}'
->>>>>>> 9457272 (add customer page)
                 className='custom-input'
                 type='text'
                 placeholder='Your answer'
@@ -148,43 +96,6 @@ export const ContactForm = () => {
                 name='phoneNumber'
                 onChange={handleInputChange}
               />
-<<<<<<< HEAD
-            </FormInputCard>
-            <FormInputCard inputLabel='Address, City, State, Zip Code'>
-              <Form.Control
-                className='custom-input'
-                type='text'
-                placeholder='Your answer'
-                value={address}
-                name='address'
-                onChange={handleInputChange}
-              />
-            </FormInputCard>
-          </Form>
-        </Col>
-        <Col />
-      </Row>
-      <Row className='mb-4'>
-        <Col>
-          <Button
-            onClick={() => history.push("new-order")}
-            variant='secondary'
-            className='float-end'
-          >
-            Back to start
-          </Button>
-        </Col>
-        <Col xs={6} />
-        <Col>
-          <Button
-            onClick={() => history.push("select-product")}
-            variant='dark'
-          >
-            Next: Choose Products
-          </Button>
-        </Col>
-      </Row>
-=======
               <Form.Control.Feedback type='invalid'>
                 Must be a valid phone number i.e 123-456-7890
               </Form.Control.Feedback>
@@ -250,7 +161,6 @@ export const ContactForm = () => {
           </Col>
         </Row>
       </Form>
->>>>>>> 9457272 (add customer page)
     </Container>
   );
 };

@@ -18,7 +18,11 @@ import { UserHome } from "./orders/views/UserHome";
 
 import { DeliveryForm } from "./orders/views/DeliveryForm";
 import { OrderReview } from "./orders/views/OrderReview";
+<<<<<<< HEAD
 import { ProductionLabel } from "./orders/views/ProductionLabel";
+=======
+
+>>>>>>> 067ed66 (my account)
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -36,6 +40,7 @@ function App() {
   }
 
   return (
+<<<<<<< HEAD
     <div >
       <BrowserRouter>
         <NavBar />
@@ -106,6 +111,49 @@ function App() {
         </Switch>
       </BrowserRouter>
     </div>
+=======
+    <BrowserRouter>
+      <NavBar />
+      <Switch>
+        <Route path='/login' exact={true}>
+          <LoginForm />
+        </Route>
+        <Route path='/sign-up' exact={true}>
+          <SignUpForm />
+        </Route>
+        <Route path='/new-order' exact={true}>
+          <OrderForm />
+        </Route>
+        <ProtectedRoute path='/users' exact={true}>
+          <UsersList />
+        </ProtectedRoute>
+        <ProtectedRoute path='/users/:userId' exact={true}>
+          <User />
+        </ProtectedRoute>
+        <ProtectedRoute path='/new-client' exact={true}>
+          <ContactForm />
+        </ProtectedRoute>
+        <ProtectedRoute path='/select-product' exact={true}>
+          <SelectProduct />
+        </ProtectedRoute>
+        <ProtectedRoute path='/product-order/:productId' exact={true}>
+          <SelectProductDetails />
+        </ProtectedRoute>
+        <Route exact path="/profile/user">
+						<UserHome />
+				</Route>
+        <Route exact path="/profile/user/:id">
+							<UserHome />
+				</Route>
+				<Route exact path="/profile/user/:id/:profileoption">
+							<UserHome />
+				</Route>
+           
+        </Switch>
+      </BrowserRouter>
+    
+
+>>>>>>> 067ed66 (my account)
   );
 }
 

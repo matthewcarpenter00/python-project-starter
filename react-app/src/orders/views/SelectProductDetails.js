@@ -114,7 +114,7 @@ export const SelectProductDetails = () => {
                   variant='dark'
                   size='lg'
                 >
-                  No, I'm finished
+                  No, i'm finished
                 </Button>
               </div>
             </FormInputCard>

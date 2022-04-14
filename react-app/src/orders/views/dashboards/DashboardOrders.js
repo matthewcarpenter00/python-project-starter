@@ -7,13 +7,6 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { useHistory } from "react-router";
 import PropTypes from "prop-types";
-import filterFactory, { selectFilter } from "react-bootstrap-table2-filter";
-
-import { useState, useEffect } from "react";
-import axios from "axios";
-import BootstrapTable from "react-bootstrap-table-next";
-import paginationFactory from "react-bootstrap-table2-paginator";
-
 
 import Tabs from 'react-bootstrap/Tabs';
 
@@ -110,8 +103,18 @@ export const DashboardOrders = ({ user, userId }) => {
 					
 							<div className="h-100 p-5 bg-light border rounded-3">
 							<Row>
-									<Col className="mb-3">
-									<Button variant="outline-dark" >
+								<Col>
+									<Button 
+									onClick={() => {
+										history.push(`/profile/user/${userId}/neworder`);
+										}}
+									variant="dark"
+									className="mb-3">
+							+ new order
+									</Button>
+								</Col>
+								<Col>
+									<Button variant="light" >
 										Print View
 									</Button>
 									</Col>
