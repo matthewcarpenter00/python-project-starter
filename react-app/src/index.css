@@ -18,3 +18,9 @@ label {
 .boldFont {
     font-weight: 600;
 }
+
+@media print {
+    .printer-btn {
+        visibility:hidden;
+    }
+}

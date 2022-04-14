@@ -10,21 +10,96 @@ import PropTypes from "prop-types";
 import { useState } from "react";
 import { useHistory } from "react-router";
 
+// redux and custom hook imports
+import { useForm } from "../../../hooks/useForm";
+import { useDispatch, useSelector } from "react-redux";
+import { setCustomer } from "../../../store/orders";
+import { createCustomerDto } from "../../../adapters/customerAdapter";
 
 export const DashboardCustomerDetails = ({ user, userId }) => {
 	const params = useParams();
 	const history = useHistory();
-	
-	// const { store, actions } = useContext(Context);
 	let { id } = useParams();
 
-	// const formatter = new Intl.NumberFormat("en-US", {
-	// 	style: "currency",
-	// 	currency: "USD",
-	// 	minimumFractionDigits: 0
-	// });
-
-
+	// hooks and redux
+	const customer = useSelector((state) => state.orders.customer);
+	const dispatch = useDispatch();
+	const [formValues, handleInputChange, reset] = useForm(customer);
+	const [validated, setValidated] = useState(false);
+	const [tierLevel, setTierLevel] = useState(null);
+	const [state, setState] = useState(null);
+	// data
+	const {
+	  fullName,
+	  company,
+	  email,
+	  phoneNumber,
+	  city,
+	  zipCode,
+	  address,
+	  address2,
+	} = formValues;
+  
+	const tierLevels = [
+	  { value: "A", label: "A" },
+	  { value: "B", label: "B" },
+	  { value: "C", label: "C" },
+	  { value: "D", label: "D" },
+	  { value: "E", label: "E" },
+	];
+	const states = [
+	  { value: "FL", label: "FL" },
+	  { value: "GA", label: "GA" },
+	];
+  
+	const handleSubmit = (event) => {
+	  const form = event.currentTarget;
+	  // validations
+	  if (form.checkValidity() === false) {
+		event.preventDefault();
+		event.stopPropagation();
+	  } else {
+		event.preventDefault();
+		createCustomer({
+		  ...formValues,
+		  tierLevel: tierLevel.value,
+		  state: state.value,
+		});
+		reset();
+		history.push("/profile/user/undefined/customers");
+	  }
+	  setValidated(true);
+	};
+  
+	// async function to create customer
+	const createCustomer = async (customer) => {
+	  const dto = createCustomerDto(customer);
+	  const response = await fetch(
+		`https://stepsolution-api.herokuapp.com/customers/${customer.id}}`,
+		{
+		  method: "PUT",
+		  headers: {
+			"Content-Type": "application/json",
+		  },
+		  body: JSON.stringify(dto),
+		}
+	  );
+  
+	  if (response.ok) {
+		const data = await response.json();
+		// call redux dispatch, it set customer also in store
+		dispatch(setCustomer(dto));
+		return data;
+	  } else if (response.status < 500) {
+		const data = await response.json();
+		if (data.errors) {
+		  return data.errors;
+		}
+	  } else {
+		return ["An error occurred. Please try again."];
+	  }
+	};
+	
 	return (
 		<>
 			<div className="w-100 d-flex p-4">
@@ -43,19 +118,27 @@ export const DashboardCustomerDetails = ({ user, userId }) => {
 										}}
 										variant="dark"
 										className="mb-3">
-										All Customers
+										all customers
 									</Button>
 								</Col>
 								<Col  md="auto">
-									<Button variant="dark">
-										+Add Customer
+									<Button 
+										onClick={() => {
+											history.push(`/profile/user/${userId}/addcustomer`);
+										}}
+										variant="dark"
+										className="mb-3">
+										+ add customer
 									</Button>
 								</Col>
 							</Row>
 						</Container>
 
 						{/* Dashboard content */}
-						<Form className="h-100 p-5 border rounded-3">
+						<Form className="h-100 p-5 border rounded-3"
+							onSubmit={handleSubmit}
+							validated={validated}
+						>
 						
 								<Row className="mb-3">
 									<Form.Group as={Col} controlId="formOrderID">
@@ -81,7 +164,6 @@ export const DashboardCustomerDetails = ({ user, userId }) => {
 												<option value="3">C</option>
 												<option value="1">D</option>
 												<option value="2">E</option>
-												<option value="3">F</option>
 										</Form.Select>
 									</Form.Group>
 								</Row>

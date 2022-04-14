@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
@@ -9,19 +9,20 @@ import Col from "react-bootstrap/Col";
 import { useHistory } from "react-router";
 import PropTypes from "prop-types";
 import { useState } from "react";
+;
 
 export const DashboardProducts = ({ user, userId }) => {
   const params = useParams();
   const history = useHistory();
 
-  // const { store, actions } = useContext(Context);
-  let { id } = useParams();
+  const [products, setProducts] = useState([]);
 
-  // const formatter = new Intl.NumberFormat("en-US", {
-  // 	style: "currency",
-  // 	currency: "USD",
-  // 	minimumFractionDigits: 0
-  // });
+	// fetch products
+	useEffect(() => {
+		fetch("https://stepsolution-api.herokuapp.com/products")
+		.then((response) => response.json())
+		.then((products) => setProducts(products));
+	});
 
   return (
     <>
@@ -38,12 +39,12 @@ export const DashboardProducts = ({ user, userId }) => {
                 <Col>
                   <Button
                     onClick={() => {
-                      history.push(`/profile/user/${userId}/newproduct`);
+                      history.push(`/profile/user/${userId}/addproduct`);
                     }}
                     variant='dark'
                     className='mb-3 float-right'
                   >
-                    + new product
+                    + add product
                   </Button>
                 </Col>
               </Row>

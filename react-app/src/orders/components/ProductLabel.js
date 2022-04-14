@@ -57,7 +57,7 @@ export const ProductLabel = () => {
                
               <Button 
                 onClick={()=>{window.print()}}
-              variant="dark" type='submit' >
+              variant="dark" type='submit' className="printer-btn" >
                 print
               </Button>
            
