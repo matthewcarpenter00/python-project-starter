@@ -38,9 +38,11 @@ export const DashboardAddCustomer = ({ user, userId }) => {
   } = formValues;
 
   const tierLevels = [
-    { value: "1", label: "1" },
-    { value: "2", label: "2" },
-    { value: "3", label: "3" },
+    { value: "1", label: "A" },
+    { value: "2", label: "B" },
+    { value: "3", label: "C" },
+	{ value: "3", label: "D" },
+	{ value: "3", label: "E" },
   ];
   const states = [
     { value: "FL", label: "FL" },
@@ -114,7 +116,7 @@ export const DashboardAddCustomer = ({ user, userId }) => {
                     variant='dark'
                     className='mb-3'
                   >
-                    All Customers
+                    all customers
                   </Button>
                 </Col>
               </Row>
@@ -129,6 +131,7 @@ export const DashboardAddCustomer = ({ user, userId }) => {
               <Row className='mb-3'>
                 <Form.Group as={Col} controlId='formOrderID'>
                   <Form.Label>Customer ID</Form.Label>
+				  {/* como hacemos aqui para mostrar el proximo id disponible para el nuevo customer */}
                   <Form.Control plaintext readOnly defaultValue='001' />
                 </Form.Group>
               </Row>
@@ -261,13 +264,13 @@ export const DashboardAddCustomer = ({ user, userId }) => {
 
               <Row>
                 <Col md='auto'>
-                  <Button variant='danger' type='button'>
-                    Delete Customer
+                  <Button variant='secondary' type='button'>
+                    Cancel
                   </Button>
                 </Col>
                 <Col>
                   <Button variant='success' type='submit'>
-                    Update Customer
+                    Add Customer
                   </Button>
                 </Col>
               </Row>

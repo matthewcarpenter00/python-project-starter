@@ -1,5 +1,5 @@
-import React from "react";
-import { NavLink, useParams } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useParams } from "react-router-dom";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
@@ -8,38 +8,47 @@ import Col from "react-bootstrap/Col";
 import { useHistory } from "react-router";
 import PropTypes from "prop-types";
 import { useState } from "react";
-// import axios from "axios";
 import { Tab } from "react-bootstrap";
-import { useEffect } from "react";
 import Tabs from "react-bootstrap/Tabs";
+
+// import axios from "axios";
+// import { BootstrapTable } from "react-bootstrap-table-next";
+// import paginationFactory from 'react-bootstrap-table2-paginator';
+// import filterFactory, { textFilter } from 'react-bootstrap-table2-filter';
+
 
 export const DashboardOrders = ({ user, userId }) => {
   const params = useParams();
   const history = useHistory();
-
-  // const { store, actions } = useContext(Context);
   let { id } = useParams();
-
-  // const formatter = new Intl.NumberFormat("en-US", {
-  // 	style: "currency",
-  // 	currency: "USD",
-  // 	minimumFractionDigits: 0
-  // });
   const [key, setKey] = useState("home");
+  const [orders, setOrders] = useState([]);
 
-  const [data, setData] = useState([]);
-  useEffect(() => {
-    getData();
-  }, []);
+ 
+ 
+//   const [data, setData] = useState([]);
+//   useEffect(() => {
+//     getData();
+//   }, []);
 
   // api
-  const getData = () => {
-    // axios("https://jsonplaceholder.typicode.com/comments").then((res) => {
-    //   console.log(res.data);
-    //   setData(res.data);
-    // });
-  };
+//   const getData = () => {
+//     axios("https://stepsolution-api.herokuapp.com/customers").then((res) => {
+//       console.log(res.data);
+//       setData(res.data);
+//     });
+//   };
+
+  //fetch orders
+  useEffect(() => {
+    fetch("https://stepsolution-api.herokuapp.com/orders")
+    .then((response) => response.json())
+    .then((orders) => setOrders(orders));
+  });
+
+
   // to edit text in cell
+
   const lineFormatter = (data, row) => {
     return (
       <span
@@ -52,11 +61,12 @@ export const DashboardOrders = ({ user, userId }) => {
     );
   };
 
-  // flter routers
+  // filter routes
   const selectOptions = {
     0: "south",
     1: "north",
     2: "orlando",
+    3: "pickup",
   };
 
   // column info using api datafields
@@ -88,6 +98,7 @@ export const DashboardOrders = ({ user, userId }) => {
         <div className='w-100 h-100 p-2 rounded-3'>
           <div className='dashboard-page'>
             {/* title section */}
+		
             <Container>
               <Row>
                 <Col sm='9'>
@@ -105,30 +116,19 @@ export const DashboardOrders = ({ user, userId }) => {
                     + new order
                   </Button>
                 </Col>
-              </Row>
+                
+                {/* <Col>
+                  <Button variant='light'>Print View</Button>
+                </Col> */}
+             </Row>
+
             </Container>
 
             {/* Dashboard content */}
 
             <Container>
               <div className='h-100 p-5 bg-light border rounded-3'>
-                <Row>
-                  <Col>
-                    <Button
-                      onClick={() => {
-                        history.push(`/profile/user/${userId}/neworder`);
-                      }}
-                      variant='dark'
-                      className='mb-3'
-                    >
-                      + new order
-                    </Button>
-                  </Col>
-                  <Col>
-                    <Button variant='light'>Print View</Button>
-                  </Col>
-                </Row>
-
+                
                 <Row>
                   <Tabs
                     id='controlled-tab-example'

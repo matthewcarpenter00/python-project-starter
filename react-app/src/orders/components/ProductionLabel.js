@@ -1,12 +1,14 @@
 import React from "react";
-import { Button, Form, Row, Col } from "react-bootstrap";
+import { Button, Form, Row, Col } from "react-bootstrap"
+
 
 export const ProductionLabel = () => {
 
 
   return (
+    
     <div className="mt-5 d-flex justify-content-center align-items-center">
-      <Form  className="col-6 rounded  p-sm-3" closeButton>
+      <div  className="col-6 rounded  p-sm-3" closeButton>
         <h1 className="mb-3 text-center">Production Label</h1>
             <Row className="mb-3">
               <Col>Order ID</Col>
@@ -47,13 +49,13 @@ export const ProductionLabel = () => {
                
               <Button 
                 onClick={()=>{window.print()}}
-              variant="dark" type='submit' >
+              variant="dark" type='submit' className="printer-btn" >
                 print
               </Button>
            
               </Row>
            
-      </Form>
+      </div>
     </div>
   );
 };
