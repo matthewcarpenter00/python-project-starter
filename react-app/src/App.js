@@ -19,6 +19,8 @@ import { UserHome } from "./orders/views/UserHome";
 
 import { DeliveryForm } from "./orders/views/DeliveryForm";
 import { OrderReview } from "./orders/views/OrderReview";
+import { ProductionLabel } from "./orders/components/ProductionLabel";
+import { ProductLabel } from "./orders/components/ProductLabel";
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -36,9 +38,9 @@ function App() {
   }
 
   return (
-    <div className='mt-5'>
+    <div>
       <BrowserRouter>
-        {/* <NavBar /> */}
+        <NavBar />
         <Switch>
           <Route exact path='/'>
             <Redirect to='/new-order' /> : <OrderForm />
@@ -81,6 +83,12 @@ function App() {
           </Route>
           <Route exact path='/profile/user/:id/:profileoption'>
             <UserHome />
+          </Route>
+          <Route exact path='/productionlabel'>
+            <ProductionLabel />
+          </Route>
+          <Route exact path='/productlabel'>
+            <ProductLabel />
           </Route>
         </Switch>
       </BrowserRouter>
