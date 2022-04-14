@@ -9,42 +9,49 @@ import { DashboardOrders } from "./dashboards/DashboardOrders";
 import { DashboardProducts } from "./dashboards/DashboardProducts";
 import { DashboardCustomers } from "./dashboards/DashboardCustomers";
 import { DashboardMyAccount } from "./dashboards/DashboardMyAccount";
+import { DashboardOrderDetails } from "./dashboards/DashboardOrderDetails";
+import { DashboardNewOrder } from "./dashboards/DashboardNewOrder";
+import { DashboardCustomerDetails } from "./dashboards/DashboardCustomerDetails";
+import { DashboardAddCustomer } from "./dashboards/DashboardAddCustomer";
 
-// import { BarGraph } from "../../component/BarGraph";
+export const UserHome = (props) => {
+  const params = useParams();
+  const history = useHistory();
 
-export const UserHome = props => {
-	const params = useParams();
-	const history = useHistory();
+  // const { store, actions } = useContext(Context);
 
-	// const { store, actions } = useContext(Context);
+  let { id } = useParams();
 
-	let { id } = useParams();
+  let activeUser;
 
+  const clickedProfile = (profile) => {
+    if (profile == "myaccount") {
+      return <DashboardMyAccount />;
+    } else if (profile == "customers") {
+      return <DashboardCustomers />;
+    } else if (profile == "products") {
+      return <DashboardProducts />;
+    } else if (profile == "orderdetails") {
+      return <DashboardOrderDetails />;
+    } else if (profile == "neworder") {
+      return <DashboardNewOrder />;
+    } else if (profile == "customerdetails") {
+      return <DashboardCustomerDetails />;
+    } else if (profile == "addcustomer") {
+      return <DashboardAddCustomer />;
+    } else {
+      return <DashboardOrders />;
+    }
+  };
 
-	let activeUser;
-
-
-	const clickedProfile = profile => {
-		if (profile == "DashboardMyAccount") {
-			return <DashboardMyAccount />;
-		} else if (profile == "customers") {
-			return <DashboardCustomers />;
-		} else if (profile == "products") {
-			return <DashboardProducts />;
-		} else {
-			return <DashboardOrders />;
-		}
-	};
-
-	return (
-		<div className="d-flex">
-            <SideBar />
-			{/* <SideBar user={activeUser} userId={id} /> */}
-			{clickedProfile(params.profileoption)}
-		</div>
-	);
+  return (
+    <div className='d-flex'>
+      <SideBar />
+      {clickedProfile(params.profileoption)}
+    </div>
+  );
 };
 
 UserHome.propTypes = {
-	match: PropTypes.object
+  match: PropTypes.object,
 };
