@@ -38,7 +38,7 @@ export const DashboardOrderDetails = () => {
                 <Col md='auto'>
                   <Button
                     onClick={() => {
-                      history.push(`/production-label`);
+                      history.push(`/productionlabel`);
                     }}
                     variant='dark'
                     className='mb-3'
@@ -96,7 +96,13 @@ export const DashboardOrderDetails = () => {
 									</Modal> */}
                 </Col>
                 <Col md='auto'>
-                  <Button href='/' variant='dark' className='mb-3'>
+                  <Button 
+					  onClick={() => {
+						history.push(`/productlabel`);
+					  }}
+					  variant='dark'
+					  className='mb-3'
+					>
                     print product label
                   </Button>
                 </Col>

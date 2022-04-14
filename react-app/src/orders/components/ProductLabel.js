@@ -1,13 +1,23 @@
 import React from "react";
 import { Button, Form, Row, Col } from "react-bootstrap";
 
-export const ProductionLabel = () => {
+export const ProductLabel = () => {
 
 
   return (
     <div className="mt-5 d-flex justify-content-center align-items-center">
       <Form  className="col-6 rounded  p-sm-3" closeButton>
-        <h1 className="mb-3 text-center">Production Label</h1>
+        
+         
+          <img
+              alt=""
+              src="https://static1.squarespace.com/static/5feb8101b5b33b527b373ebc/t/624deb72c3b55f64018575de/1649273714852/stdpsolution+icon-05.png"
+              width="100"
+              height="100"
+              className="mb-3 mx-auto d-block"
+            />
+         
+        <h1 className="mb-3 text-center">Product Label</h1>
             <Row className="mb-3">
               <Col>Order ID</Col>
               <Col className="fw-bold">001</Col>
@@ -15,6 +25,11 @@ export const ProductionLabel = () => {
             <hr />
             <Row className="mb-3">
               <Col>Customer</Col>
+              <Col className="fw-bold">JDA Flooring</Col>
+            </Row>
+            <hr />
+            <Row className="mb-3">
+              <Col>PO/Job Name</Col>
               <Col className="fw-bold">JDA Flooring</Col>
             </Row>
             <hr />
@@ -36,11 +51,6 @@ export const ProductionLabel = () => {
             <Row className="mb-3">
               <Col>Date</Col>
               <Col className="fw-bold">04/01/22</Col>
-            </Row>
-            <hr />
-            <Row className="mb-3">
-              <Col>Notes</Col>
-              <Col className="fw-bold">2 inch thick</Col>
             </Row>
            
               <Row className="m-5">
