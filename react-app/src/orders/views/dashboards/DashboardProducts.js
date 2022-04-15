@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -9,20 +8,75 @@ import Col from "react-bootstrap/Col";
 import { useHistory } from "react-router";
 import PropTypes from "prop-types";
 import { useState } from "react";
-;
+
+import axios from "axios";
+import BootstrapTable from "react-bootstrap-table-next";
+import paginationFactory from "react-bootstrap-table2-paginator";
+// import cellEditFactory, { Type } from "react-bootstrap-table2-editor";
+import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
+
 
 export const DashboardProducts = ({ user, userId }) => {
   const params = useParams();
   const history = useHistory();
 
+  let { id } = useParams;
   const [products, setProducts] = useState([]);
+  
 
 	// fetch products
-	useEffect(() => {
-		fetch("https://stepsolution-api.herokuapp.com/products")
-		.then((response) => response.json())
-		.then((products) => setProducts(products));
-	});
+	// useEffect(() => {
+	// 	fetch("https://stepsolution-api.herokuapp.com/products")
+	// 	.then((response) => response.json())
+	// 	.then((products) => setProducts(products));
+	// });
+
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    getData();
+  }, []);
+  const getData = () => {
+    axios("https://stepsolution-api.herokuapp.com/products").then((res) => {
+      console.log(res.data);
+      setData(res.data);
+    });
+  };  
+
+  const columns = [
+    {
+      dataField: "id",
+      text: "ID",
+      sort: true,
+      
+    },
+    {
+      dataField: "name",
+      text: "Name",
+      sort: true,
+    },
+    {
+      dataField: "tierLevel",
+      text: "Tier",
+      sort: true,
+    },
+    {
+      dataField: "description",
+      text: "Description",
+      sort: true,
+    },
+    {
+      dataField: "price",
+      text: "Price",
+      sort: true,
+    },
+    // {
+    //   dataField: "type",
+    //   text: "Type",
+    //   sort: true,
+    // },
+  ];
+
+
 
   return (
     <>
@@ -36,7 +90,7 @@ export const DashboardProducts = ({ user, userId }) => {
                   <h1>Products</h1>
                 </Col>
 
-                <Col>
+                {/* <Col>
                   <Button
                     onClick={() => {
                       history.push(`/profile/user/${userId}/addproduct`);
@@ -46,36 +100,30 @@ export const DashboardProducts = ({ user, userId }) => {
                   >
                     + add product
                   </Button>
-                </Col>
+                </Col> */}
               </Row>
             </Container>
 
             {/* Dashboard content */}
 
             <div className='container'>
-              <div className='h-100 p-5 bg-light border rounded-3'>
-                <Table striped bordered hover responsive='lg' className='table'>
-                  {" "}
-                  <thead className='thead-dark'>
-                    <tr>
-                      <th scope='col'>Product ID</th>
-                      <th scope='col'>Name</th>
-                      <th scope='col'>Material</th>
-                      <th scope='col'>Description</th>
-                      <th scope='col'>Price</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>001</td>
-                      <td>End Cap:ECAX</td>
-                      <td>Vinyl</td>
-                      <td>Custom End Cap / Reducer Fabrication</td>
-                      <td>$14.00</td>
-                    </tr>
-                  </tbody>
-                </Table>
-              </div>
+              
+                <Container>
+                  <div className='h-100 p-5 bg-light border rounded-3'>
+                    <BootstrapTable
+              
+                      keyField='id'
+                      data={data}
+                      columns={columns}
+                      striped
+                      hover
+                      condensed
+                      pagination={paginationFactory()}
+                      // filter={filterFactory()}
+                    />
+                  </div>
+                </Container>
+              
             </div>
           </div>
         </div>

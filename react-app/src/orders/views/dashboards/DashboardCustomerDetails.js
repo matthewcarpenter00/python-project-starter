@@ -87,67 +87,57 @@ export const DashboardCustomerDetails = ({ user, userId }) => {
             {/* Dashboard content */}
             <Form className='h-100 p-5 border rounded-3' validated={validated}>
               <Row className='mb-3'>
-                <Form.Group as={Col} controlId='formOrderID'>
+                <Form.Group as={Col} controlId='formCustomerId'>
                   <Form.Label>Customer ID</Form.Label>
-                  <Form.Control plaintext readOnly defaultValue='001' />
+                  <Form.Control type='text' readOnly value={customer?.id} />
                 </Form.Group>
-              </Row>
+              
 
-              <Row className='mb-3'>
-                <Form.Group controlId='formJobName'>
+             
+                <Form.Group as={Col} controlId='formCompany'>
                   <Form.Label>Company</Form.Label>
-                  <Form.Control type='text' placeholder='JDA Flooring' />
+                  <Form.Control  type='text' readOnly value={customer?.company} />
                 </Form.Group>
-              </Row>
+             
 
-              <Row>
+              
                 <Form.Group as={Col} controlId='formTierLevel'>
                   <Form.Label>Tier Level</Form.Label>
-                  <Form.Select aria-label='SelectRoute'>
-                    <option>Select</option>
-                    <option value='1'>A</option>
-                    <option value='2'>B</option>
-                    <option value='3'>C</option>
-                    <option value='1'>D</option>
-                    <option value='2'>E</option>
-                  </Form.Select>
+                  <Form.Control type='text' readOnly value={customer?.tierLevel} />
                 </Form.Group>
               </Row>
 
               <Row className='mb-3'>
-                <Form.Group as={Col} controlId='formTierLevel'>
+                <Form.Group as={Col} controlId='formContactName'>
                   <Form.Label>Contact Name</Form.Label>
-                  <Form.Control type='text' value={customer?.name} />
+                  <Form.Control type='text' readOnly value={customer?.name} />
                 </Form.Group>
-              </Row>
+              
 
-              <Row className='mb-3'>
-                <Form.Group as={Col} controlId='formTierLevel'>
+              
+                <Form.Group as={Col} controlId='formTelephone'>
                   <Form.Label>Telephone</Form.Label>
                   <Form.Control
                     type='text'
-                    placeholder='305-305-3051'
-                    value={customer?.phoneNumber}
+                    readOnly
+                    value={customer?.phone}
                   />
                 </Form.Group>
-              </Row>
-              <Row className='mb-3'>
-                <Form.Group
-                  as={Col}
-                  controlId='formTierLevel'
-                  value={customer?.tierLevel}
-                >
+              
+                <Form.Group as={Col} controlId='formEmail' >
                   <Form.Label>E-mail</Form.Label>
                   <Form.Control
+                    readOnly
                     type='email'
-                    placeholder='jdaflooring@gmail.com'
+                    value={customer?.email}
                   />
                 </Form.Group>
               </Row>
               <Form.Group className='mb-3' controlId='formGridAddress1'>
                 <Form.Label>Address</Form.Label>
                 <Form.Control
-                  placeholder='1234 Main St'
+                  readOnly
+                  type='text'
                   value={customer?.address}
                 />
               </Form.Group>
@@ -155,36 +145,41 @@ export const DashboardCustomerDetails = ({ user, userId }) => {
               <Form.Group className='mb-3' controlId='formGridAddress2'>
                 <Form.Label>Address 2</Form.Label>
                 <Form.Control
-                  placeholder='Apartment, studio, or floor'
+                  readOnly
+                  type='text'
                   value={customer?.address2}
                 />
               </Form.Group>
 
-              <Row className='mb-3'>
+              <Row className='mb-5'>
                 <Form.Group
                   as={Col}
                   controlId='formGridCity'
-                  value={customer?.city}
                 >
                   <Form.Label>City</Form.Label>
-                  <Form.Control />
+                  <Form.Control
+                    readOnly
+                    type='text'
+                    value={customer?.city} />
                 </Form.Group>
 
                 <Form.Group as={Col} controlId='formGridState'>
                   <Form.Label>State</Form.Label>
-                  <Form.Select defaultValue='Choose...'>
-                    <option>Choose...</option>
-                    <option>...</option>
-                  </Form.Select>
+                  <Form.Control
+                    readOnly
+                    type='text'
+                    value={customer?.state} />
                 </Form.Group>
 
                 <Form.Group
                   as={Col}
                   controlId='formGridZip'
-                  value={customer?.zipCode}
                 >
                   <Form.Label>Zip</Form.Label>
-                  <Form.Control />
+                  <Form.Control
+                    readOnly
+                    type='text'
+                    value={customer?.zipCode} />
                 </Form.Group>
               </Row>
 
@@ -194,11 +189,11 @@ export const DashboardCustomerDetails = ({ user, userId }) => {
                     Delete Customer
                   </Button>
                 </Col>
-                <Col>
+                {/* <Col>
                   <Button variant='success' type='submit'>
                     Update Customer
                   </Button>
-                </Col>
+                </Col> */}
               </Row>
             </Form>
           </div>
