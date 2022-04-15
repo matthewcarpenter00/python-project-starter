@@ -1,10 +1,16 @@
 // constants
 const SET_CUSTOMER = "orders/SET_CUSTOMER";
+const ADD_CUSTOMER = "orders/ADD_CUSTOMER";
 const SET_ORDER_DETAILS = "orders/SET_ORDER_DETAILS";
 const SET_ORDER_CART = "orders/SET_ORDER_CART";
 
 export const setCustomer = (customer) => ({
   type: SET_CUSTOMER,
+  payload: customer,
+});
+
+export const addCustomer = (customer) => ({
+  type: ADD_CUSTOMER,
   payload: customer,
 });
 
@@ -19,6 +25,7 @@ export const setOrderCart = (product) => ({
 });
 
 const initialState = {
+  customers: [],
   customer: {
     fullName: "",
     company: "",

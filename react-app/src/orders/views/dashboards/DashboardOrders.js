@@ -11,11 +11,10 @@ import { useState } from "react";
 import { Tab } from "react-bootstrap";
 import Tabs from "react-bootstrap/Tabs";
 
-// import axios from "axios";
+import axios from "axios";
 // import { BootstrapTable } from "react-bootstrap-table-next";
 // import paginationFactory from 'react-bootstrap-table2-paginator';
 // import filterFactory, { textFilter } from 'react-bootstrap-table2-filter';
-
 
 export const DashboardOrders = ({ user, userId }) => {
   const params = useParams();
@@ -24,28 +23,25 @@ export const DashboardOrders = ({ user, userId }) => {
   const [key, setKey] = useState("home");
   const [orders, setOrders] = useState([]);
 
- 
- 
-//   const [data, setData] = useState([]);
-//   useEffect(() => {
-//     getData();
-//   }, []);
+  //   const [data, setData] = useState([]);
+  //   useEffect(() => {
+  //     getData();
+  //   }, []);
 
   // api
-//   const getData = () => {
-//     axios("https://stepsolution-api.herokuapp.com/customers").then((res) => {
-//       console.log(res.data);
-//       setData(res.data);
-//     });
-//   };
+  // const getData = () => {
+  //   axios("https://stepsolution-api.herokuapp.com/customers").then((res) => {
+  //     console.log(res.data);
+  //     setData(res.data);
+  //   });
+  // };
 
   //fetch orders
   useEffect(() => {
     fetch("https://stepsolution-api.herokuapp.com/orders")
-    .then((response) => response.json())
-    .then((orders) => setOrders(orders));
+      .then((response) => response.json())
+      .then((orders) => setOrders(orders));
   });
-
 
   // to edit text in cell
 
@@ -98,7 +94,7 @@ export const DashboardOrders = ({ user, userId }) => {
         <div className='w-100 h-100 p-2 rounded-3'>
           <div className='dashboard-page'>
             {/* title section */}
-		
+
             <Container>
               <Row>
                 <Col sm='9'>
@@ -116,19 +112,17 @@ export const DashboardOrders = ({ user, userId }) => {
                     + new order
                   </Button>
                 </Col>
-                
+
                 {/* <Col>
                   <Button variant='light'>Print View</Button>
                 </Col> */}
-             </Row>
-
+              </Row>
             </Container>
 
             {/* Dashboard content */}
 
             <Container>
               <div className='h-100 p-5 bg-light border rounded-3'>
-                
                 <Row>
                   <Tabs
                     id='controlled-tab-example'
