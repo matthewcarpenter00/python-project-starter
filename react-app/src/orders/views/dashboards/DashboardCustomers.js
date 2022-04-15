@@ -41,6 +41,12 @@ export const DashboardCustomers = ({ user, userId }) => {
 
   const columns = [
     {
+      dataField: "company",
+      text: "Company",
+      sort: true,
+      editable: false,
+    },
+    {
       dataField: "name",
       text: "Name",
       sort: true,

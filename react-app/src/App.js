@@ -21,6 +21,7 @@ import { DeliveryForm } from "./orders/views/DeliveryForm";
 import { OrderReview } from "./orders/views/OrderReview";
 import { ProductionLabel } from "./orders/components/ProductionLabel";
 import { ProductLabel } from "./orders/components/ProductLabel";
+import { TruckLoadForm } from "./orders/components/TruckLoadForm";
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -89,6 +90,9 @@ function App() {
           </Route>
           <Route exact path='/productlabel'>
             <ProductLabel />
+          </Route>
+          <Route exact path='/truckloadform'>
+            <TruckLoadForm />
           </Route>
         </Switch>
       </BrowserRouter>

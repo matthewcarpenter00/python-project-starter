@@ -68,6 +68,7 @@ export const DashboardNewOrder = () => {
 											<option value="1">North</option>
 											<option value="2">South</option>
 											<option value="3">Orlando</option>
+											<option value="3">Pick Up</option>
 										</Form.Select>
 									</Form.Group>
 

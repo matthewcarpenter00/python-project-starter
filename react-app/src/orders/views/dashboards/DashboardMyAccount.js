@@ -22,38 +22,38 @@ export const DashboardMyAccount = ({ user, userId }) => {
             {/* Dashboard content */}
             <Form className='h-100 p-5 border rounded-3'>
               <Row className='mb-3'>
-                <Form.Group as={Col} controlId='formOrderID'>
+                <Form.Group as={Col} controlId='forStaffId'>
                   <Form.Label>Staff ID</Form.Label>
-                  <Form.Control plaintext readOnly defaultValue='001' />
+                  <Form.Control  type='text'  defaultValue='001' />
                 </Form.Group>
               </Row>
 
               <Row className='mb-3'>
-                <Form.Group controlId='formJobName'>
+                <Form.Group controlId='formRole'>
                   <Form.Label>Role</Form.Label>
                   <Form.Control type='text' placeholder='Office Manager' />
                 </Form.Group>
               </Row>
 
               <Row className='mb-3'>
-                <Form.Group as={Col} controlId='formTierLevel'>
+                <Form.Group as={Col} controlId='formName'>
                   <Form.Label>Full Name</Form.Label>
-                  <Form.Control type='text' placeholder='Jay Daza' />
+                  <Form.Control type='text' placeholder='Joel Ruiz' />
                 </Form.Group>
               </Row>
 
               <Row className='mb-3'>
-                <Form.Group as={Col} controlId='formTierLevel'>
+                <Form.Group as={Col} controlId='formPhone'>
                   <Form.Label>Telephone</Form.Label>
-                  <Form.Control type='text' placeholder='305-305-3051' />
+                  <Form.Control type='text' placeholder='954-687-6990' />
                 </Form.Group>
               </Row>
               <Row className='mb-3'>
-                <Form.Group as={Col} controlId='formTierLevel'>
+                <Form.Group as={Col} controlId='formEmail'>
                   <Form.Label>E-mail</Form.Label>
                   <Form.Control
                     type='email'
-                    placeholder='jdaflooring@gmail.com'
+                    placeholder='joel@stepsolutionusa.com'
                   />
                 </Form.Group>
               </Row>

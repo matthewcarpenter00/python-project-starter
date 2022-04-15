@@ -15,12 +15,12 @@ import paginationFactory from "react-bootstrap-table2-paginator";
 // import cellEditFactory, { Type } from "react-bootstrap-table2-editor";
 import filterFactory, { selectFilter } from "react-bootstrap-table2-filter";
 
-export const DashboardOrders = ({ user, userId }) => {
+
+export const TruckLoadForm = ({ user, userId }) => {
+
   const params = useParams();
   const history = useHistory();
   let { id } = useParams();
-  // const [key, setKey] = useState("home");
-  
   const [orders, setOrders] = useState([]);
   
   const [data, setData] = useState([]);
@@ -34,16 +34,6 @@ export const DashboardOrders = ({ user, userId }) => {
     });
   };  
 
-  //fetch orders
-  // useEffect(() => {
-  //   fetch("https://stepsolution-api.herokuapp.com/orders")
-  //     .then((response) => response.json())
-  //     .then((orders) => setOrders(orders));
-  // });
-
-
-
-  // filter routes
   const selectOptions = {
     0: "south",
     1: "north",
@@ -51,15 +41,13 @@ export const DashboardOrders = ({ user, userId }) => {
     3: "pickup",
   };
 
-
+  const statusOptions = {
+    0: "ready",
+    1: "in production",
+    2: "completed",
+  }
 
   const columns = [
-    {
-      dataField: "id",
-      text: "ID",
-      sort: true,
-      
-    },
     {
       dataField: "createdAt",
       text: "Date",
@@ -71,11 +59,6 @@ export const DashboardOrders = ({ user, userId }) => {
       sort: true,
     },
     {
-      dataField: "poName",
-      text: "Job / PO Name",
-      sort: true,
-    },
-    {
       dataField: "totalAmount",
       text: "Amount",
       sort: true,
@@ -84,18 +67,22 @@ export const DashboardOrders = ({ user, userId }) => {
       dataField: "route",
       text: "Route",
       sort: true,
-      // filter: selectFilter({
-      //   options: selectOptions
-      // })
+      filter: selectFilter({
+        options: selectOptions
+      })
     },
     {
       dataField: "orderStatus",
       text: "Status",
       sort: true,
+      filter: selectFilter({
+        options: statusOptions
+      })
     },
   ];
 
   return (
+    
     <>
       <div className='w-100 d-flex p-4'>
         <div className='w-100 h-100 p-2 rounded-3'>
@@ -103,34 +90,18 @@ export const DashboardOrders = ({ user, userId }) => {
             {/* title section */}
 
             <Container>
-              <Row >
-                <Col xs={8} >
-                  <h1>Orders</h1>
+              <Row>
+                <Col sm='9'>
+                  <h1>Truck Load Form</h1>
                 </Col>
-              
+
                 <Col>
-                <Button
-                    onClick={() => {
-                      history.push(`/truckloadform`);
-                    }}
-                    variant='outline-dark'
-                    className='mb-3 float-right'
-                  >
-                    truck load form
-                  </Button>
-                  </Col>
-                  <Col>
                   <Button
-                    onClick={() => {
-                      history.push(`/profile/user/${userId}/neworder`);
-                    }}
-                    variant='dark'
-                    className='mb-3 float-right'
-                  >
-                    + new order
+                     onClick={()=>{window.print()}}
+                     variant="dark" type='submit' className="printer-btn" >
+                       print
                   </Button>
                 </Col>
-                
 
                 {/* <Col>
                   <Button variant='light'>Print View</Button>
@@ -162,10 +133,12 @@ export const DashboardOrders = ({ user, userId }) => {
         </div>
       </div>
     </>
+
   );
 };
 
-DashboardOrders.propTypes = {
+
+TruckLoadForm.propTypes = {
   user: PropTypes.object,
   userId: PropTypes.string,
 };

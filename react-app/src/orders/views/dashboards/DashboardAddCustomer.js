@@ -25,24 +25,25 @@ export const DashboardAddCustomer = ({ user, userId }) => {
   const [validated, setValidated] = useState(false);
   const [tierLevel, setTierLevel] = useState(null);
   const [state, setState] = useState(null);
+
   // data
   const {
-    fullName,
-    company,
-    email,
-    phoneNumber,
-    city,
-    zipCode,
-    address,
-    address2,
+   name,
+   phone,
+   email,
+   company,
+   address,
+   address2,
+   city,
+   zipCode
   } = formValues;
 
   const tierLevels = [
     { value: "1", label: "A" },
     { value: "2", label: "B" },
     { value: "3", label: "C" },
-	{ value: "3", label: "D" },
-	{ value: "3", label: "E" },
+	  { value: "3", label: "D" },
+	  { value: "3", label: "E" },
   ];
   const states = [
     { value: "FL", label: "FL" },
@@ -170,7 +171,7 @@ export const DashboardAddCustomer = ({ user, userId }) => {
                     minLength='2'
                     type='text'
                     placeholder='Contact Name'
-                    value={fullName}
+                    value={name}
                     name='fullName'
                     onChange={handleInputChange}
                   />
@@ -186,8 +187,8 @@ export const DashboardAddCustomer = ({ user, userId }) => {
                     pattern='((\(\d{3}\) ?)|(\d{3}-))?\d{3}-\d{4}'
                     type='text'
                     placeholder='305-111-2222'
-                    value={phoneNumber}
-                    name='phoneNumber'
+                    value={phone}
+                    name='phone'
                     onChange={handleInputChange}
                   />
                 </Form.Group>
