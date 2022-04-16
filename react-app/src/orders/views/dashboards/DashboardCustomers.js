@@ -31,13 +31,11 @@ export const DashboardCustomers = ({ user, userId }) => {
     getData();
   }, []);
   const getData = () => {
-    axios("https://stepsolution-api.herokuapp.com/customers").then((res) => {
+    axios(`${process.env.REACT_APP_API_URL}/customers`).then((res) => {
       console.log(res.data);
       setData(res.data);
     });
   };
-
-
 
   const columns = [
     {
@@ -111,7 +109,6 @@ export const DashboardCustomers = ({ user, userId }) => {
             <Container>
               <div className='h-100 p-5 bg-light border rounded-3'>
                 <BootstrapTable
-				  
                   keyField='id'
                   rowEvents={rowEvents}
                   data={data}

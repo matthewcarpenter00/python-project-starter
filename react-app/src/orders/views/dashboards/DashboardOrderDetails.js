@@ -9,7 +9,7 @@ import Form from "react-bootstrap/Form";
 import { useState } from "react";
 // import Modal from 'react-bootstrap/Modal';
 import { useHistory } from "react-router";
-import emailjs from '@emailjs/browser';
+import emailjs from "@emailjs/browser";
 
 // redux and custom hook imports
 import { useForm } from "../../../hooks/useForm";
@@ -28,15 +28,13 @@ export const DashboardOrderDetails = ({ user, userID }) => {
 
   // trying to format date
   // let createdAt = let date = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(createAt);
-  
-  
+
   // hooks and redux
-   const dispatch = useDispatch();
-   const [validated, setValidated] = useState(false);
-   const [orderdetails, setOrderDetails] = useState(null);
+  const dispatch = useDispatch();
+  const [validated, setValidated] = useState(false);
+  const [orderdetails, setOrderDetails] = useState(null);
 
-
-   const fetchOrder = async (orderId) => {
+  const fetchOrder = async (orderId) => {
     const response = await fetch(
       `https://stepsolution-api.herokuapp.com/orders/${orderId}`
     );
@@ -57,7 +55,6 @@ export const DashboardOrderDetails = ({ user, userID }) => {
   useEffect(() => {
     fetchOrder(orderId);
   }, []);
-
 
   return (
     <>
@@ -82,16 +79,15 @@ export const DashboardOrderDetails = ({ user, userID }) => {
                   >
                     print production label
                   </Button>
-                
                 </Col>
                 <Col md='auto'>
-                  <Button 
-					  onClick={() => {
-						history.push(`/productlabel`);
-					  }}
-					  variant='dark'
-					  className='mb-3'
-					>
+                  <Button
+                    onClick={() => {
+                      history.push(`/productlabel`);
+                    }}
+                    variant='dark'
+                    className='mb-3'
+                  >
                     print product label
                   </Button>
                 </Col>
@@ -113,10 +109,7 @@ export const DashboardOrderDetails = ({ user, userID }) => {
 
                 <Form.Group as={Col} controlId='formCustomer'>
                   <Form.Label>Customer</Form.Label>
-                  <Form.Control
-                    type='text'
-                    value={orderdetails?.customerId}
-                  />
+                  <Form.Control type='text' value={orderdetails?.customerId} />
                 </Form.Group>
 
                 <Form.Group as={Col} controlId='formOrderDate'>
@@ -132,7 +125,10 @@ export const DashboardOrderDetails = ({ user, userID }) => {
 
                 <Form.Group as={Col} controlId='formRoute'>
                   <Form.Label>Route</Form.Label>
-                  <Form.Control type='text' value={orderdetails?.shippingRoute} />
+                  <Form.Control
+                    type='text'
+                    value={orderdetails?.shippingRoute}
+                  />
                 </Form.Group>
 
                 <Form.Group as={Col} controlId='formStatus'>
@@ -148,7 +144,10 @@ export const DashboardOrderDetails = ({ user, userID }) => {
 
                 <Form.Group as={Col} controlId='formTierLevel'>
                   <Form.Label>Invoice #</Form.Label>
-                  <Form.Control type='text' value={orderdetails?.invoiceNumber} />
+                  <Form.Control
+                    type='text'
+                    value={orderdetails?.invoiceNumber}
+                  />
                 </Form.Group>
 
                 <Form.Group as={Col} controlId='formTotalAmount'>

@@ -1,7 +1,7 @@
 export const createCustomerDto = (customer) => {
   return {
     name: customer.fullName,
-    phone: customer.phoneNumber,
+    phone: customer.phone,
     email: customer.email,
     tierLevel: customer.tierLevel,
     company: customer.company,
@@ -9,6 +9,6 @@ export const createCustomerDto = (customer) => {
     address2: customer.address2,
     city: customer.city,
     state: customer.state,
-    zipCode: customer.zipCode
+    zipCode: parseInt(customer.zipCode),
   };
 };

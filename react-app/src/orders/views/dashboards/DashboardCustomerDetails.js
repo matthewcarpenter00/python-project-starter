@@ -28,7 +28,7 @@ export const DashboardCustomerDetails = ({ user, userId }) => {
 
   const fetchCustomer = async (customerEmail) => {
     const response = await fetch(
-      `https://stepsolution-api.herokuapp.com/customers/${customerEmail}`
+      `${process.env.REACT_APP_API_URL}/customers/${customerEmail}`
     );
 
     if (response.ok) {
@@ -91,19 +91,23 @@ export const DashboardCustomerDetails = ({ user, userId }) => {
                   <Form.Label>Customer ID</Form.Label>
                   <Form.Control type='text' readOnly value={customer?.id} />
                 </Form.Group>
-              
 
-             
                 <Form.Group as={Col} controlId='formCompany'>
                   <Form.Label>Company</Form.Label>
-                  <Form.Control  type='text' readOnly value={customer?.company} />
+                  <Form.Control
+                    type='text'
+                    readOnly
+                    value={customer?.company}
+                  />
                 </Form.Group>
-             
 
-              
                 <Form.Group as={Col} controlId='formTierLevel'>
                   <Form.Label>Tier Level</Form.Label>
-                  <Form.Control type='text' readOnly value={customer?.tierLevel} />
+                  <Form.Control
+                    type='text'
+                    readOnly
+                    value={customer?.tierLevel}
+                  />
                 </Form.Group>
               </Row>
 
@@ -112,74 +116,45 @@ export const DashboardCustomerDetails = ({ user, userId }) => {
                   <Form.Label>Contact Name</Form.Label>
                   <Form.Control type='text' readOnly value={customer?.name} />
                 </Form.Group>
-              
 
-              
                 <Form.Group as={Col} controlId='formTelephone'>
                   <Form.Label>Telephone</Form.Label>
-                  <Form.Control
-                    type='text'
-                    readOnly
-                    value={customer?.phone}
-                  />
+                  <Form.Control type='text' readOnly value={customer?.phone} />
                 </Form.Group>
-              
-                <Form.Group as={Col} controlId='formEmail' >
+
+                <Form.Group as={Col} controlId='formEmail'>
                   <Form.Label>E-mail</Form.Label>
-                  <Form.Control
-                    readOnly
-                    type='email'
-                    value={customer?.email}
-                  />
+                  <Form.Control readOnly type='email' value={customer?.email} />
                 </Form.Group>
               </Row>
               <Form.Group className='mb-3' controlId='formGridAddress1'>
                 <Form.Label>Address</Form.Label>
-                <Form.Control
-                  readOnly
-                  type='text'
-                  value={customer?.address}
-                />
+                <Form.Control readOnly type='text' value={customer?.address} />
               </Form.Group>
 
               <Form.Group className='mb-3' controlId='formGridAddress2'>
                 <Form.Label>Address 2</Form.Label>
-                <Form.Control
-                  readOnly
-                  type='text'
-                  value={customer?.address2}
-                />
+                <Form.Control readOnly type='text' value={customer?.address2} />
               </Form.Group>
 
               <Row className='mb-5'>
-                <Form.Group
-                  as={Col}
-                  controlId='formGridCity'
-                >
+                <Form.Group as={Col} controlId='formGridCity'>
                   <Form.Label>City</Form.Label>
-                  <Form.Control
-                    readOnly
-                    type='text'
-                    value={customer?.city} />
+                  <Form.Control readOnly type='text' value={customer?.city} />
                 </Form.Group>
 
                 <Form.Group as={Col} controlId='formGridState'>
                   <Form.Label>State</Form.Label>
-                  <Form.Control
-                    readOnly
-                    type='text'
-                    value={customer?.state} />
+                  <Form.Control readOnly type='text' value={customer?.state} />
                 </Form.Group>
 
-                <Form.Group
-                  as={Col}
-                  controlId='formGridZip'
-                >
+                <Form.Group as={Col} controlId='formGridZip'>
                   <Form.Label>Zip</Form.Label>
                   <Form.Control
                     readOnly
                     type='text'
-                    value={customer?.zipCode} />
+                    value={customer?.zipCode}
+                  />
                 </Form.Group>
               </Row>
 

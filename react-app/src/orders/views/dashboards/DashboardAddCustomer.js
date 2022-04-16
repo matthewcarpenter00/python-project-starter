@@ -27,23 +27,15 @@ export const DashboardAddCustomer = ({ user, userId }) => {
   const [state, setState] = useState(null);
 
   // data
-  const {
-   name,
-   phone,
-   email,
-   company,
-   address,
-   address2,
-   city,
-   zipCode
-  } = formValues;
+  const { name, phone, email, company, address, address2, city, zipCode } =
+    formValues;
 
   const tierLevels = [
     { value: "1", label: "A" },
     { value: "2", label: "B" },
     { value: "3", label: "C" },
-	  { value: "3", label: "D" },
-	  { value: "3", label: "E" },
+    { value: "3", label: "D" },
+    { value: "3", label: "E" },
   ];
   const states = [
     { value: "FL", label: "FL" },
@@ -72,16 +64,13 @@ export const DashboardAddCustomer = ({ user, userId }) => {
   // async function to create customer
   const createCustomer = async (customer) => {
     const dto = createCustomerDto(customer);
-    const response = await fetch(
-      "https://stepsolution-api.herokuapp.com/customers",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(dto),
-      }
-    );
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/customers`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(dto),
+    });
 
     if (response.ok) {
       const data = await response.json();
@@ -132,7 +121,7 @@ export const DashboardAddCustomer = ({ user, userId }) => {
               <Row className='mb-3'>
                 <Form.Group as={Col} controlId='formOrderID'>
                   <Form.Label>Customer ID</Form.Label>
-				  {/* como hacemos aqui para mostrar el proximo id disponible para el nuevo customer */}
+                  {/* como hacemos aqui para mostrar el proximo id disponible para el nuevo customer */}
                   <Form.Control plaintext readOnly defaultValue='001' />
                 </Form.Group>
               </Row>
