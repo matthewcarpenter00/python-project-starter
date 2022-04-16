@@ -22,6 +22,7 @@ export const DashboardOrders = ({ user, userId }) => {
   // const [key, setKey] = useState("home");
   
   const [orders, setOrders] = useState([]);
+  const [orderId, setOrderId] = useState("");
   
   const [data, setData] = useState([]);
   useEffect(() => {
@@ -95,6 +96,13 @@ export const DashboardOrders = ({ user, userId }) => {
     },
   ];
 
+  const rowEvents = {
+    onClick: (e, { id: orderId }, rowIndex) => {
+      setOrderId(orderId);
+      history.push(`/profile/user/${orderId}/orderdetails/`);
+    },
+  };
+
   return (
     <>
       <div className='w-100 d-flex p-4'>
@@ -145,6 +153,7 @@ export const DashboardOrders = ({ user, userId }) => {
              
 								<BootstrapTable 
 									keyField="id"
+                  rowEvents={rowEvents}
 									data={data}
 									columns={columns}
 									striped
