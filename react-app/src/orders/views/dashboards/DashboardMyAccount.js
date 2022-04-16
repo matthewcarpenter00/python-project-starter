@@ -53,7 +53,7 @@ export const DashboardMyAccount = ({ user, userId }) => {
                   <Form.Label>E-mail</Form.Label>
                   <Form.Control
                     type='email'
-                    placeholder='joel@stepsolutionusa.com'
+                    placeholder='admin@stepsolutionusa.com'
                   />
                 </Form.Group>
               </Row>

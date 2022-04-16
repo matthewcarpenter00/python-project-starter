@@ -66,12 +66,12 @@ export const DashboardOrderDetails = ({ user, userID }) => {
           <div className='dashboard-page'>
             {/* Dashboard title area */}
             <Container>
-              <Row>
+              <Row className="mb-3">
+                <Col>
                 <h2>
-                  Order<strong> {orderdetails?.id}</strong>
+                  Order #<strong> {orderdetails?.id}</strong>
                 </h2>
-              </Row>
-              <Row>
+                </Col>
                 <Col md='auto'>
                   <Button
                     onClick={() => {
@@ -96,7 +96,7 @@ export const DashboardOrderDetails = ({ user, userID }) => {
                   </Button>
                 </Col>
                 <Col md='auto'>
-                  <Button href='/' variant='dark' className='mb-3'>
+                  <Button inactive variant='secondary' className='mb-3'>
                     generate invoice
                   </Button>
                 </Col>
@@ -143,14 +143,7 @@ export const DashboardOrderDetails = ({ user, userID }) => {
               <Row className='mb-3'>
                 <Form.Group as={Col} controlId='formTierLevel'>
                   <Form.Label>Tier Level</Form.Label>
-                  <Form.Select aria-label='SelectRoute'>
-                    <option>Select</option>
-                    <option value='1'>A</option>
-                    <option value='2'>B</option>
-                    <option value='3'>C</option>
-                    <option value='1'>D</option>
-                    <option value='2'>E</option>
-                  </Form.Select>
+                  <Form.Control type='text' value={orderdetails?.tierLevel} />
                 </Form.Group>
 
                 <Form.Group as={Col} controlId='formTierLevel'>

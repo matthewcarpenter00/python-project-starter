@@ -82,7 +82,7 @@ export const DashboardOrders = ({ user, userId }) => {
       sort: true,
     },
     {
-      dataField: "route",
+      dataField: "shippingRoute",
       text: "Route",
       sort: true,
       // filter: selectFilter({

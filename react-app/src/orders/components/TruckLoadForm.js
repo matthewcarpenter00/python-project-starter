@@ -13,7 +13,7 @@ import axios from "axios";
 import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory from "react-bootstrap-table2-paginator";
 // import cellEditFactory, { Type } from "react-bootstrap-table2-editor";
-import filterFactory, { selectFilter } from "react-bootstrap-table2-filter";
+import filterFactory, { textFilter, selectFilter } from "react-bootstrap-table2-filter";
 
 
 export const TruckLoadForm = ({ user, userId }) => {
@@ -35,16 +35,16 @@ export const TruckLoadForm = ({ user, userId }) => {
   };  
 
   const selectOptions = {
-    0: "south",
-    1: "north",
-    2: "orlando",
-    3: "pickup",
+    south: "south",
+    north: "north",
+    orlando: "orlando",
+    pickup: "pickup",
   };
 
   const statusOptions = {
-    0: "ready",
-    1: "in production",
-    2: "completed",
+    ready: "ready",
+    production: "in production",
+    completed: "completed",
   }
 
   const columns = [
@@ -64,7 +64,7 @@ export const TruckLoadForm = ({ user, userId }) => {
       sort: true,
     },
     {
-      dataField: "route",
+      dataField: "shippingRoute",
       text: "Route",
       sort: true,
       filter: selectFilter({
