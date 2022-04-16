@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { NavLink, useParams } from "react-router-dom";
 
 import Container from "react-bootstrap/Container";
@@ -9,18 +9,55 @@ import Form from "react-bootstrap/Form";
 import { useState } from "react";
 // import Modal from 'react-bootstrap/Modal';
 import { useHistory } from "react-router";
+import emailjs from '@emailjs/browser';
 
-export const DashboardOrderDetails = () => {
+// redux and custom hook imports
+import { useForm } from "../../../hooks/useForm";
+import { useDispatch, useSelector } from "react-redux";
+import { setOrderDetails } from "../../../store/orders";
+import { createOrderDto } from "../../../adapters/orderAdapter";
+
+export const DashboardOrderDetails = ({ user, userID }) => {
   const params = useParams();
   const history = useHistory();
-  // const { store, actions } = useContext(Context);
-  let { id } = useParams();
+  let { id: orderId } = useParams();
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const [fullscreen, setFullscreen] = useState(true);
+  // trying to format date
+  // let createdAt = let date = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(createAt);
+  
+  
+  // hooks and redux
+   const dispatch = useDispatch();
+   const [validated, setValidated] = useState(false);
+   const [orderdetails, setOrderDetails] = useState(null);
+
+
+   const fetchOrder = async (orderId) => {
+    const response = await fetch(
+      `https://stepsolution-api.herokuapp.com/orders/${orderId}`
+    );
+
+    if (response.ok) {
+      const orderdetails = await response.json();
+      setOrderDetails(orderdetails);
+    } else if (response.status < 500) {
+      const data = await response.json();
+      if (data.errors) {
+        return data.errors;
+      }
+    } else {
+      return ["An error occurred. Please try again."];
+    }
+  };
+
+  useEffect(() => {
+    fetchOrder(orderId);
+  }, []);
+
 
   return (
     <>
@@ -31,7 +68,7 @@ export const DashboardOrderDetails = () => {
             <Container>
               <Row>
                 <h2>
-                  Order<strong> #001</strong>
+                  Order<strong> {orderdetails?.id}</strong>
                 </h2>
               </Row>
               <Row>
@@ -45,55 +82,7 @@ export const DashboardOrderDetails = () => {
                   >
                     print production label
                   </Button>
-                  {/* <Modal show={show} onHide={handleClose} >
-
-										<Modal.Header closeButton >
-										<Modal.Title>Production Label</Modal.Title>
-										</Modal.Header>
-										<Modal.Body>
-											<Row className="mb-3">
-												<Col>Order ID</Col>
-												<Col>001</Col>
-											</Row>
-											<hr />
-											<Row className="mb-3">
-												<Col>Customer</Col>
-												<Col>JDA Flooring</Col>
-											</Row>
-											<hr />
-											<Row className="mb-3">
-												<Col>Product 1</Col>
-												<Col>Vinyl Stairnose Deco</Col>
-											</Row>
-											<hr />
-											<Row className="mb-3">
-												<Col>Quantity</Col>
-												<Col>14</Col>
-											</Row>
-											<hr />
-											<Row className="mb-3">
-												<Col>Route</Col>
-												<Col>South</Col>
-											</Row>
-											<hr />
-											<Row className="mb-3">
-												<Col>Date</Col>
-												<Col>04/01/22</Col>
-											</Row>
-											<hr />
-											<Row className="mb-3">
-												<Col>Notes</Col>
-												<Col>2 inch thick</Col>
-											</Row>
-											<hr />
-										</Modal.Body>
-										<Modal.Footer>
-										<Button variant="dark" onClick={handleClose}>
-											Print
-										</Button>
-										</Modal.Footer>
-									
-									</Modal> */}
+                
                 </Col>
                 <Col md='auto'>
                   <Button 
@@ -119,47 +108,36 @@ export const DashboardOrderDetails = () => {
               <Row className='mb-3'>
                 <Form.Group as={Col} controlId='formOrderID'>
                   <Form.Label>Order ID</Form.Label>
-                  <Form.Control plaintext readOnly defaultValue='001' />
+                  <Form.Control type='text' value={orderdetails?.id} />
                 </Form.Group>
 
                 <Form.Group as={Col} controlId='formCustomer'>
                   <Form.Label>Customer</Form.Label>
                   <Form.Control
-                    plaintext
-                    readOnly
-                    defaultValue='JDA Flooring'
+                    type='text'
+                    value={orderdetails?.customerId}
                   />
                 </Form.Group>
 
                 <Form.Group as={Col} controlId='formOrderDate'>
                   <Form.Label>Date Placed</Form.Label>
-                  <Form.Control plaintext readOnly defaultValue='04/01/22' />
+                  <Form.Control type='text' value={orderdetails?.createdAt} />
                 </Form.Group>
               </Row>
               <Row className='mb-3'>
                 <Form.Group as={Col} controlId='formJobName'>
                   <Form.Label>PO/Job Name</Form.Label>
-                  <Form.Control plaintext readOnly defaultValue='12 grey' />
+                  <Form.Control type='text' value={orderdetails?.poName} />
                 </Form.Group>
 
                 <Form.Group as={Col} controlId='formRoute'>
                   <Form.Label>Route</Form.Label>
-                  <Form.Select aria-label='SelectRoute'>
-                    <option>Select</option>
-                    <option value='1'>North</option>
-                    <option value='2'>South</option>
-                    <option value='3'>Orlando</option>
-                  </Form.Select>
+                  <Form.Control type='text' value={orderdetails?.shippingRoute} />
                 </Form.Group>
 
                 <Form.Group as={Col} controlId='formStatus'>
                   <Form.Label>Status</Form.Label>
-                  <Form.Select aria-label='SelectRoute'>
-                    <option>Select</option>
-                    <option value='1'>In Production</option>
-                    <option value='2'>Ready</option>
-                    <option value='3'>Completed</option>
-                  </Form.Select>
+                  <Form.Control type='text' value={orderdetails?.orderStatus} />
                 </Form.Group>
               </Row>
               <Row className='mb-3'>
@@ -177,12 +155,12 @@ export const DashboardOrderDetails = () => {
 
                 <Form.Group as={Col} controlId='formTierLevel'>
                   <Form.Label>Invoice #</Form.Label>
-                  <Form.Control type='text' placeholder='00125' />
+                  <Form.Control type='text' value={orderdetails?.invoiceNumber} />
                 </Form.Group>
 
-                <Form.Group as={Col} controlId='formCustomer'>
+                <Form.Group as={Col} controlId='formTotalAmount'>
                   <Form.Label>Amount</Form.Label>
-                  <Form.Control type='currency' placeholder='$290' />
+                  <Form.Control type='text' value={orderdetails?.totalAmount} />
                 </Form.Group>
               </Row>
               <Row>

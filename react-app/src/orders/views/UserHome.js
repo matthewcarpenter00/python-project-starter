@@ -13,6 +13,7 @@ import { DashboardOrderDetails } from "./dashboards/DashboardOrderDetails";
 import { DashboardNewOrder } from "./dashboards/DashboardNewOrder";
 import { DashboardCustomerDetails } from "./dashboards/DashboardCustomerDetails";
 import { DashboardAddCustomer } from "./dashboards/DashboardAddCustomer";
+import { TruckLoadForm } from "../components/TruckLoadForm";
 
 export const UserHome = (props) => {
   const params = useParams();
@@ -39,6 +40,8 @@ export const UserHome = (props) => {
       return <DashboardCustomerDetails />;
     } else if (profile == "addcustomer") {
       return <DashboardAddCustomer />;
+    } else if (profile == "truckloadform") {
+      return <TruckLoadForm />;
     } else {
       return <DashboardOrders />;
     }

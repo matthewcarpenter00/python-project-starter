@@ -37,45 +37,37 @@ export const DashboardCustomers = ({ user, userId }) => {
     });
   };
 
-  //   const lineFormatter = (data, row) => {
-  //     return (
-  //       <span
-  //         onClick={() => {
-  //           history.push(`/profile/user/${customerEmail}/customerdetails/`);
-  //         }}
-  //       >
-  //         {data}
-  //       </span>
-  //     );
-  //   };
+
 
   const columns = [
+    {
+      dataField: "company",
+      text: "Company",
+      sort: true,
+      editable: false,
+    },
     {
       dataField: "name",
       text: "Name",
       sort: true,
       editable: false,
-      //   formatter: lineFormatter,
     },
     {
       dataField: "email",
       text: "Email",
       sort: true,
-      //   formatter: lineFormatter,
     },
     {
       dataField: "phone",
       text: "Phone",
       sort: true,
       editable: false,
-      //   formatter: lineFormatter,
     },
     {
       dataField: "tierLevel",
       text: "Tier",
       sort: true,
       editable: false,
-      //   formatter: lineFormatter,
     },
   ];
 
@@ -88,8 +80,8 @@ export const DashboardCustomers = ({ user, userId }) => {
 
   return (
     <>
-      <div className='d-flex p-4'>
-        <div className='h-100 p-2 rounded-3'>
+      <div className='w-100 d-flex p-4'>
+        <div className='w-100 h-100 p-2 rounded-3'>
           <div className='dashboard-page'>
             {/* title section */}
             <Container>
@@ -116,9 +108,10 @@ export const DashboardCustomers = ({ user, userId }) => {
 
             {/* Dashboard content */}
 
-            <div className='container'>
+            <Container>
               <div className='h-100 p-5 bg-light border rounded-3'>
                 <BootstrapTable
+				  
                   keyField='id'
                   rowEvents={rowEvents}
                   data={data}
@@ -130,7 +123,7 @@ export const DashboardCustomers = ({ user, userId }) => {
                   // filter={filterFactory()}
                 />
               </div>
-            </div>
+            </Container>
           </div>
         </div>
       </div>
