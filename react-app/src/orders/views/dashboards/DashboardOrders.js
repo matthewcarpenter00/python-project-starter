@@ -20,20 +20,20 @@ export const DashboardOrders = ({ user, userId }) => {
   const history = useHistory();
   let { id } = useParams();
   // const [key, setKey] = useState("home");
-  
+
   const [orders, setOrders] = useState([]);
   const [orderId, setOrderId] = useState("");
-  
+
   const [data, setData] = useState([]);
   useEffect(() => {
     getData();
   }, []);
   const getData = () => {
-    axios("https://stepsolution-api.herokuapp.com/orders").then((res) => {
+    axios(`${process.env.REACT_APP_API_URL}/orders`).then((res) => {
       console.log(res.data);
       setData(res.data);
     });
-  };  
+  };
 
   //fetch orders
   // useEffect(() => {
@@ -41,8 +41,6 @@ export const DashboardOrders = ({ user, userId }) => {
   //     .then((response) => response.json())
   //     .then((orders) => setOrders(orders));
   // });
-
-
 
   // filter routes
   const selectOptions = {
@@ -52,14 +50,11 @@ export const DashboardOrders = ({ user, userId }) => {
     3: "pickup",
   };
 
-
-
   const columns = [
     {
       dataField: "id",
       text: "ID",
       sort: true,
-      
     },
     {
       dataField: "createdAt",
@@ -111,13 +106,13 @@ export const DashboardOrders = ({ user, userId }) => {
             {/* title section */}
 
             <Container>
-              <Row >
-                <Col xs={8} >
+              <Row>
+                <Col xs={8}>
                   <h1>Orders</h1>
                 </Col>
-              
+
                 <Col>
-                <Button
+                  <Button
                     onClick={() => {
                       history.push(`/truckloadform`);
                     }}
@@ -126,8 +121,8 @@ export const DashboardOrders = ({ user, userId }) => {
                   >
                     truck load form
                   </Button>
-                  </Col>
-                  <Col>
+                </Col>
+                <Col>
                   <Button
                     onClick={() => {
                       history.push(`/profile/user/${userId}/neworder`);
@@ -138,7 +133,6 @@ export const DashboardOrders = ({ user, userId }) => {
                     + new order
                   </Button>
                 </Col>
-                
 
                 {/* <Col>
                   <Button variant='light'>Print View</Button>
@@ -150,21 +144,17 @@ export const DashboardOrders = ({ user, userId }) => {
 
             <Container>
               <div className='h-100 p-5 bg-light border rounded-3'>
-             
-								<BootstrapTable 
-									keyField="id"
+                <BootstrapTable
+                  keyField='id'
                   rowEvents={rowEvents}
-									data={data}
-									columns={columns}
-									striped
-									hover
-									condensed
-									pagination={paginationFactory()}
-									filter={filterFactory()}
-									>
-
-								</BootstrapTable>
-							
+                  data={data}
+                  columns={columns}
+                  striped
+                  hover
+                  condensed
+                  pagination={paginationFactory()}
+                  filter={filterFactory()}
+                ></BootstrapTable>
               </div>
             </Container>
           </div>

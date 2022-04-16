@@ -12,3 +12,10 @@ export const createCustomerDto = (customer) => {
     zipCode: parseInt(customer.zipCode),
   };
 };
+
+export const customerSelectOptions = (customers) => {
+  return customers.map((customer) => ({
+    value: customer,
+    label: customer.name,
+  }));
+};

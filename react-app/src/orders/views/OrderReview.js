@@ -18,7 +18,7 @@ export const OrderReview = () => {
     const dto = createOrderItemDto(orderCart);
     dto.forEach(async (orderItem) => {
       const response = await fetch(
-        "https://stepsolution-api.herokuapp.com/order-items",
+        `${process.env.REACT_APP_API_URL}/order-items`,
         {
           method: "POST",
           headers: {
@@ -43,16 +43,13 @@ export const OrderReview = () => {
   };
   const addOrderToDb = async (orderDetails) => {
     const dto = createOrderDto(orderDetails);
-    const response = await fetch(
-      "https://stepsolution-api.herokuapp.com/orders",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(dto),
-      }
-    );
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/orders`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(dto),
+    });
 
     if (response.ok) {
       const data = await response.json();
@@ -69,16 +66,13 @@ export const OrderReview = () => {
 
   const addCustomerToDb = async (customer) => {
     const dto = createCustomerDto(customer);
-    const response = await fetch(
-      "https://stepsolution-api.herokuapp.com/customers",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(dto),
-      }
-    );
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/customers`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(dto),
+    });
 
     if (response.ok) {
       const data = await response.json();

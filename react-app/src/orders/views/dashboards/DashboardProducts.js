@@ -15,39 +15,36 @@ import paginationFactory from "react-bootstrap-table2-paginator";
 // import cellEditFactory, { Type } from "react-bootstrap-table2-editor";
 import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
 
-
 export const DashboardProducts = ({ user, userId }) => {
   const params = useParams();
   const history = useHistory();
 
   let { id } = useParams;
   const [products, setProducts] = useState([]);
-  
 
-	// fetch products
-	// useEffect(() => {
-	// 	fetch("https://stepsolution-api.herokuapp.com/products")
-	// 	.then((response) => response.json())
-	// 	.then((products) => setProducts(products));
-	// });
+  // fetch products
+  // useEffect(() => {
+  // 	fetch("https://stepsolution-api.herokuapp.com/products")
+  // 	.then((response) => response.json())
+  // 	.then((products) => setProducts(products));
+  // });
 
   const [data, setData] = useState([]);
   useEffect(() => {
     getData();
   }, []);
   const getData = () => {
-    axios("https://stepsolution-api.herokuapp.com/products").then((res) => {
+    axios(`${process.env.REACT_APP_API_URL}/products`).then((res) => {
       console.log(res.data);
       setData(res.data);
     });
-  };  
+  };
 
   const columns = [
     {
       dataField: "id",
       text: "ID",
       sort: true,
-      
     },
     {
       dataField: "name",
@@ -75,8 +72,6 @@ export const DashboardProducts = ({ user, userId }) => {
     //   sort: true,
     // },
   ];
-
-
 
   return (
     <>
@@ -107,23 +102,20 @@ export const DashboardProducts = ({ user, userId }) => {
             {/* Dashboard content */}
 
             <div className='container'>
-              
-                <Container>
-                  <div className='h-100 p-5 bg-light border rounded-3'>
-                    <BootstrapTable
-              
-                      keyField='id'
-                      data={data}
-                      columns={columns}
-                      striped
-                      hover
-                      condensed
-                      pagination={paginationFactory()}
-                      // filter={filterFactory()}
-                    />
-                  </div>
-                </Container>
-              
+              <Container>
+                <div className='h-100 p-5 bg-light border rounded-3'>
+                  <BootstrapTable
+                    keyField='id'
+                    data={data}
+                    columns={columns}
+                    striped
+                    hover
+                    condensed
+                    pagination={paginationFactory()}
+                    // filter={filterFactory()}
+                  />
+                </div>
+              </Container>
             </div>
           </div>
         </div>

@@ -3,7 +3,7 @@ name: Deploy
 on:
   push:
     branches:
-      - develop
+      - fix
 
 jobs:
   build:
@@ -14,5 +14,5 @@ jobs:
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: lit-journey-17658
-          heroku_email: alexsoncoelho21@hotmail.com
+          heroku_email: partnerships@firstlight.media
           usedocker: true
