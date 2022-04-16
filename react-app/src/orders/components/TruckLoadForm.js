@@ -101,9 +101,7 @@ export const TruckLoadForm = ({ user, userId }) => {
                 </Col>
                 
                 <Col>
-
                   <h1 className="text-end align-text-bottom"><strong>Truck</strong>Load</h1>
-
                 </Col>
 
                 {/* <Col>

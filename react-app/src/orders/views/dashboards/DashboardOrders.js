@@ -106,11 +106,8 @@ export const DashboardOrders = ({ user, userId }) => {
             {/* title section */}
 
             <Container>
-
               <Row >
                 <Col xs={7} >
-
-
                   <h1>Orders</h1>
                 </Col>
 
