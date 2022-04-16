@@ -36,7 +36,7 @@ export const DashboardOrderDetails = ({ user, userID }) => {
 
   const fetchOrder = async (orderId) => {
     const response = await fetch(
-      `https://stepsolution-api.herokuapp.com/orders/${orderId}`
+      `${process.env.REACT_APP_API_URL}/orders/${orderId}`
     );
 
     if (response.ok) {
@@ -63,11 +63,11 @@ export const DashboardOrderDetails = ({ user, userID }) => {
           <div className='dashboard-page'>
             {/* Dashboard title area */}
             <Container>
-              <Row className="mb-3">
+              <Row className='mb-3'>
                 <Col>
-                <h2>
-                  Order #<strong> {orderdetails?.id}</strong>
-                </h2>
+                  <h2>
+                    Order #<strong> {orderdetails?.id}</strong>
+                  </h2>
                 </Col>
                 <Col md='auto'>
                   <Button
@@ -109,7 +109,10 @@ export const DashboardOrderDetails = ({ user, userID }) => {
 
                 <Form.Group as={Col} controlId='formCustomer'>
                   <Form.Label>Customer</Form.Label>
-                  <Form.Control type='text' value={orderdetails?.customerId} />
+                  <Form.Control
+                    type='text'
+                    value={orderdetails?.customer.company}
+                  />
                 </Form.Group>
 
                 <Form.Group as={Col} controlId='formOrderDate'>
@@ -139,7 +142,10 @@ export const DashboardOrderDetails = ({ user, userID }) => {
               <Row className='mb-3'>
                 <Form.Group as={Col} controlId='formTierLevel'>
                   <Form.Label>Tier Level</Form.Label>
-                  <Form.Control type='text' value={orderdetails?.tierLevel} />
+                  <Form.Control
+                    type='text'
+                    value={orderdetails?.customer.tierLevel}
+                  />
                 </Form.Group>
 
                 <Form.Group as={Col} controlId='formTierLevel'>

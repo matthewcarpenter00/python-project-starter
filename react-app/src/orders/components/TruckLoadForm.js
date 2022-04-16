@@ -13,26 +13,27 @@ import axios from "axios";
 import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory from "react-bootstrap-table2-paginator";
 // import cellEditFactory, { Type } from "react-bootstrap-table2-editor";
-import filterFactory, { textFilter, selectFilter } from "react-bootstrap-table2-filter";
-
+import filterFactory, {
+  textFilter,
+  selectFilter,
+} from "react-bootstrap-table2-filter";
 
 export const TruckLoadForm = ({ user, userId }) => {
-
   const params = useParams();
   const history = useHistory();
   let { id } = useParams();
   const [orders, setOrders] = useState([]);
-  
+
   const [data, setData] = useState([]);
   useEffect(() => {
     getData();
   }, []);
   const getData = () => {
-    axios("https://stepsolution-api.herokuapp.com/orders").then((res) => {
+    axios(`${process.env.REACT_APP_API_URL}/orders`).then((res) => {
       console.log(res.data);
       setData(res.data);
     });
-  };  
+  };
 
   const selectOptions = {
     south: "south",
@@ -45,7 +46,7 @@ export const TruckLoadForm = ({ user, userId }) => {
     ready: "ready",
     production: "in production",
     completed: "completed",
-  }
+  };
 
   const columns = [
     {
@@ -68,21 +69,20 @@ export const TruckLoadForm = ({ user, userId }) => {
       text: "Route",
       sort: true,
       filter: selectFilter({
-        options: selectOptions
-      })
+        options: selectOptions,
+      }),
     },
     {
       dataField: "orderStatus",
       text: "Status",
       sort: true,
       filter: selectFilter({
-        options: statusOptions
-      })
+        options: statusOptions,
+      }),
     },
   ];
 
   return (
-    
     <>
       <div className='w-100 d-flex p-4'>
         <div className='w-100 h-100 p-2 rounded-3'>
@@ -101,7 +101,9 @@ export const TruckLoadForm = ({ user, userId }) => {
                 </Col>
                 
                 <Col>
+
                   <h1 className="text-end align-text-bottom"><strong>Truck</strong>Load</h1>
+
                 </Col>
 
                 {/* <Col>
@@ -114,20 +116,16 @@ export const TruckLoadForm = ({ user, userId }) => {
 
             <Container>
               <div className='h-100 p-5 bg-light border rounded-3'>
-             
-								<BootstrapTable 
-									keyField="id"
-									data={data}
-									columns={columns}
-									striped
-									hover
-									condensed
-									pagination={paginationFactory()}
-									filter={filterFactory()}
-									>
-
-								</BootstrapTable>
-							
+                <BootstrapTable
+                  keyField='id'
+                  data={data}
+                  columns={columns}
+                  striped
+                  hover
+                  condensed
+                  pagination={paginationFactory()}
+                  filter={filterFactory()}
+                ></BootstrapTable>
               </div>
             </Container>
           
@@ -145,10 +143,8 @@ export const TruckLoadForm = ({ user, userId }) => {
            
       </div>
     </>
-
   );
 };
-
 
 TruckLoadForm.propTypes = {
   user: PropTypes.object,
