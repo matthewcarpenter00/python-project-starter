@@ -92,7 +92,7 @@ export const DashboardOrderDetails = ({ user, userID }) => {
                   </Button>
                 </Col>
                 <Col md='auto'>
-                  <Button inactive variant='secondary' className='mb-3'>
+                  <Button disabled variant='secondary' className='mb-3'>
                     generate invoice
                   </Button>
                 </Col>

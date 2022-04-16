@@ -164,11 +164,11 @@ export const DashboardCustomerDetails = ({ user, userId }) => {
                     Delete Customer
                   </Button>
                 </Col>
-                {/* <Col>
-                  <Button variant='success' type='submit'>
+                <Col>
+                  <Button disabled variant='dark' type='submit'>
                     Update Customer
                   </Button>
-                </Col> */}
+                </Col>
               </Row>
             </Form>
           </div>

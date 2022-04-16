@@ -112,7 +112,7 @@ export const DashboardOrders = ({ user, userId }) => {
 
             <Container>
               <Row >
-                <Col xs={8} >
+                <Col xs={7} >
                   <h1>Orders</h1>
                 </Col>
               
