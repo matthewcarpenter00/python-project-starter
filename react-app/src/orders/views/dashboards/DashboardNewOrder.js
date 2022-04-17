@@ -26,6 +26,40 @@ export const DashboardNewOrder = () => {
   const [customer, setCustomer] = useState([]);
   const [products, setProducts] = useState([]);
   const [product, setProduct] = useState([]);
+  const [orderProducts, setOrderProducts] = useState([
+    {
+      id: 1,
+      createdAt: "2022-04-16T18:36:20.778Z",
+      updatedAt: "2022-04-16T18:36:20.778Z",
+      sku: "dfvdfb",
+      name: "test product 2",
+      price: 10,
+      imageUrl: "http://yahoo.com",
+      description: "this is a description",
+      tierLevel: "2",
+      type: "SERVICE",
+      quantity: 2,
+      notes: "note",
+    },
+    {
+      id: 2,
+      createdAt: "2022-04-16T20:20:27.988Z",
+      updatedAt: "2022-04-16T20:20:27.989Z",
+      sku: "dfvdfb",
+      name: "test product 2",
+      price: 10,
+      imageUrl: "http://yahoo.com",
+      description: "this is a description",
+      tierLevel: "2",
+      type: "SERVICE",
+      quantity: 2,
+      notes: "note",
+    },
+  ]);
+  const [quantity, setQuantity] = useState("");
+  const [price, setPrice] = useState("");
+  const [notes, setNotes] = useState("");
+
   useEffect(() => {
     getCustomers();
   }, []);
@@ -34,19 +68,52 @@ export const DashboardNewOrder = () => {
   }, []);
   const getCustomers = () => {
     axios(`${process.env.REACT_APP_API_URL}/customers`).then((res) => {
-      console.log(res.data);
       const customerOptions = customerSelectOptions(res.data);
-      console.log("customer options", customerOptions);
       setCustomers(customerOptions);
     });
   };
   const getProducts = () => {
     axios(`${process.env.REACT_APP_API_URL}/products`).then((res) => {
-      console.log(res.data);
       const productOptions = productSelectOptions(res.data);
-      console.log("customer options", productOptions);
       setProducts(productOptions);
     });
+  };
+
+  useEffect(() => {
+    setPrice(product.value?.price);
+  }, [product]);
+
+  const handleKeyPress = (event) => {
+    if (event.key === "Enter") {
+      setOrderProducts([
+        ...orderProducts,
+        {
+          id: event.target.value,
+          name: product.label,
+          quantity,
+          price,
+          notes,
+        },
+      ]);
+      setQuantity("");
+      setPrice("");
+      setNotes("");
+      setProduct([]);
+    }
+  };
+
+  const [totalOrderAmount, setTotalOrderAmount] = useState(0);
+  useEffect(() => {
+    const currentTotalOrderPrice = calculateOrderTotalPrice(orderProducts);
+    setTotalOrderAmount(currentTotalOrderPrice);
+  }, [orderProducts]);
+
+  const calculateOrderTotalPrice = (orderProducts) => {
+    let totalPrice = orderProducts.reduce((acc, cur) => {
+      return acc + cur.price * cur.quantity;
+    }, 0);
+
+    return totalPrice;
   };
 
   return (
@@ -62,7 +129,10 @@ export const DashboardNewOrder = () => {
             </Container>
 
             {/* Dashboard content */}
-            <Form className='h-100 p-5 border rounded-3'>
+            <Form
+              className='h-100 p-5 border rounded-3'
+              onKeyPress={handleKeyPress}
+            >
               <Row className='mb-3'>
                 <Form.Group as={Col} controlId='formOrderID'>
                   <Form.Label>Order ID</Form.Label>
@@ -131,7 +201,12 @@ export const DashboardNewOrder = () => {
 
                 <Form.Group as={Col} controlId='formCustomer'>
                   <Form.Label>Amount</Form.Label>
-                  <Form.Control type='currency' placeholder='$400' />
+                  <Form.Control
+                    type='currency'
+                    placeholder='$400'
+                    value={totalOrderAmount || ""}
+                    onChange={setTotalOrderAmount}
+                  />
                 </Form.Group>
               </Row>
               <Row>
@@ -143,9 +218,35 @@ export const DashboardNewOrder = () => {
                       <th scope='col'>Qty</th>
                       <th scope='col'>Price</th>
                       <th scope='col'>Notes</th>
+                      <th scope='col'></th>
                     </tr>
                   </thead>
                   <tbody>
+                    {orderProducts.map((product, index) => (
+                      <tr key={product.id}>
+                        <td>{index}</td>
+                        <td>{product.name}</td>
+                        <td>{product.quantity}</td>
+                        <td>{product.price}</td>
+                        <td>{product.notes}</td>
+                        <td>
+                          <Button
+                            onClick={() =>
+                              setOrderProducts(
+                                orderProducts.filter(
+                                  (orderProduct) =>
+                                    orderProduct.id !== product.id
+                                )
+                              )
+                            }
+                            variant='danger'
+                          >
+                            X
+                          </Button>
+                        </td>
+                      </tr>
+                    ))}
+
                     <tr>
                       <td>1</td>
                       <td>
@@ -156,28 +257,40 @@ export const DashboardNewOrder = () => {
                         />
                       </td>
                       <td>
-                        <Form.Control type='text' placeholder='qty' />
+                        <Form.Control
+                          type='text'
+                          placeholder='qty'
+                          value={quantity || ""}
+                          onChange={(e) => setQuantity(e.target.value)}
+                        />
                       </td>
                       <td>
-                        <Form.Control type='text' placeholder='$0' />
+                        <Form.Control
+                          type='text'
+                          placeholder='$0'
+                          value={price || ""}
+                          onChange={(e) => setPrice(e.target.value)}
+                        />
                       </td>
                       <td>
-                        <Form.Control type='text' placeholder='Notes' />
+                        <Form.Control
+                          type='text'
+                          placeholder='Notes'
+                          value={notes || ""}
+                          onChange={(e) => setNotes(e.target.value)}
+                        />
                       </td>
+                      <td></td>
                     </tr>
                   </tbody>
                 </Table>
               </Row>
               <Row>
                 <Col md='auto'>
-                  <Button variant='danger' type='submit'>
-                    Delete Order
-                  </Button>
+                  <Button variant='danger'>Delete Order</Button>
                 </Col>
                 <Col>
-                  <Button variant='success' type='submit'>
-                    Save Order
-                  </Button>
+                  <Button variant='success'>Save Order</Button>
                 </Col>
               </Row>
             </Form>
