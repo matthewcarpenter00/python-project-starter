@@ -18,11 +18,19 @@ import filterFactory, {
   selectFilter,
 } from "react-bootstrap-table2-filter";
 
+import { useReactToPrint } from 'react-to-print';
+import { useRef } from "react";
+
 export const TruckLoadForm = ({ user, userId }) => {
   const params = useParams();
   const history = useHistory();
   let { id } = useParams();
   const [orders, setOrders] = useState([]);
+
+  const componentRef = useRef();
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+  });
 
   const [data, setData] = useState([]);
   useEffect(() => {
@@ -86,7 +94,7 @@ export const TruckLoadForm = ({ user, userId }) => {
     <>
       <div className='w-100 d-flex p-4'>
         <div className='w-100 h-100 p-2 rounded-3'>
-          <div className='dashboard-page'>
+          <div className='dashboard-page' ref={componentRef}>
             <Container>
               <Row className="justify-content-between">
                 <Col>
@@ -131,7 +139,7 @@ export const TruckLoadForm = ({ user, userId }) => {
           <Container>
               <Col className="mt-4 text-center">
                 <Button
-                  onClick={()=>{window.print()}}
+                  onClick={handlePrint}
                   variant="dark" type='submit' className="printer-btn" >
                     print view
                 </Button>

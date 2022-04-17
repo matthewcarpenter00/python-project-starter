@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { NavLink, useParams } from "react-router-dom";
 
 import Container from "react-bootstrap/Container";
@@ -7,9 +7,11 @@ import Col from "react-bootstrap/Col";
 import { Button, Table } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import { useState } from "react";
-// import Modal from 'react-bootstrap/Modal';
+import Modal from 'react-bootstrap/Modal';
 import { useHistory } from "react-router";
 import emailjs from "@emailjs/browser";
+import { useReactToPrint } from 'react-to-print';
+
 
 // redux and custom hook imports
 import { useForm } from "../../../hooks/useForm";
@@ -25,6 +27,11 @@ export const DashboardOrderDetails = ({ user, userID }) => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const componentRef = useRef();
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+  });
 
   // trying to format date
   // let createdAt = let date = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(createAt);
@@ -56,6 +63,22 @@ export const DashboardOrderDetails = ({ user, userID }) => {
     fetchOrder(orderId);
   }, []);
 
+  const sendEmail = (e) => {
+    e.preventDefault();
+
+    var templateParams = {
+      customer: orderdetails?.customer.email,
+  };
+
+    emailjs.send('service_g2ht3pj', 'order-in-production', templateParams, 'kBf3wIb1lGnimy156')
+      .then((result) => {
+          console.log(result.text);
+      }, (error) => {
+          console.log(error.text);
+      });
+  };
+
+
   return (
     <>
       <div className='w-100 d-flex p-4'>
@@ -71,15 +94,64 @@ export const DashboardOrderDetails = ({ user, userID }) => {
                 </Col>
                 <Col md='auto'>
                   <Button
-                    onClick={() => {
-                      history.push(`/productionlabel`);
-                    }}
+                    onClick={handleShow}
                     variant='dark'
                     className='mb-3'
                   >
                     print production label
                   </Button>
                 </Col>
+              
+                <Modal  show={show} onHide={handleClose} >
+                  <div ref={componentRef}>
+                    <Modal.Header closeButton >
+                    <Modal.Title>Production Label</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                      <Row className="mb-3">
+                        <Col>Order ID</Col>
+                        <Col>{orderdetails?.id}</Col>
+                      </Row>
+                      <hr />
+                      <Row className="mb-3">
+                        <Col>Customer</Col>
+                        <Col>{orderdetails?.customer.company}</Col>
+                      </Row>
+                      <hr />
+                      <Row className="mb-3">
+                        <Col>Product 1</Col>
+                        <Col>Vinyl Stairnose Deco</Col>
+                      </Row>
+                      <hr />
+                      <Row className="mb-3">
+                        <Col>Quantity</Col>
+                        <Col>14</Col>
+                      </Row>
+                      <hr />
+                      <Row className="mb-3">
+                        <Col>Route</Col>
+                        <Col>{orderdetails?.shippingRoute}</Col>
+                      </Row>
+                      <hr />
+                      <Row className="mb-3">
+                        <Col>Date</Col>
+                        <Col>{orderdetails?.createdAt}</Col>
+                      </Row>
+                      <hr />
+                      <Row className="mb-3">
+                        <Col>Notes</Col>
+                        <Col>2 inch thick</Col>
+                      </Row>
+                      <hr />
+                    </Modal.Body>
+                    <Modal.Footer>
+                    <Button variant="dark" onClick={handlePrint} className="printer-btn">
+                      Print
+                    </Button>
+                    </Modal.Footer>
+                    </div>
+                  </Modal>
+
                 <Col md='auto'>
                   <Button
                     onClick={() => {
@@ -90,6 +162,15 @@ export const DashboardOrderDetails = ({ user, userID }) => {
                   >
                     print product label
                   </Button>
+                </Col>
+
+                <Col md='auto'>
+                  <Button
+                  onClick={sendEmail}
+                  variant='dark'
+                  className='mb-3'>
+                    Send Customer Status Update
+                    </Button>
                 </Col>
                 <Col md='auto'>
                   <Button disabled variant='secondary' className='mb-3'>
