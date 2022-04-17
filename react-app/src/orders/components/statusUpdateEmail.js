@@ -1,29 +1,44 @@
-import React from "react";
+import React, { useState, useRef } from "react";
 import emailjs from '@emailjs/browser';
+import { Button, Container, Form, Row } from "react-bootstrap";
 
-export const ContactUs = () => {
-    const form = useRef();
+export const StatusUpdateEmail = () => {
   
-    const sendInProductionEmail = (e) => {
-      e.preventDefault();
-  
-      emailjs.sendForm('gmail', 'order-in-production', form.current, 'YOUR_PUBLIC_KEY')
-        .then((result) => {
-            console.log(result.text);
-        }, (error) => {
-            console.log(error.text);
-        });
-    };
-  
-    return (
-      <form ref={form} onSubmit={sendEmail}>
-        <label>Name</label>
-        <input type="text" name="user_name" />
-        <label>Email</label>
-        <input type="email" name="user_email" />
-        <label>Message</label>
-        <textarea name="message" />
-        <input type="submit" value="Send" />
-      </form>
-    );
+
+  const sendEmail = (e) => {
+    e.preventDefault();
+
+    var templateParams = {
+      customer: 'Matthew@firstlight.media',
   };
+
+    emailjs.send('service_g2ht3pj', 'order-in-production', templateParams, 'kBf3wIb1lGnimy156')
+      .then((result) => {
+          console.log(result.text);
+      }, (error) => {
+          console.log(error.text);
+      });
+  };
+
+  return (
+    <Container>
+      
+        <Form onSubmit={sendEmail}>
+        
+          <label>Update Customer</label>
+      
+          
+          <input type="submit" value="Send Email" />
+        </Form>
+     
+        <Button 
+          onClick={sendEmail}
+          >
+            Email Customer Status Update
+          </Button>
+      
+    </Container>
+
+   
+  );
+};

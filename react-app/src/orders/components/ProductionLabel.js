@@ -1,15 +1,22 @@
 import React from "react";
-import { Button, Form, Row, Col } from "react-bootstrap"
+import { Button, Row, Col } from "react-bootstrap"
 
+import { useReactToPrint } from 'react-to-print';
+import { useRef } from "react";
 
 export const ProductionLabel = () => {
+
+  const componentRef = useRef();
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+  });
 
 
   return (
     
     <div className="mt-5 d-flex justify-content-center align-items-center">
-      <div  className="col-6 rounded  p-sm-3" closeButton>
-        <h1 className="mb-3 text-center">Production Label</h1>
+      <div  ref={componentRef} className="col-6 rounded  p-sm-3" >
+        <h1 className="mb-3 text-center"  >Production Label</h1>
             <Row className="mb-3">
               <Col>Order ID</Col>
               <Col className="fw-bold">001</Col>
@@ -48,7 +55,7 @@ export const ProductionLabel = () => {
               <Row className="m-5">
                
               <Button 
-                onClick={()=>{window.print()}}
+                onClick={handlePrint}
               variant="dark" type='submit' className="printer-btn" >
                 print
               </Button>

@@ -22,6 +22,7 @@ import { OrderReview } from "./orders/views/OrderReview";
 import { ProductionLabel } from "./orders/components/ProductionLabel";
 import { ProductLabel } from "./orders/components/ProductLabel";
 import { TruckLoadForm } from "./orders/components/TruckLoadForm";
+import { StatusUpdateEmail } from "./orders/components/StatusUpdateEmail";
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -44,7 +45,7 @@ function App() {
         <NavBar />
         <Switch>
           <Route exact path='/'>
-            <Redirect to='/profile/user' /> : <UserHome />
+            <Redirect to='/login' /> : <UserHome />
           </Route>
           <Route path='/login' exact={true}>
             <LoginForm />
@@ -93,6 +94,9 @@ function App() {
           </Route>
           <Route exact path='/truckloadform'>
             <TruckLoadForm />
+          </Route>
+          <Route exact path="/emailtest">
+            <StatusUpdateEmail />
           </Route>
         </Switch>
       </BrowserRouter>
