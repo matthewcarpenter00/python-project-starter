@@ -10,6 +10,8 @@ import Select from "react-select";
 import axios from "axios";
 import { customerSelectOptions } from "../../../adapters/customerAdapter";
 import { productSelectOptions } from "../../../adapters/productAdapter";
+import { createOrderDto } from "../../../adapters/orderAdapter";
+import { createOrderItemDto } from "../../../adapters/orderItemsAdapter";
 
 export const DashboardNewOrder = () => {
   const params = useParams();
@@ -26,13 +28,15 @@ export const DashboardNewOrder = () => {
   const [customer, setCustomer] = useState([]);
   const [products, setProducts] = useState([]);
   const [product, setProduct] = useState([]);
+  const [poName, setPoName] = useState("");
+  const [invoiceNumber, setInvoiceNumber] = useState("");
   const [orderProducts, setOrderProducts] = useState([
     {
       id: 1,
       createdAt: "2022-04-16T18:36:20.778Z",
       updatedAt: "2022-04-16T18:36:20.778Z",
       sku: "dfvdfb",
-      name: "test product 2",
+      name: "Product 1",
       price: 10,
       imageUrl: "http://yahoo.com",
       description: "this is a description",
@@ -46,7 +50,7 @@ export const DashboardNewOrder = () => {
       createdAt: "2022-04-16T20:20:27.988Z",
       updatedAt: "2022-04-16T20:20:27.989Z",
       sku: "dfvdfb",
-      name: "test product 2",
+      name: "Product 2",
       price: 10,
       imageUrl: "http://yahoo.com",
       description: "this is a description",
@@ -56,6 +60,22 @@ export const DashboardNewOrder = () => {
       notes: "note",
     },
   ]);
+
+  const [route, setRoute] = useState([]);
+  const routes = [
+    { value: "North", label: "North" },
+    { value: "South", label: "South" },
+    { value: "Pick Up", label: "Orlando" },
+    { value: "Pick Up", label: "North" },
+  ];
+
+  const [orderStatus, setOrderStatus] = useState([]);
+  const orderStatusOptions = [
+    { value: "In Production", label: "In Production" },
+    { value: "Ready", label: "Ready" },
+    { value: "Completed", label: "Completed" },
+  ];
+
   const [quantity, setQuantity] = useState("");
   const [price, setPrice] = useState("");
   const [notes, setNotes] = useState("");
@@ -116,6 +136,65 @@ export const DashboardNewOrder = () => {
     return totalPrice;
   };
 
+  const handleSubmit = async (order, orderItems) => {
+    const newOrder = await createOrder(order);
+    if (!newOrder.id) throw new Error("Order could not be created");
+    const orderItemsDto = createOrderItemDto(newOrder.id, orderItems);
+    for (let i = 0; i < orderItemsDto.length; i++) {
+      const newOrderItem = createOrderItem(orderItemsDto[i]);
+      if (!newOrderItem.id) break;
+    }
+  };
+
+  const createOrder = async (order) => {
+    const dto = createOrderDto(order);
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/orders`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(dto),
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      // call redux dispatch, it set customer also in store
+      return data;
+    } else if (response.status < 500) {
+      const data = await response.json();
+      if (data.errors) {
+        return data.errors;
+      }
+    } else {
+      return ["An error occurred. Please try again."];
+    }
+  };
+
+  const createOrderItem = async (orderItem) => {
+    const response = await fetch(
+      `${process.env.REACT_APP_API_URL}/order-items`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(orderItem),
+      }
+    );
+
+    if (response.ok) {
+      const data = await response.json();
+      return data;
+    } else if (response.status < 500) {
+      const data = await response.json();
+      if (data.errors) {
+        return data.errors;
+      }
+    } else {
+      return ["An error occurred. Please try again."];
+    }
+  };
+
   return (
     <>
       <div className='w-100 d-flex p-4'>
@@ -148,36 +227,38 @@ export const DashboardNewOrder = () => {
                   />
                 </Form.Group>
 
-                <Form.Group as={Col} controlId='formOrderDate'>
+                {/* <Form.Group as={Col} controlId='formOrderDate'>
                   <Form.Label>Date Placed</Form.Label>
                   <Form.Control type='date' placeholder='' />
-                </Form.Group>
+                </Form.Group> */}
               </Row>
               <Row className='mb-3'>
                 <Form.Group as={Col} controlId='formJobName'>
                   <Form.Label>PO/Job Name</Form.Label>
-                  <Form.Control type='text' placeholder='PO/Job Name' />
+                  <Form.Control
+                    type='text'
+                    placeholder='PO/Job Name'
+                    value={poName}
+                    onChange={(e) => setPoName(e.target.value)}
+                  />
                 </Form.Group>
 
                 <Form.Group as={Col} controlId='formRoute'>
                   <Form.Label>Route</Form.Label>
-                  <Form.Select aria-label='SelectRoute'>
-                    <option>Select</option>
-                    <option value='1'>North</option>
-                    <option value='2'>South</option>
-                    <option value='3'>Orlando</option>
-                    <option value='3'>Pick Up</option>
-                  </Form.Select>
+                  <Select
+                    defaultValue={route}
+                    onChange={setRoute}
+                    options={routes}
+                  />
                 </Form.Group>
 
                 <Form.Group as={Col} controlId='formStatus'>
                   <Form.Label>Status</Form.Label>
-                  <Form.Select aria-label='SelectRoute'>
-                    <option>Select</option>
-                    <option value='1'>In Production</option>
-                    <option value='2'>Ready</option>
-                    <option value='3'>Completed</option>
-                  </Form.Select>
+                  <Select
+                    defaultValue={orderStatus}
+                    onChange={setOrderStatus}
+                    options={orderStatusOptions}
+                  />
                 </Form.Group>
               </Row>
               <Row className='mb-3'>
@@ -196,7 +277,12 @@ export const DashboardNewOrder = () => {
 
                 <Form.Group as={Col} controlId='formTierLevel'>
                   <Form.Label>Invoice #</Form.Label>
-                  <Form.Control type='text' placeholder='0001' />
+                  <Form.Control
+                    type='text'
+                    placeholder='0001'
+                    value={invoiceNumber}
+                    onChange={(e) => setInvoiceNumber(e.target.value)}
+                  />
                 </Form.Group>
 
                 <Form.Group as={Col} controlId='formCustomer'>
@@ -290,7 +376,24 @@ export const DashboardNewOrder = () => {
                   <Button variant='danger'>Delete Order</Button>
                 </Col>
                 <Col>
-                  <Button variant='success'>Save Order</Button>
+                  <Button
+                    variant='success'
+                    onClick={() =>
+                      handleSubmit(
+                        {
+                          customer,
+                          totalOrderAmount,
+                          poName,
+                          route,
+                          orderStatus,
+                          invoiceNumber,
+                        },
+                        orderProducts
+                      )
+                    }
+                  >
+                    Save Order
+                  </Button>
                 </Col>
               </Row>
             </Form>

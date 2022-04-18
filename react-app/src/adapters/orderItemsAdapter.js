@@ -1,7 +1,7 @@
-export const createOrderItemDto = (orderItems) => {
-  return orderItems.map(({ notes, quantity }) => ({
-    orderId: 8,
-    productId: Math.floor(Math.random() * 4) + 1,
+export const createOrderItemDto = (orderId, orderItems) => {
+  return orderItems.map(({ id, notes, quantity }) => ({
+    orderId: orderId,
+    productId: id,
     quantity: parseInt(quantity),
     notes,
   }));
