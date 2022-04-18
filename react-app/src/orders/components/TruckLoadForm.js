@@ -18,11 +18,19 @@ import filterFactory, {
   selectFilter,
 } from "react-bootstrap-table2-filter";
 
+import { useReactToPrint } from 'react-to-print';
+import { useRef } from "react";
+
 export const TruckLoadForm = ({ user, userId }) => {
   const params = useParams();
   const history = useHistory();
   let { id } = useParams();
   const [orders, setOrders] = useState([]);
+
+  const componentRef = useRef();
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+  });
 
   const [data, setData] = useState([]);
   useEffect(() => {
@@ -86,26 +94,22 @@ export const TruckLoadForm = ({ user, userId }) => {
     <>
       <div className='w-100 d-flex p-4'>
         <div className='w-100 h-100 p-2 rounded-3'>
-          <div className='dashboard-page'>
-            {/* title section */}
-
+          <div className='dashboard-page' ref={componentRef}>
             <Container>
-              <Row>
-                <Col sm='9'>
-                  <h1>Truck Load Form</h1>
-                </Col>
-
+              <Row className="justify-content-between">
                 <Col>
-                  <Button
-                    onClick={() => {
-                      window.print();
-                    }}
-                    variant='dark'
-                    type='submit'
-                    className='printer-btn'
-                  >
-                    print
-                  </Button>
+                  <img
+                    alt=""
+                    src="/./../Step-Solution-Logo-Dark.png"
+                    width="330"
+                    height="auto"
+                    className="d-inline-block align-center"
+                  />{' '}
+  
+                </Col>
+                
+                <Col>
+                  <h1 className="text-end align-text-bottom"><strong>Truck</strong>Load</h1>
                 </Col>
 
                 {/* <Col>
@@ -130,8 +134,19 @@ export const TruckLoadForm = ({ user, userId }) => {
                 ></BootstrapTable>
               </div>
             </Container>
+          
           </div>
+          <Container>
+              <Col className="mt-4 text-center">
+                <Button
+                  onClick={handlePrint}
+                  variant="dark" type='submit' className="printer-btn" >
+                    print view
+                </Button>
+              </Col>
+            </Container>
         </div>
+           
       </div>
     </>
   );

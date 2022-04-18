@@ -44,7 +44,7 @@ function App() {
         <NavBar />
         <Switch>
           <Route exact path='/'>
-            <Redirect to='/profile/user' /> : <UserHome />
+            <Redirect to='/login' /> : <UserHome />
           </Route>
           <Route path='/login' exact={true}>
             <LoginForm />

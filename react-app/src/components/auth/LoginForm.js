@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Form } from "react-bootstrap";
+import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { NavLink, Redirect } from "react-router-dom";
 import { login } from "../../store/session";
@@ -32,8 +32,18 @@ const LoginForm = () => {
   }
 
   return (
-    <div className="mt-5 d-flex justify-content-center align-items-center">
-      <Form onSubmit={onLogin} className="rounded p-4 p-sm-3">
+    <Container className="mt-5">
+      <Row className="justify-content-md-center">
+        
+        <Col md="2">
+        <img src="https://static1.squarespace.com/static/5feb8101b5b33b527b373ebc/t/625b8b73987fbc7d8d19bd22/1650166643656/step-solution-app.gif"></img>
+        </Col>
+      
+      </Row>
+
+      <Row className="justify-content-md-center">
+        <Col md="4" >
+              <Form onSubmit={onLogin} className="rounded p-4">
         <div>
           {errors.map((error, ind) => (
             <div key={ind}>{error}</div>
@@ -69,7 +79,10 @@ const LoginForm = () => {
             </Button>
           </NavLink>
       </Form>
-    </div>
+      </Col>
+    </Row>
+
+    </Container>
   );
 };
 
