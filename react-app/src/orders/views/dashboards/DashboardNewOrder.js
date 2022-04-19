@@ -87,13 +87,15 @@ export const DashboardNewOrder = () => {
     getProducts();
   }, []);
   const getCustomers = () => {
-    axios(`${process.env.REACT_APP_API_URL}/customers`).then((res) => {
+    // axios(`${process.env.REACT_APP_API_URL}/customers`).then((res) => {
+      axios("https://stepsolutionapi.herokuapp.com/customers").then((res) => {
       const customerOptions = customerSelectOptions(res.data);
       setCustomers(customerOptions);
     });
   };
   const getProducts = () => {
-    axios(`${process.env.REACT_APP_API_URL}/products`).then((res) => {
+    // axios(`${process.env.REACT_APP_API_URL}/products`).then((res) => {
+      axios("https://stepsolutionapi.herokuapp.com/products").then((res) => {
       const productOptions = productSelectOptions(res.data);
       setProducts(productOptions);
     });
@@ -286,7 +288,7 @@ export const DashboardNewOrder = () => {
                 </Form.Group>
 
                 <Form.Group as={Col} controlId='formCustomer'>
-                  <Form.Label>Amount</Form.Label>
+                  <Form.Label>Total Amount</Form.Label>
                   <Form.Control
                     type='currency'
                     placeholder='$400'
@@ -302,7 +304,7 @@ export const DashboardNewOrder = () => {
                       <th scope='col'>#</th>
                       <th scope='col'>Product</th>
                       <th scope='col'>Qty</th>
-                      <th scope='col'>Price</th>
+                      <th scope='col'>Rate</th>
                       <th scope='col'>Notes</th>
                       <th scope='col'></th>
                     </tr>

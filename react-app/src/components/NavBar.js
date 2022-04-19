@@ -12,7 +12,7 @@ const NavBar = () => {
         <Navbar.Brand href="/">
         <img
           alt=""
-          src="/./../logo-dark.png"
+          src="https://static1.squarespace.com/static/5feb8101b5b33b527b373ebc/t/624deb72c3b55f64018575de/1649273714852/stdpsolution+icon-05.png"
           width="30"
           height="30"
           className="d-inline-block align-top"
@@ -24,20 +24,29 @@ const NavBar = () => {
           </NavLink>
         </li> */}
         <Nav className="justify-content-end">
-          {/* <NavLink to='/sign-up' exact={true}>
-            <Button variant="light">
+        <NavLink to='/profile/user' exact={true} activeClassName='active'>
+          <Button className="m-3" variant="outline-dark">
+            Dashboard
+            </Button>
+          </NavLink>
+        <NavLink to='/users' exact={true} activeClassName='active'>
+          <Button className="m-3" variant="outline-dark">
+            Users
+            </Button>
+          </NavLink>
+
+          <NavLink to='/sign-up' exact={true}>
+            <Button className="m-3" variant="outline-dark">
              Sign Up
             </Button>
-          </NavLink> */}
+          </NavLink>
           <NavLink to='/login' exact={true}>
-            <Button variant="dark" type='submit'>
+            <Button className="m-3"  variant="dark" type='submit'>
               login
             </Button>
           </NavLink>
           
-          {/* <NavLink to='/users' exact={true} activeClassName='active'>
-            Users
-          </NavLink> */}
+    
         </Nav>
 
       </Container>
@@ -46,58 +55,3 @@ const NavBar = () => {
 }
 
 export default NavBar;
-
-// import React, { Component } from "react";
-// import {
-//   MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavItem, MDBNavLink, MDBNavbarToggler, MDBCollapse, MDBFormInline,
-//   MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem
-// } from "mdbreact";
-// import { BrowserRouter as Router } from 'react-router-dom';
-
-
-// class NavBar extends Component {
-// state = {
-//   isOpen: false
-// };
-
-// toggleCollapse = () => {
-//   this.setState({ isOpen: !this.state.isOpen });
-// }
-
-// render() {
-//   return (
-//     <Router>
-//       <MDBNavbar color="indigo" dark expand="md">
-//         <MDBNavbarBrand>
-//           <strong className="white-text">stepsolution</strong>
-//         </MDBNavbarBrand>
-//         <MDBNavbarToggler onClick={this.toggleCollapse} />
-//         <MDBCollapse id="navbarCollapse3" isOpen={this.state.isOpen} navbar>
-//           <MDBNavbarNav left>
-//             <MDBNavItem active>
-//               <MDBNavLink to="/">Home</MDBNavLink>
-//             </MDBNavItem>
-//             <MDBNavItem>
-//               <MDBNavLink to="/sign-up">Sign Up</MDBNavLink>
-//             </MDBNavItem>
-//             <MDBNavItem>
-//               <MDBNavLink to="/users">Users</MDBNavLink>
-//             </MDBNavItem>
-//           </MDBNavbarNav>
-//           <MDBNavbarNav right>
-//             <MDBNavItem>
-//               <MDBFormInline waves>
-//                 <MDBNavItem>
-//                    <MDBNavLink to="/login">log in</MDBNavLink>
-//                 </MDBNavItem>
-//               </MDBFormInline>
-//             </MDBNavItem>
-//           </MDBNavbarNav>
-//         </MDBCollapse>
-//       </MDBNavbar>
-//     </Router>
-//     );
-//   }
-// }
-
-// export default NavBar;

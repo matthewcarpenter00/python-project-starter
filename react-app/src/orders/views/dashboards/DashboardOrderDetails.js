@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { NavLink, useParams } from "react-router-dom";
+import { Link, NavLink, useParams } from "react-router-dom";
 
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -7,7 +7,6 @@ import Col from "react-bootstrap/Col";
 import { Button, Table } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import { useState } from "react";
-import Modal from 'react-bootstrap/Modal';
 import { useHistory } from "react-router";
 import emailjs from "@emailjs/browser";
 import { useReactToPrint } from 'react-to-print';
@@ -93,75 +92,29 @@ export const DashboardOrderDetails = ({ user, userID }) => {
                   </h2>
                 </Col>
                 <Col md='auto'>
-                  <Button
-                    onClick={handleShow}
-                    variant='dark'
-                    className='mb-3'
-                  >
-                    print production label
-                  </Button>
-                </Col>
-              
-                <Modal  show={show} onHide={handleClose} >
-                  <div ref={componentRef}>
-                    <Modal.Header closeButton >
-                    <Modal.Title>Production Label</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                      <Row className="mb-3">
-                        <Col>Order ID</Col>
-                        <Col>{orderdetails?.id}</Col>
-                      </Row>
-                      <hr />
-                      <Row className="mb-3">
-                        <Col>Customer</Col>
-                        <Col>{orderdetails?.customer.company}</Col>
-                      </Row>
-                      <hr />
-                      <Row className="mb-3">
-                        <Col>Product 1</Col>
-                        <Col>Vinyl Stairnose Deco</Col>
-                      </Row>
-                      <hr />
-                      <Row className="mb-3">
-                        <Col>Quantity</Col>
-                        <Col>14</Col>
-                      </Row>
-                      <hr />
-                      <Row className="mb-3">
-                        <Col>Route</Col>
-                        <Col>{orderdetails?.shippingRoute}</Col>
-                      </Row>
-                      <hr />
-                      <Row className="mb-3">
-                        <Col>Date</Col>
-                        <Col>{orderdetails?.createdAt}</Col>
-                      </Row>
-                      <hr />
-                      <Row className="mb-3">
-                        <Col>Notes</Col>
-                        <Col>2 inch thick</Col>
-                      </Row>
-                      <hr />
-                    </Modal.Body>
-                    <Modal.Footer>
-                    <Button variant="dark" onClick={handlePrint} className="printer-btn">
-                      Print
+                  <Link 
+                    to="/productionlabel"
+                    target="_blank">
+                    <Button
+                        variant='dark'
+                        className='mb-3'
+                    >
+                      print production label
                     </Button>
-                    </Modal.Footer>
-                    </div>
-                  </Modal>
+                  </Link>
+                </Col>
 
                 <Col md='auto'>
-                  <Button
-                    onClick={() => {
-                      history.push(`/productlabel`);
-                    }}
-                    variant='dark'
-                    className='mb-3'
-                  >
-                    print product label
-                  </Button>
+                  <Link 
+                    to="/productlabel"
+                    target="_blank">
+                    <Button
+                        variant='dark'
+                        className='mb-3'
+                    >
+                      print product label
+                    </Button>
+                  </Link>
                 </Col>
 
                 <Col md='auto'>

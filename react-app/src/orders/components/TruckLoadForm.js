@@ -37,7 +37,8 @@ export const TruckLoadForm = ({ user, userId }) => {
     getData();
   }, []);
   const getData = () => {
-    axios(`${process.env.REACT_APP_API_URL}/orders`).then((res) => {
+    // axios(`${process.env.REACT_APP_API_URL}/orders`).then((res) => {
+    axios("https://stepsolutionapi.herokuapp.com/orders").then((res) => {
       console.log(res.data);
       setData(res.data);
     });
