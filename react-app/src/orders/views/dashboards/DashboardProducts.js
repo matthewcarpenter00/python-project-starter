@@ -24,7 +24,7 @@ export const DashboardProducts = ({ user, userId }) => {
 
   // fetch products
   // useEffect(() => {
-  // 	fetch("https://stepsolution-api.herokuapp.com/products")
+  // 	fetch("https://stepsolutionapi.herokuapp.com/products")
   // 	.then((response) => response.json())
   // 	.then((products) => setProducts(products));
   // });
@@ -34,7 +34,8 @@ export const DashboardProducts = ({ user, userId }) => {
     getData();
   }, []);
   const getData = () => {
-    axios(`${process.env.REACT_APP_API_URL}/products`).then((res) => {
+    // axios(`${process.env.REACT_APP_API_URL}/products`).then((res) => {
+      axios("https://stepsolutionapi.herokuapp.com/products").then((res) => {
       console.log(res.data);
       setData(res.data);
     });

@@ -21,7 +21,7 @@ export const DashboardCustomers = ({ user, userId }) => {
 
   // fetch customers
   //   useEffect(() => {
-  //     fetch("https://stepsolution-api.herokuapp.com/customers")
+  //     fetch("https://stepsolutionapi.herokuapp.com/customers")
   //       .then((response) => response.json())
   //       .then((customers) => setCustomers(customers));
   //   });
@@ -31,7 +31,8 @@ export const DashboardCustomers = ({ user, userId }) => {
     getData();
   }, []);
   const getData = () => {
-    axios(`${process.env.REACT_APP_API_URL}/customers`).then((res) => {
+    // axios(`${process.env.REACT_APP_API_URL}/customers`).then((res) => {
+      axios("https://stepsolutionapi.herokuapp.com/customers").then((res) => {
       console.log(res.data);
       setData(res.data);
     });

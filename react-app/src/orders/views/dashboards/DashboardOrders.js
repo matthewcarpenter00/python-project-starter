@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -29,7 +29,8 @@ export const DashboardOrders = ({ user, userId }) => {
     getData();
   }, []);
   const getData = () => {
-    axios(`${process.env.REACT_APP_API_URL}/orders`).then((res) => {
+    // axios(`${process.env.REACT_APP_API_URL}/orders`).then((res) => {
+      axios("https://stepsolutionapi.herokuapp.com/orders").then((res) => {
       console.log(res.data);
       setData(res.data);
     });
@@ -37,7 +38,7 @@ export const DashboardOrders = ({ user, userId }) => {
 
   //fetch orders
   // useEffect(() => {
-  //   fetch("https://stepsolution-api.herokuapp.com/orders")
+  //   fetch("https://stepsolutionapi.herokuapp.com/orders")
   //     .then((response) => response.json())
   //     .then((orders) => setOrders(orders));
   // });
@@ -62,7 +63,7 @@ export const DashboardOrders = ({ user, userId }) => {
       sort: true,
     },
     {
-      dataField: "company",
+      dataField: "customerId",
       text: "Company",
       sort: true,
     },
@@ -112,15 +113,17 @@ export const DashboardOrders = ({ user, userId }) => {
                 </Col>
 
                 <Col>
-                  <Button
-                    onClick={() => {
-                      history.push(`/truckloadform`);
-                    }}
-                    variant='outline-dark'
-                    className='mb-3 float-right'
-                  >
+                
+                <Link 
+                    to="/truckloadform"
+                    target="_blank">
+                    <Button
+                        variant='outline-dark'
+                        className='mb-3'
+                    >
                     truck load form
                   </Button>
+                </Link>  
                 </Col>
                 <Col>
                   <Button

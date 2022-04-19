@@ -64,7 +64,8 @@ export const DashboardAddCustomer = ({ user, userId }) => {
   // async function to create customer
   const createCustomer = async (customer) => {
     const dto = createCustomerDto(customer);
-    const response = await fetch(`${process.env.REACT_APP_API_URL}/customers`, {
+    // const response = await fetch(`${process.env.REACT_APP_API_URL}/customers`, {
+    const response = await fetch("https://stepsolutionapi.herokuapp.com/customers", {  
       method: "POST",
       headers: {
         "Content-Type": "application/json",

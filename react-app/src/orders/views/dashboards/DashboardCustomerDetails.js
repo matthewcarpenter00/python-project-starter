@@ -28,7 +28,8 @@ export const DashboardCustomerDetails = ({ user, userId }) => {
 
   const fetchCustomer = async (customerEmail) => {
     const response = await fetch(
-      `${process.env.REACT_APP_API_URL}/customers/${customerEmail}`
+      // `${process.env.REACT_APP_API_URL}/customers/${customerEmail}`
+      `https://stepsolutionapi.herokuapp.com/customers/${customerEmail}`
     );
 
     if (response.ok) {

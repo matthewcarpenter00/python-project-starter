@@ -1,6 +1,7 @@
 // constants
 const SET_CUSTOMER = "orders/SET_CUSTOMER";
 const ADD_CUSTOMER = "orders/ADD_CUSTOMER";
+// const EDIT_CUSTOMER = "orders/EDIT_CUSTOMER";
 const SET_ORDER_DETAILS = "orders/SET_ORDER_DETAILS";
 const SET_ORDER_CART = "orders/SET_ORDER_CART";
 
@@ -13,6 +14,11 @@ export const addCustomer = (customer) => ({
   type: ADD_CUSTOMER,
   payload: customer,
 });
+
+// export const editCustomer = (customer) => ({
+//   type: EDIT_CUSTOMER,
+//   payload: customer,
+// });
 
 export const setOrderDetails = (orderDetails) => ({
   type: SET_ORDER_DETAILS,

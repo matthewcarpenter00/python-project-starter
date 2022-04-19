@@ -35,8 +35,11 @@ const LoginForm = () => {
     <Container className="mt-5">
       <Row className="justify-content-md-center">
         
-        <Col md="2">
-        <img src="https://static1.squarespace.com/static/5feb8101b5b33b527b373ebc/t/625b8b73987fbc7d8d19bd22/1650166643656/step-solution-app.gif"></img>
+        <Col className="text-center">
+        <img src="https://static1.squarespace.com/static/5feb8101b5b33b527b373ebc/t/624deb72c3b55f64018575de/1649273714852/stdpsolution+icon-05.png" 
+          width="80"
+          height="80"
+           ></img>
         </Col>
       
       </Row>
