@@ -66,8 +66,9 @@ export const DashboardOrderDetails = ({ user, userID }) => {
     e.preventDefault();
 
     var templateParams = {
-      customer: orderdetails?.customer.email,
-  };
+      customer: orderdetails?.customer.email, 
+  }
+};
 
     emailjs.send('service_g2ht3pj', 'order-in-production', templateParams, 'kBf3wIb1lGnimy156')
       .then((result) => {

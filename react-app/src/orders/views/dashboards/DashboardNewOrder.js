@@ -145,7 +145,7 @@ export const DashboardNewOrder = () => {
       const newOrderItem = createOrderItem(orderItemsDto[i]);
       if (!newOrderItem.id) break;
     }
-    sendEmail(customer?.emai, "order-in-production");
+    sendEmail(customer?.email, "order-in-production");
   };
 
   const createOrder = async (order) => {
