@@ -12,6 +12,7 @@ import { customerSelectOptions } from "../../../adapters/customerAdapter";
 import { productSelectOptions } from "../../../adapters/productAdapter";
 import { createOrderDto } from "../../../adapters/orderAdapter";
 import { createOrderItemDto } from "../../../adapters/orderItemsAdapter";
+import { sendEmail } from "../../../utils/sendEmail";
 
 export const DashboardNewOrder = () => {
   const params = useParams();
@@ -87,15 +88,13 @@ export const DashboardNewOrder = () => {
     getProducts();
   }, []);
   const getCustomers = () => {
-    // axios(`${process.env.REACT_APP_API_URL}/customers`).then((res) => {
-      axios("https://stepsolutionapi.herokuapp.com/customers").then((res) => {
+    axios(`${process.env.REACT_APP_API_URL}/customers`).then((res) => {
       const customerOptions = customerSelectOptions(res.data);
       setCustomers(customerOptions);
     });
   };
   const getProducts = () => {
-    // axios(`${process.env.REACT_APP_API_URL}/products`).then((res) => {
-      axios("https://stepsolutionapi.herokuapp.com/products").then((res) => {
+    axios(`${process.env.REACT_APP_API_URL}/products`).then((res) => {
       const productOptions = productSelectOptions(res.data);
       setProducts(productOptions);
     });
@@ -110,7 +109,7 @@ export const DashboardNewOrder = () => {
       setOrderProducts([
         ...orderProducts,
         {
-          id: event.target.value,
+          id: product.value.id,
           name: product.label,
           quantity,
           price,
@@ -146,6 +145,7 @@ export const DashboardNewOrder = () => {
       const newOrderItem = createOrderItem(orderItemsDto[i]);
       if (!newOrderItem.id) break;
     }
+    sendEmail(customer?.emai, "order-in-production");
   };
 
   const createOrder = async (order) => {

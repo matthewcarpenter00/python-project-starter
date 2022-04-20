@@ -14,6 +14,7 @@ import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory from "react-bootstrap-table2-paginator";
 // import cellEditFactory, { Type } from "react-bootstrap-table2-editor";
 import filterFactory, { selectFilter } from "react-bootstrap-table2-filter";
+import { orderTableData } from "../../../adapters/orderAdapter";
 
 export const DashboardOrders = ({ user, userId }) => {
   const params = useParams();
@@ -29,8 +30,7 @@ export const DashboardOrders = ({ user, userId }) => {
     getData();
   }, []);
   const getData = () => {
-    // axios(`${process.env.REACT_APP_API_URL}/orders`).then((res) => {
-      axios("https://stepsolutionapi.herokuapp.com/orders").then((res) => {
+    axios(`${process.env.REACT_APP_API_URL}/orders`).then((res) => {
       console.log(res.data);
       setData(res.data);
     });
@@ -63,7 +63,7 @@ export const DashboardOrders = ({ user, userId }) => {
       sort: true,
     },
     {
-      dataField: "customerId",
+      dataField: "customer.company",
       text: "Company",
       sort: true,
     },
@@ -107,23 +107,17 @@ export const DashboardOrders = ({ user, userId }) => {
             {/* title section */}
 
             <Container>
-              <Row >
-                <Col xs={7} >
+              <Row>
+                <Col xs={7}>
                   <h1>Orders</h1>
                 </Col>
 
                 <Col>
-                
-                <Link 
-                    to="/truckloadform"
-                    target="_blank">
-                    <Button
-                        variant='outline-dark'
-                        className='mb-3'
-                    >
-                    truck load form
-                  </Button>
-                </Link>  
+                  <Link to='/truckloadform' target='_blank'>
+                    <Button variant='outline-dark' className='mb-3'>
+                      truck load form
+                    </Button>
+                  </Link>
                 </Col>
                 <Col>
                   <Button

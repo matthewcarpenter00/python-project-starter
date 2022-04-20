@@ -18,7 +18,7 @@ import filterFactory, {
   selectFilter,
 } from "react-bootstrap-table2-filter";
 
-import { useReactToPrint } from 'react-to-print';
+import { useReactToPrint } from "react-to-print";
 import { useRef } from "react";
 
 export const TruckLoadForm = ({ user, userId }) => {
@@ -37,8 +37,7 @@ export const TruckLoadForm = ({ user, userId }) => {
     getData();
   }, []);
   const getData = () => {
-    // axios(`${process.env.REACT_APP_API_URL}/orders`).then((res) => {
-    axios("https://stepsolutionapi.herokuapp.com/orders").then((res) => {
+    axios(`${process.env.REACT_APP_API_URL}/orders`).then((res) => {
       console.log(res.data);
       setData(res.data);
     });
@@ -97,20 +96,21 @@ export const TruckLoadForm = ({ user, userId }) => {
         <div className='w-100 h-100 p-2 rounded-3'>
           <div className='dashboard-page' ref={componentRef}>
             <Container>
-              <Row className="justify-content-between">
+              <Row className='justify-content-between'>
                 <Col>
                   <img
-                    alt=""
-                    src="/./../Step-Solution-Logo-Dark.png"
-                    width="330"
-                    height="auto"
-                    className="d-inline-block align-center"
-                  />{' '}
-  
+                    alt=''
+                    src='/./../Step-Solution-Logo-Dark.png'
+                    width='330'
+                    height='auto'
+                    className='d-inline-block align-center'
+                  />{" "}
                 </Col>
-                
+
                 <Col>
-                  <h1 className="text-end align-text-bottom"><strong>Truck</strong>Load</h1>
+                  <h1 className='text-end align-text-bottom'>
+                    <strong>Truck</strong>Load
+                  </h1>
                 </Col>
 
                 {/* <Col>
@@ -135,19 +135,20 @@ export const TruckLoadForm = ({ user, userId }) => {
                 ></BootstrapTable>
               </div>
             </Container>
-          
           </div>
           <Container>
-              <Col className="mt-4 text-center">
-                <Button
-                  onClick={handlePrint}
-                  variant="dark" type='submit' className="printer-btn" >
-                    print view
-                </Button>
-              </Col>
-            </Container>
+            <Col className='mt-4 text-center'>
+              <Button
+                onClick={handlePrint}
+                variant='dark'
+                type='submit'
+                className='printer-btn'
+              >
+                print view
+              </Button>
+            </Col>
+          </Container>
         </div>
-           
       </div>
     </>
   );
