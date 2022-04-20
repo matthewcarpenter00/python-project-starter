@@ -1,16 +1,22 @@
 import React from "react";
-import { Button, Row, Col } from "react-bootstrap"
+import { Button, Row, Col } from "react-bootstrap";
+import { useLocation } from "react-router-dom";
 
 import { useReactToPrint } from 'react-to-print';
 import { useRef } from "react";
 
 export const ProductionLabel = () => {
 
+  
+
+  // console.log(props.location.state)
+
   const componentRef = useRef();
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
   });
 
+  
 
   return (
     
@@ -19,7 +25,7 @@ export const ProductionLabel = () => {
         <h1 className="mb-3 text-center"  >Production Label</h1>
             <Row className="mb-3">
               <Col>Order ID</Col>
-              <Col className="fw-bold">001</Col>
+              <Col className="fw-bold">1</Col>
             </Row>
             <hr />
             <Row className="mb-3">

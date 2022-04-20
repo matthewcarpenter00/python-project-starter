@@ -40,11 +40,16 @@ export const DashboardOrderDetails = ({ user, userID }) => {
   const [validated, setValidated] = useState(false);
   const [orderdetails, setOrderDetails] = useState(null);
 
+  // console.log(orderdetails)
+
   const fetchOrder = async (orderId) => {
     const response = await fetch(
-      `${process.env.REACT_APP_API_URL}/orders/${orderId}`
+      // `${process.env.REACT_APP_API_URL}/orders/${orderId}`
+      `https://stepsolutionapi.herokuapp.com/orders/${orderId}`
+  
     );
 
+      
     if (response.ok) {
       const orderdetails = await response.json();
       setOrderDetails(orderdetails);
@@ -67,8 +72,7 @@ export const DashboardOrderDetails = ({ user, userID }) => {
 
     var templateParams = {
       customer: orderdetails?.customer.email, 
-  }
-};
+  };
 
     emailjs.send('service_g2ht3pj', 'order-in-production', templateParams, 'kBf3wIb1lGnimy156')
       .then((result) => {
@@ -94,7 +98,7 @@ export const DashboardOrderDetails = ({ user, userID }) => {
                 </Col>
                 <Col md='auto'>
                   <Link 
-                    to="/productionlabel"
+                    to = {{pathname: `/profile/user/${orderdetails?.id}/orderdetails/productionlabel`, state: orderdetails }}
                     target="_blank">
                     <Button
                         variant='dark'

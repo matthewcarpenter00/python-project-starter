@@ -85,7 +85,7 @@ function App() {
           <Route exact path='/profile/user/:id/:profileoption'>
             <UserHome />
           </Route>
-          <Route exact path='/productionlabel'>
+          <Route exact path='/profile/user/:id/:profileoption/productionlabel'>
             <ProductionLabel />
           </Route>
           <Route exact path='/productlabel'>
