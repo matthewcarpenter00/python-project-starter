@@ -65,7 +65,7 @@ export const TruckLoadForm = ({ user, userId }) => {
       sort: true,
     },
     {
-      dataField: "company",
+      dataField: "customer.company",
       text: "Company",
       sort: true,
     },
@@ -78,7 +78,7 @@ export const TruckLoadForm = ({ user, userId }) => {
       dataField: "shippingRoute",
       text: "Route",
       sort: true,
-      filter: selectFilter({
+      filter: textFilter({
         options: selectOptions,
       }),
     },
