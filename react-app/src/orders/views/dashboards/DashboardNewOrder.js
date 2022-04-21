@@ -16,7 +16,6 @@ import { sendEmail } from "../../../utils/sendEmail";
 
 export const DashboardNewOrder = () => {
   const params = useParams();
-  // const { store, actions } = useContext(Context);
   let { id } = useParams();
 
   // const formatter = new Intl.NumberFormat("en-US", {
@@ -84,15 +83,18 @@ export const DashboardNewOrder = () => {
   useEffect(() => {
     getCustomers();
   }, []);
+  
   useEffect(() => {
     getProducts();
   }, []);
+  
   const getCustomers = () => {
     axios(`${process.env.REACT_APP_API_URL}/customers`).then((res) => {
       const customerOptions = customerSelectOptions(res.data);
       setCustomers(customerOptions);
     });
   };
+
   const getProducts = () => {
     axios(`${process.env.REACT_APP_API_URL}/products`).then((res) => {
       const productOptions = productSelectOptions(res.data);

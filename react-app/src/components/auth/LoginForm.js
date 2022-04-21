@@ -60,7 +60,7 @@ const LoginForm = () => {
           />
         </Form.Group>
         <Button variant='dark' type='submit'>
-          login
+          Login
         </Button>
       </Form>
     </div>

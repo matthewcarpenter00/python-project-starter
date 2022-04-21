@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import { Link, NavLink, useParams } from "react-router-dom";
 
 import Container from "react-bootstrap/Container";
@@ -9,7 +9,6 @@ import Form from "react-bootstrap/Form";
 import { useState } from "react";
 import { useHistory } from "react-router";
 import emailjs from "@emailjs/browser";
-import { useReactToPrint } from 'react-to-print';
 
 
 // redux and custom hook imports
@@ -23,14 +22,6 @@ export const DashboardOrderDetails = ({ user, userID }) => {
   const history = useHistory();
   let { id: orderId } = useParams();
 
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
-  const componentRef = useRef();
-  const handlePrint = useReactToPrint({
-    content: () => componentRef.current,
-  });
 
   // trying to format date
   // let createdAt = let date = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(createAt);
@@ -40,7 +31,6 @@ export const DashboardOrderDetails = ({ user, userID }) => {
   const [validated, setValidated] = useState(false);
   const [orderdetails, setOrderDetails] = useState(null);
 
-  // console.log(orderdetails)
 
   const fetchOrder = async (orderId) => {
     const response = await fetch(
@@ -67,6 +57,8 @@ export const DashboardOrderDetails = ({ user, userID }) => {
     fetchOrder(orderId);
   }, []);
 
+
+  // email functionality
   const sendEmail = (e) => {
     e.preventDefault();
 
@@ -74,7 +66,7 @@ export const DashboardOrderDetails = ({ user, userID }) => {
       customer: orderdetails?.customer.email, 
   };
 
-    emailjs.send('service_g2ht3pj', 'order-in-production', templateParams, 'kBf3wIb1lGnimy156')
+    emailjs.send('service_g2ht3pj', 'order-ready', templateParams, 'kBf3wIb1lGnimy156')
       .then((result) => {
           console.log(result.text);
       }, (error) => {
@@ -104,7 +96,7 @@ export const DashboardOrderDetails = ({ user, userID }) => {
                         variant='dark'
                         className='mb-3'
                     >
-                      print production label
+                      Print Production Label
                     </Button>
                   </Link>
                 </Col>
@@ -117,7 +109,7 @@ export const DashboardOrderDetails = ({ user, userID }) => {
                         variant='dark'
                         className='mb-3'
                     >
-                      print product label
+                      Print Product Label
                     </Button>
                   </Link>
                 </Col>
@@ -125,16 +117,16 @@ export const DashboardOrderDetails = ({ user, userID }) => {
                 <Col md='auto'>
                   <Button
                   onClick={sendEmail}
-                  variant='dark'
+                  variant='success'
                   className='mb-3'>
-                    Send Customer Status Update
+                    Send Order Ready Email
                     </Button>
                 </Col>
-                <Col md='auto'>
+                {/* <Col md='auto'>
                   <Button disabled variant='secondary' className='mb-3'>
                     generate invoice
                   </Button>
-                </Col>
+                </Col> */}
               </Row>
             </Container>
 
@@ -204,44 +196,24 @@ export const DashboardOrderDetails = ({ user, userID }) => {
                 <Table striped bordered hover responsive='lg' className='table'>
                   <thead className='thead-dark'>
                     <tr>
-                      <th scope='col'>#</th>
-                      <th scope='col'>Tier</th>
+                    <th scope='col'>#</th>
                       <th scope='col'>Product</th>
                       <th scope='col'>Qty</th>
-                      <th scope='col'>Price</th>
+                      <th scope='col'>Rate</th>
                       <th scope='col'>Notes</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
                       <td>1</td>
-                      <td>A</td>
+                    
                       <td>Vinyl Deco Stairnose</td>
                       <td>14</td>
                       <td>$168</td>
                       <td>corner edge</td>
                     </tr>
                   </tbody>
-                  <tbody>
-                    <tr>
-                      <td>2</td>
-                      <td>A</td>
-                      <td>White Riser</td>
-                      <td>12</td>
-                      <td>$108</td>
-                      <td>none</td>
-                    </tr>
-                  </tbody>
-                  <tbody>
-                    <tr>
-                      <td>3</td>
-                      <td>A</td>
-                      <td>T-moulding</td>
-                      <td>1</td>
-                      <td>$14</td>
-                      <td>2 inches wide</td>
-                    </tr>
-                  </tbody>
+              
                 </Table>
               </Row>
               <Row>

@@ -1,12 +1,15 @@
 import React, { useState, useContext } from "react";
-
 import { useHistory } from "react-router";
 import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
+import LogoutButton from "../../components/auth/LogoutButton";
 
 
-export const SideBar = ({ user, userId }) => {
+
+export const SideBar = ({ userId }) => {
 	const history = useHistory();
 	// const { store, actions } = useContext(Context);
+	const user = useSelector((state) => state.session.user);
 
 	const [dropdown, setDropdown] = useState(false);
 	const [active, setActive] = useState(false);
@@ -27,7 +30,7 @@ export const SideBar = ({ user, userId }) => {
 			<a href="/" className="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
 				<svg className="bi me-2" width="40" height="32" />
 				<span className="fs-4">
-                    admin
+                    Admin
 				</span>
 			</a>
 			<hr />
@@ -41,7 +44,7 @@ export const SideBar = ({ user, userId }) => {
 							history.push(`/profile/user/${userId}`);
 						}}>
 						<i className="fas fa-home" />
-						<span className="ms-4 sidebar-item ">orders</span>
+						<span className="ms-4 sidebar-item ">Orders</span>
 					</a>
 				</li>
 				<li className="m-2">
@@ -52,7 +55,7 @@ export const SideBar = ({ user, userId }) => {
 							history.push(`/profile/user/${userId}/customers`);
 						}}>
 						<i className="fas fa-donate" />
-						<span className="ms-4 sidebar-item">customers</span>
+						<span className="ms-4 sidebar-item">Customers</span>
 					</a>
 				</li>
 	
@@ -64,7 +67,7 @@ export const SideBar = ({ user, userId }) => {
 								history.push(`/profile/user/${userId}/products`);
 							}}>
 							<i className="fas fa-tags" />
-							<span className="ms-4 sidebar-item">products</span>
+							<span className="ms-4 sidebar-item">Products</span>
 						</a>
 					</li>
 			
@@ -76,7 +79,7 @@ export const SideBar = ({ user, userId }) => {
 							history.push(`/profile/user/${userId}/myaccount`);
 						}}>
 						<i className="fas fa-cog" />
-						<span className="ms-4 sidebar-item">my account</span>
+						<span className="ms-4 sidebar-item">My Account</span>
 					</a>
 				</li>
 				<li className="m-2">
@@ -88,7 +91,8 @@ export const SideBar = ({ user, userId }) => {
 							// actions.logout();
 						}}>
 						<i className="fas fa-sign-out-alt" />
-						<span className="ms-4 sidebar-item">log out</span>
+						<LogoutButton />
+						{/* <span className="ms-4 sidebar-item">log out</span> */}
 					</a>
 				</li>
 			</ul>
