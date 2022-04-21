@@ -103,7 +103,7 @@ export const DashboardOrderDetails = ({ user, userID }) => {
 
                 <Col md='auto'>
                   <Link 
-                    to="/productlabel"
+                     to = {{pathname: `/profile/user/${orderdetails?.id}/orderdetails/productlabel`, state: orderdetails }}
                     target="_blank">
                     <Button
                         variant='dark'
