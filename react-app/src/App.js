@@ -43,6 +43,9 @@ function App() {
       <BrowserRouter>
         <NavBar />
         <Switch>
+          <Route path='/' exact={true}>
+            <Redirect to='/profile/user' />
+          </Route>
           <Route path='/login' exact={true}>
             <LoginForm />
           </Route>
