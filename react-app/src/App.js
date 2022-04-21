@@ -43,9 +43,6 @@ function App() {
       <BrowserRouter>
         <NavBar />
         <Switch>
-          <Route exact path='/'>
-            <Redirect to='/profile/user' /> : <UserHome />
-          </Route>
           <Route path='/login' exact={true}>
             <LoginForm />
           </Route>
@@ -76,9 +73,9 @@ function App() {
           <ProtectedRoute path='/order-review' exact={true}>
             <OrderReview />
           </ProtectedRoute>
-          <Route exact path='/profile/user'>
+          <ProtectedRoute exact path='/profile/user'>
             <UserHome />
-          </Route>
+          </ProtectedRoute>
           <Route exact path='/profile/user/:id'>
             <UserHome />
           </Route>
