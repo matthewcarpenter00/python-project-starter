@@ -1,8 +1,12 @@
+from os import access
 from flask import Blueprint, jsonify, session, request
 from app.models import User, db
 from app.forms import LoginForm
 from app.forms import SignUpForm
 from flask_login import current_user, login_user, logout_user, login_required
+
+from intuitlib.client import AuthClient
+from intuitlib.enums import Scopes
 
 auth_routes = Blueprint('auth', __name__)
 
@@ -80,3 +84,17 @@ def unauthorized():
     Returns unauthorized JSON when flask-login authentication fails
     """
     return {'errors': ['Unauthorized']}, 401
+
+@auth_routes.route('/oauth-token',methods=['POST'])
+def oauth_token():
+    auth_client = AuthClient( 'ABmIlDiVhP89JVXkmVEnSlPT6tJUc79ivaywv94Fk57aRwE5Qo', 'LLGiY78TKFZuNXEV5TJzUuYaIdaNeIznF7XsItyf', 'http://localhost:3000/profile/user', 'sandbox' )
+    # url = auth_client.get_authorization_url([Scopes.Accounting])
+    data = request.json
+   
+    
+    auth_client.get_bearer_token(auth_code=data['code'], realm_id=data['realmId'])
+    print("//////////",auth_client.access_token)
+    return {
+        "access_token":auth_client.access_token
+
+    }

@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import Nav from "react-bootstrap/Nav";
 import LogoutButton from "./auth/LogoutButton";
 import { useSelector } from "react-redux";
+import { authUri } from "../lib/intuit-oauth";
 
 const NavBar = () => {
   const user = useSelector((state) => state.session.user);
@@ -56,6 +57,11 @@ const NavBar = () => {
               <LogoutButton />
             </div>
           )}
+          <div href='#' className='mt-3'>
+            <Button onClick={() => window.location.replace(authUri)}>
+              Connect to Quickbooks
+            </Button>
+          </div>
         </Nav>
       </Container>
     </Navbar>
