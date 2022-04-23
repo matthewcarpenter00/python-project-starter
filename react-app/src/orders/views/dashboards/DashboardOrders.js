@@ -30,8 +30,9 @@ export const DashboardOrders = ({ user, userId }) => {
     getData();
   }, []);
   const getData = () => {
-    //axios(`${process.env.REACT_APP_API_URL}/orders`).then((res) => {
-    axios("https://stepsolutionapi.herokuapp.com/orders").then((res) => {  
+    console.log('REACT_APP_API_URL',process.env.REACT_APP_API_URL);
+    axios(`${process.env.REACT_APP_API_URL}/orders`).then((res) => {
+    // axios("https://stepsolutionapi.herokuapp.com/orders").then((res) => {  
       console.log(res.data);
       setData(res.data);
     });
