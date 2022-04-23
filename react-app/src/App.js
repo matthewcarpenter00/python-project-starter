@@ -27,6 +27,8 @@ function App() {
   const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch();
 
+  console.log('REACT_APP_API_URL',process.env.REACT_APP_API_URL);
+
   useEffect(() => {
     (async () => {
       await dispatch(authenticate());
