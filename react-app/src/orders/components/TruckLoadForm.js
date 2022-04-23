@@ -37,23 +37,25 @@ export const TruckLoadForm = ({ user, userId }) => {
     getData();
   }, []);
   const getData = () => {
-    axios(`${process.env.REACT_APP_API_URL}/orders`).then((res) => {
+    
+    // axios(`${process.env.REACT_APP_API_URL}/orders`).then((res) => {
+      axios("https://stepsolutionapi.herokuapp.com/orders").then((res) => {
       console.log(res.data);
       setData(res.data);
     });
   };
 
   const selectOptions = {
-    south: "south",
-    north: "north",
-    orlando: "orlando",
-    pickup: "pickup",
+    south: "South",
+    north: "North",
+    orlando: "Orlando",
+    pickup: "Pick Up",
   };
 
   const statusOptions = {
-    ready: "ready",
-    production: "in production",
-    completed: "completed",
+    ready: "Ready",
+    production: "In Production",
+    completed: "Completed",
   };
 
   const columns = [
@@ -63,7 +65,7 @@ export const TruckLoadForm = ({ user, userId }) => {
       sort: true,
     },
     {
-      dataField: "company",
+      dataField: "customer.company",
       text: "Company",
       sort: true,
     },
@@ -76,7 +78,7 @@ export const TruckLoadForm = ({ user, userId }) => {
       dataField: "shippingRoute",
       text: "Route",
       sort: true,
-      filter: selectFilter({
+      filter: textFilter({
         options: selectOptions,
       }),
     },
@@ -144,7 +146,7 @@ export const TruckLoadForm = ({ user, userId }) => {
                 type='submit'
                 className='printer-btn'
               >
-                print view
+                print this view
               </Button>
             </Col>
           </Container>

@@ -20,22 +20,9 @@ const NavBar = () => {
           />{" "}
           <strong>step</strong>solution
         </Navbar.Brand>
-        {/* <li>
-          <NavLink to='/' exact={true} activeClassName='active'>
-            Home
-          </NavLink>
-        </li> */}
+        
         <Nav className='justify-content-end'>
-          <NavLink to='/profile/user' exact={true} activeClassName='active'>
-            <Button className='m-3' variant='outline-dark'>
-              Dashboard
-            </Button>
-          </NavLink>
-          <NavLink to='/users' exact={true} activeClassName='active'>
-            <Button className='m-3' variant='outline-dark'>
-              Users
-            </Button>
-          </NavLink>
+       
           {!user && (
             <>
               <NavLink to='/sign-up' exact={true}>

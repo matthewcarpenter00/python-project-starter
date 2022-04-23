@@ -34,7 +34,8 @@ export const DashboardProducts = ({ user, userId }) => {
     getData();
   }, []);
   const getData = () => {
-    axios(`${process.env.REACT_APP_API_URL}/products`).then((res) => {
+    // axios(`${process.env.REACT_APP_API_URL}/products`).then((res) => {
+    axios("https://stepsolutionapi.herokuapp.com/products").then((res) => {
       console.log(res.data);
       setData(res.data);
     });
