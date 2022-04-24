@@ -28,6 +28,8 @@ function App() {
   const dispatch = useDispatch();
 
   console.log('REACT_APP_API_URL',process.env.REACT_APP_API_URL);
+  console.log('REACT_APP_API_URL',process.env.REACT_APP_OAUTH_CLIENT_ID);
+  
 
   useEffect(() => {
     (async () => {

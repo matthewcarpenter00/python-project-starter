@@ -5,6 +5,9 @@ COPY react-app/. .
 
 # You have to set this because it should be set during build time.
 ENV REACT_APP_BASE_URL=https://step-solution-app.herokuapp.com/
+ENV REACT_APP_API_URL=https://stepsolutionapi.herokuapp.com
+ENV REACT_APP_OAUTH_CLIENT_ID=ABmIlDiVhP89JVXkmVEnSlPT6tJUc79ivaywv94Fk57aRwE5Qo
+ENV REACT_APP_OAUTH_CLIENT_SECRET=LLGiY78TKFZuNXEV5TJzUuYaIdaNeIznF7XsItyf
 
 # Build our React App
 RUN npm install
