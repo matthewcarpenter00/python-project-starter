@@ -9,6 +9,7 @@ import Form from "react-bootstrap/Form";
 import { useState } from "react";
 import { useHistory } from "react-router";
 import emailjs from "@emailjs/browser";
+import Toast from 'react-bootstrap/Toast';
 
 
 // redux and custom hook imports
@@ -21,6 +22,9 @@ export const DashboardOrderDetails = ({ user, userID }) => {
   const params = useParams();
   const history = useHistory();
   let { id: orderId } = useParams();
+
+  const [show, setShow] = useState(false);
+
 
 
   // trying to format date
@@ -113,7 +117,20 @@ export const DashboardOrderDetails = ({ user, userID }) => {
                     </Button>
                   </Link>
                 </Col>
-
+                {/* <Col xs={6}>
+        <Toast onClose={() => setShow(false)} show={show} delay={3000} autohide>
+          <Toast.Header>
+            <img
+              src="holder.js/20x20?text=%20"
+              className="rounded me-2"
+              alt=""
+            />
+            <strong className="me-auto">Notifications</strong>
+            <small>Just Now</small>
+          </Toast.Header>
+          <Toast.Body>Woohoo, you're email was sent!</Toast.Body>
+        </Toast>
+      </Col> */}
                 <Col md='auto'>
                   <Button
                   onClick={sendEmail}
