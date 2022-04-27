@@ -31,42 +31,15 @@ export const DashboardNewOrder = () => {
   const [poName, setPoName] = useState("");
   const [invoiceNumber, setInvoiceNumber] = useState("");
   const [orderProducts, setOrderProducts] = useState([
-    {
-      id: 1,
-      createdAt: "2022-04-16T18:36:20.778Z",
-      updatedAt: "2022-04-16T18:36:20.778Z",
-      sku: "dfvdfb",
-      name: "Product 1",
-      price: 10,
-      imageUrl: "http://yahoo.com",
-      description: "this is a description",
-      tierLevel: "2",
-      type: "SERVICE",
-      quantity: 2,
-      notes: "note",
-    },
-    {
-      id: 2,
-      createdAt: "2022-04-16T20:20:27.988Z",
-      updatedAt: "2022-04-16T20:20:27.989Z",
-      sku: "dfvdfb",
-      name: "Product 2",
-      price: 10,
-      imageUrl: "http://yahoo.com",
-      description: "this is a description",
-      tierLevel: "2",
-      type: "SERVICE",
-      quantity: 2,
-      notes: "note",
-    },
+    
   ]);
 
   const [route, setRoute] = useState([]);
   const routes = [
     { value: "North", label: "North" },
     { value: "South", label: "South" },
-    { value: "Pick Up", label: "Orlando" },
-    { value: "Pick Up", label: "North" },
+    { value: "Orlando", label: "Orlando" },
+    { value: "Pick Up", label: "Pick Up" },
   ];
 
   const [orderStatus, setOrderStatus] = useState([]);

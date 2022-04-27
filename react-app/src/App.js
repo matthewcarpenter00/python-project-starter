@@ -79,21 +79,21 @@ function App() {
           <ProtectedRoute exact path='/profile/user'>
             <UserHome />
           </ProtectedRoute>
-          <Route exact path='/profile/user/:id'>
+          <ProtectedRoute exact path='/profile/user/:id'>
             <UserHome />
-          </Route>
-          <Route exact path='/profile/user/:id/:profileoption'>
+          </ProtectedRoute>
+          <ProtectedRoute exact path='/profile/user/:id/:profileoption'>
             <UserHome />
-          </Route>
-          <Route exact path='/profile/user/:id/:profileoption/productionlabel'>
+          </ProtectedRoute>
+          <ProtectedRoute exact path='/profile/user/:id/:profileoption/productionlabel'>
             <ProductionLabel />
-          </Route>
-          <Route exact path='/profile/user/:id/:profileoption/productlabel'>
+          </ProtectedRoute>
+          <ProtectedRoute exact path='/profile/user/:id/:profileoption/productlabel'>
             <ProductLabel />
-          </Route>
-          <Route exact path='/truckloadform'>
+          </ProtectedRoute>
+          <ProtectedRoute exact path='/truckloadform'>
             <TruckLoadForm />
-          </Route>
+          </ProtectedRoute>
         </Switch>
       </BrowserRouter>
     </div>

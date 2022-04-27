@@ -34,8 +34,8 @@ export const DashboardAddCustomer = ({ user, userId }) => {
     { value: "1", label: "A" },
     { value: "2", label: "B" },
     { value: "3", label: "C" },
-    { value: "3", label: "D" },
-    { value: "3", label: "E" },
+    { value: "4", label: "D" },
+    { value: "5", label: "E" },
   ];
   const states = [
     { value: "FL", label: "FL" },
@@ -97,7 +97,7 @@ export const DashboardAddCustomer = ({ user, userId }) => {
             <Container>
               <Row>
                 <Col>
-                  <h2>new customer</h2>
+                  <h2>New Customer</h2>
                 </Col>
                 <Col md='auto'>
                   <Button
@@ -107,7 +107,7 @@ export const DashboardAddCustomer = ({ user, userId }) => {
                     variant='dark'
                     className='mb-3'
                   >
-                    all customers
+                    All Customers
                   </Button>
                 </Col>
               </Row>

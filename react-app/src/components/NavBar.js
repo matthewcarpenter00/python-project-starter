@@ -32,7 +32,7 @@ const NavBar = () => {
               </NavLink>
               <NavLink to='/login' exact={true}>
                 <Button className='m-3' variant='dark' type='submit'>
-                  login
+                Login
                 </Button>
               </NavLink>
             </>

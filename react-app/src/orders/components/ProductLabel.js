@@ -19,34 +19,7 @@ export const ProductLabel = () => {
 
   const [products, setProducts] = useState([]);
   const [orderProducts, setOrderProducts] = useState([
-    {
-      id: 1,
-      createdAt: "2022-04-16T18:36:20.778Z",
-      updatedAt: "2022-04-16T18:36:20.778Z",
-      sku: "dfvdfb",
-      name: "Product 1",
-      price: 10,
-      imageUrl: "http://yahoo.com",
-      description: "this is a description",
-      tierLevel: "2",
-      type: "SERVICE",
-      quantity: 2,
-      notes: "note",
-    },
-    {
-      id: 2,
-      createdAt: "2022-04-16T20:20:27.988Z",
-      updatedAt: "2022-04-16T20:20:27.989Z",
-      sku: "dfvdfb",
-      name: "Product 2",
-      price: 10,
-      imageUrl: "http://yahoo.com",
-      description: "this is a description",
-      tierLevel: "2",
-      type: "SERVICE",
-      quantity: 2,
-      notes: "note",
-    },
+   
   ]);
 
   useEffect(() => {
@@ -68,8 +41,8 @@ export const ProductLabel = () => {
   
     const fetchOrder = async (orderId) => {
       const response = await fetch(
-        // `${process.env.REACT_APP_API_URL}/orders/${orderId}`
-        `https://stepsolutionapi.herokuapp.com/orders/${orderId}`
+        `${process.env.REACT_APP_API_URL}/orders/${orderId}`
+        // `https://stepsolutionapi.herokuapp.com/orders/${orderId}`
     
       );
   
