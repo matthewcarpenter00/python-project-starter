@@ -9,6 +9,7 @@ import Form from "react-bootstrap/Form";
 import { useState } from "react";
 import { useHistory } from "react-router";
 import emailjs from "@emailjs/browser";
+import Toast from 'react-bootstrap/Toast';
 
 
 // redux and custom hook imports
@@ -22,9 +23,8 @@ export const DashboardOrderDetails = ({ user, userID }) => {
   const history = useHistory();
   let { id: orderId } = useParams();
 
+  const [show, setShow] = useState(false);
 
-  // trying to format date
-  // let createdAt = let date = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(createAt);
 
   // hooks and redux
   const dispatch = useDispatch();
@@ -34,8 +34,8 @@ export const DashboardOrderDetails = ({ user, userID }) => {
 
   const fetchOrder = async (orderId) => {
     const response = await fetch(
-      // `${process.env.REACT_APP_API_URL}/orders/${orderId}`
-      `https://stepsolutionapi.herokuapp.com/orders/${orderId}`
+      `${process.env.REACT_APP_API_URL}/orders/${orderId}`
+      
   
     );
 
@@ -142,19 +142,19 @@ export const DashboardOrderDetails = ({ user, userID }) => {
                   <Form.Label>Customer</Form.Label>
                   <Form.Control
                     type='text'
-                    value={orderdetails?.customer.company}
+                    value={orderdetails?.customer?.company}
                   />
                 </Form.Group>
 
                 <Form.Group as={Col} controlId='formOrderDate'>
                   <Form.Label>Date Placed</Form.Label>
-                  <Form.Control type='text' value={orderdetails?.createdAt} />
+                  <Form.Control type='text' value={Date.parse(orderdetails?.createdAt)} />
                 </Form.Group>
               </Row>
               <Row className='mb-3'>
                 <Form.Group as={Col} controlId='formJobName'>
                   <Form.Label>PO/Job Name</Form.Label>
-                  <Form.Control type='text' value={orderdetails?.poName} />
+                  <Form.Control type='text' value={orderdetails?.poName} onChange={(e)=>setOrderDetails({... orderdetails, poName:e.target.value})} />
                 </Form.Group>
 
                 <Form.Group as={Col} controlId='formRoute'>
@@ -162,12 +162,13 @@ export const DashboardOrderDetails = ({ user, userID }) => {
                   <Form.Control
                     type='text'
                     value={orderdetails?.shippingRoute}
+                    onChange={(e)=>setOrderDetails({... orderdetails, shippingRoute:e.target.value})}
                   />
                 </Form.Group>
 
                 <Form.Group as={Col} controlId='formStatus'>
                   <Form.Label>Status</Form.Label>
-                  <Form.Control type='text' value={orderdetails?.orderStatus} />
+                  <Form.Control type='text' value={orderdetails?.orderStatus} onChange={(e)=>setOrderDetails({... orderdetails, orderStatus:e.target.value})} />
                 </Form.Group>
               </Row>
               <Row className='mb-3'>
@@ -176,6 +177,7 @@ export const DashboardOrderDetails = ({ user, userID }) => {
                   <Form.Control
                     type='text'
                     value={orderdetails?.customer.tierLevel}
+                    onChange={(e)=>setOrderDetails({... orderdetails, tierLevel:e.target.value})}
                   />
                 </Form.Group>
 
@@ -184,12 +186,13 @@ export const DashboardOrderDetails = ({ user, userID }) => {
                   <Form.Control
                     type='text'
                     value={orderdetails?.invoiceNumber}
+                    onChange={(e)=>setOrderDetails({... orderdetails, invoiceNumber:e.target.value})}
                   />
                 </Form.Group>
 
                 <Form.Group as={Col} controlId='formTotalAmount'>
                   <Form.Label>Amount</Form.Label>
-                  <Form.Control type='text' value={orderdetails?.totalAmount} />
+                  <Form.Control type='text' value={orderdetails?.totalAmount}  />
                 </Form.Group>
               </Row>
               <Row>
@@ -204,9 +207,9 @@ export const DashboardOrderDetails = ({ user, userID }) => {
                     </tr>
                   </thead>
                   <tbody>
+                    {/* show order items */}
                     <tr>
                       <td>1</td>
-                    
                       <td>Vinyl Deco Stairnose</td>
                       <td>14</td>
                       <td>$168</td>

@@ -9,6 +9,7 @@ import Form from "react-bootstrap/Form";
 import PropTypes from "prop-types";
 import { useState } from "react";
 import { useHistory } from "react-router";
+import Select from "react-select";
 
 // redux and custom hook imports
 import { useForm } from "../../../hooks/useForm";
@@ -16,22 +17,38 @@ import { useDispatch, useSelector } from "react-redux";
 import { setCustomer } from "../../../store/orders";
 import { createCustomerDto } from "../../../adapters/customerAdapter";
 
-export const DashboardCustomerDetails = ({ user, userId }) => {
+export const DashboardEditCustomer = ({ user, userId }) => {
   const params = useParams();
   const history = useHistory();
   let { id: customerEmail } = useParams();
 
   // hooks and redux
   const dispatch = useDispatch();
+  // const [formValues, handleInputChange, reset] = useForm(customer);
   const [validated, setValidated] = useState(false);
   const [customer, setCustomer] = useState(null);
+  const [newTierLevel, setNewTierLevel] = useState(null);
 
- 
+
+  // data
+  // const { name, phone, email, company, address, address2, city, zipCode } =
+  // formValues;
+
+  const tierLevels = [
+    { value: "1", label: "A" },
+    { value: "2", label: "B" },
+    { value: "3", label: "C" },
+    { value: "4", label: "D" },
+    { value: "5", label: "E" },
+  ];
+  const states = [
+    { value: "FL", label: "FL" },
+    { value: "GA", label: "GA" },
+  ];
 
   const fetchCustomer = async (customerEmail) => {
     const response = await fetch(
       `${process.env.REACT_APP_API_URL}/customers/${customerEmail}`
-
     );
 
     if (response.ok) {
@@ -60,7 +77,7 @@ export const DashboardCustomerDetails = ({ user, userId }) => {
             <Container>
               <Row>
                 <Col>
-                  <h2>customer profile</h2>
+                  <h2>Edit Customer</h2>
                 </Col>
                 <Col md='auto'>
                   <Button
@@ -70,7 +87,7 @@ export const DashboardCustomerDetails = ({ user, userId }) => {
                     variant='dark'
                     className='mb-3'
                   >
-                    all customers
+                    All customers
                   </Button>
                 </Col>
                 <Col md='auto'>
@@ -81,7 +98,7 @@ export const DashboardCustomerDetails = ({ user, userId }) => {
                     variant='dark'
                     className='mb-3'
                   >
-                    + add customer
+                    + Add customer
                   </Button>
                 </Col>
               </Row>
@@ -99,79 +116,72 @@ export const DashboardCustomerDetails = ({ user, userId }) => {
                   <Form.Label>Company</Form.Label>
                   <Form.Control
                     type='text'
-                    readOnly
+                    
                     value={customer?.company}
                   />
                 </Form.Group>
 
                 <Form.Group as={Col} controlId='formTierLevel'>
                   <Form.Label>Tier Level</Form.Label>
-                  <Form.Control
-                    type='text'
-                    readOnly
-                    value={customer?.tierLevel}
+                  <Select
+                    defaultValue={customer?.tierLevel}
+                    onChange={setNewTierLevel}
+                    options={tierLevels}
                   />
+              
                 </Form.Group>
               </Row>
 
               <Row className='mb-3'>
                 <Form.Group as={Col} controlId='formContactName'>
                   <Form.Label>Contact Name</Form.Label>
-                  <Form.Control type='text' readOnly value={customer?.name} />
+                  <Form.Control type='text'  placeholder={customer?.name} />
                 </Form.Group>
 
                 <Form.Group as={Col} controlId='formTelephone'>
                   <Form.Label>Telephone</Form.Label>
-                  <Form.Control type='text' readOnly value={customer?.phone} />
+                  <Form.Control type='text'  placeholder={customer?.phone} />
                 </Form.Group>
 
                 <Form.Group as={Col} controlId='formEmail'>
                   <Form.Label>E-mail</Form.Label>
-                  <Form.Control readOnly type='email' value={customer?.email} />
+                  <Form.Control  type='email' placeholder={customer?.email} />
                 </Form.Group>
               </Row>
               <Form.Group className='mb-3' controlId='formGridAddress1'>
                 <Form.Label>Address</Form.Label>
-                <Form.Control readOnly type='text' value={customer?.address} />
+                <Form.Control type='text' placeholder={customer?.address} />
               </Form.Group>
 
               <Form.Group className='mb-3' controlId='formGridAddress2'>
                 <Form.Label>Address 2</Form.Label>
-                <Form.Control readOnly type='text' value={customer?.address2} />
+                <Form.Control type='text' placeholder={customer?.address2} />
               </Form.Group>
 
               <Row className='mb-5'>
                 <Form.Group as={Col} controlId='formGridCity'>
                   <Form.Label>City</Form.Label>
-                  <Form.Control readOnly type='text' value={customer?.city} />
+                  <Form.Control  type='text' placeholder={customer?.city} />
                 </Form.Group>
 
                 <Form.Group as={Col} controlId='formGridState'>
                   <Form.Label>State</Form.Label>
-                  <Form.Control readOnly type='text' value={customer?.state} />
+                  <Form.Control  type='text' placeholder={customer?.state} />
                 </Form.Group>
 
                 <Form.Group as={Col} controlId='formGridZip'>
                   <Form.Label>Zip</Form.Label>
                   <Form.Control
-                    readOnly
                     type='text'
-                    value={customer?.zipCode}
+                    placeholder={customer?.zipCode}
                   />
                 </Form.Group>
               </Row>
 
               <Row>
-                <Col md='auto'>
-                  <Button variant='danger' type='submit'>
-                    Delete Customer
-                  </Button>
-                </Col>
                 <Col>
-                  <Button variant='dark' type='submit'  onClick={() => {
-                      history.push(`/profile/user/${customerEmail}/editcustomer`);
-                    }}>
-                    Edit Customer
+                  <Button variant='success' type='submit'>
+                    Save Customer
                   </Button>
                 </Col>
               </Row>
@@ -183,7 +193,7 @@ export const DashboardCustomerDetails = ({ user, userId }) => {
   );
 };
 
-DashboardCustomerDetails.propTypes = {
+DashboardEditCustomer.propTypes = {
   user: PropTypes.object,
   userId: PropTypes.string,
 };
