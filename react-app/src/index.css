@@ -23,5 +23,13 @@ label {
     .printer-btn {
         visibility:hidden;
     }
+    html, body {
+        height: auto;
+        font-size: 10pt;
+    }
+    .print-table {
+        height: auto;
+        font-size: 10pt;
+    }
 }
 

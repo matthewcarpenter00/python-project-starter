@@ -31,7 +31,6 @@ export const DashboardCustomerDetails = ({ user, userId }) => {
   const fetchCustomer = async (customerEmail) => {
     const response = await fetch(
       `${process.env.REACT_APP_API_URL}/customers/${customerEmail}`
-
     );
 
     if (response.ok) {

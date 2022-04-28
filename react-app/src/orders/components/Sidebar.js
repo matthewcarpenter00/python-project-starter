@@ -3,6 +3,9 @@ import { useHistory } from "react-router";
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 import LogoutButton from "../../components/auth/LogoutButton";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { fas } from '@fortawesome/free-solid-svg-icons';
 
 
 
@@ -43,7 +46,6 @@ export const SideBar = ({ userId }) => {
 						onClick={() => {
 							history.push(`/profile/user/${userId}`);
 						}}>
-						<i className="fas fa-home" />
 						<span className="ms-4 sidebar-item ">Orders</span>
 					</a>
 				</li>
@@ -54,7 +56,6 @@ export const SideBar = ({ userId }) => {
 						onClick={() => {
 							history.push(`/profile/user/${userId}/customers`);
 						}}>
-						<i className="fas fa-donate" />
 						<span className="ms-4 sidebar-item">Customers</span>
 					</a>
 				</li>
@@ -66,7 +67,6 @@ export const SideBar = ({ userId }) => {
 							onClick={() => {
 								history.push(`/profile/user/${userId}/products`);
 							}}>
-							<i className="fas fa-tags" />
 							<span className="ms-4 sidebar-item">Products</span>
 						</a>
 					</li>
@@ -78,7 +78,7 @@ export const SideBar = ({ userId }) => {
 						onClick={() => {
 							history.push(`/profile/user/${userId}/myaccount`);
 						}}>
-						<i className="fas fa-cog" />
+
 						<span className="ms-4 sidebar-item">My Account</span>
 					</a>
 				</li>

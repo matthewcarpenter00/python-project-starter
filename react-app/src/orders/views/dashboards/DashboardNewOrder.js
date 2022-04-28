@@ -8,21 +8,18 @@ import { Button, Table } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import Select from "react-select";
 import axios from "axios";
+import { useHistory } from "react-router";
 import { customerSelectOptions } from "../../../adapters/customerAdapter";
 import { productSelectOptions } from "../../../adapters/productAdapter";
 import { createOrderDto } from "../../../adapters/orderAdapter";
 import { createOrderItemDto } from "../../../adapters/orderItemsAdapter";
 import { sendEmail } from "../../../utils/sendEmail";
+import emailjs from "@emailjs/browser";
 
 export const DashboardNewOrder = () => {
   const params = useParams();
   let { id } = useParams();
 
-  // const formatter = new Intl.NumberFormat("en-US", {
-  // 	style: "currency",
-  // 	currency: "USD",
-  // 	minimumFractionDigits: 0
-  // });
 
   const [customers, setCustomers] = useState([]);
   const [customer, setCustomer] = useState([]);
@@ -62,6 +59,7 @@ export const DashboardNewOrder = () => {
   }, []);
   
   const getCustomers = () => {
+    // axios(`https://stepsolutionapi.herokuapp.com/customers`).then((res) => {
     axios(`${process.env.REACT_APP_API_URL}/customers`).then((res) => {
       const customerOptions = customerSelectOptions(res.data);
       setCustomers(customerOptions);
@@ -69,7 +67,8 @@ export const DashboardNewOrder = () => {
   };
 
   const getProducts = () => {
-    axios(`${process.env.REACT_APP_API_URL}/products`).then((res) => {
+    // axios(`https://stepsolutionapi.herokuapp.com/products`).then((res) => {
+      axios(`${process.env.REACT_APP_API_URL}/products`).then((res) => {
       const productOptions = productSelectOptions(res.data);
       setProducts(productOptions);
     });
@@ -118,13 +117,16 @@ export const DashboardNewOrder = () => {
     const orderItemsDto = createOrderItemDto(newOrder.id, orderItems);
     for (let i = 0; i < orderItemsDto.length; i++) {
       const newOrderItem = createOrderItem(orderItemsDto[i]);
-      if (!newOrderItem.id) break;
-    }
-    sendEmail(customer?.email, "order-in-production");
+      // if (!newOrderItem.id) break;
+    };
+    // sendEmail(customer?.email, "order-in-production");
   };
+
+ 
 
   const createOrder = async (order) => {
     const dto = createOrderDto(order);
+    // const response = await fetch(`https://stepsolutionapi.herokuapp.com/orders`, {
     const response = await fetch(`${process.env.REACT_APP_API_URL}/orders`, {
       method: "POST",
       headers: {
@@ -149,7 +151,8 @@ export const DashboardNewOrder = () => {
 
   const createOrderItem = async (orderItem) => {
     const response = await fetch(
-      `${process.env.REACT_APP_API_URL}/order-items`,
+      `https://stepsolutionapi.herokuapp.com/order-items`,
+      // `${process.env.REACT_APP_API_URL}/order-items`,
       {
         method: "POST",
         headers: {
@@ -172,6 +175,8 @@ export const DashboardNewOrder = () => {
     }
   };
 
+
+
   return (
     <>
       <div className='w-100 d-flex p-4'>
@@ -190,10 +195,10 @@ export const DashboardNewOrder = () => {
               onKeyPress={handleKeyPress}
             >
               <Row className='mb-3'>
-                <Form.Group as={Col} controlId='formOrderID'>
+                {/* <Form.Group as={Col} controlId='formOrderID'>
                   <Form.Label>Order ID</Form.Label>
                   <Form.Control plaintext readOnly defaultValue='023' />
-                </Form.Group>
+                </Form.Group> */}
 
                 <Form.Group as={Col} controlId='formCustomer'>
                   <Form.Label>Customer</Form.Label>
@@ -350,7 +355,7 @@ export const DashboardNewOrder = () => {
               </Row>
               <Row>
                 <Col md='auto'>
-                  <Button variant='danger'>Delete Order</Button>
+                  <Button variant='secondary' href="/profile/user/orders">Cancel</Button>
                 </Col>
                 <Col>
                   <Button
@@ -366,7 +371,7 @@ export const DashboardNewOrder = () => {
                           invoiceNumber,
                         },
                         orderProducts
-                      )
+                      ) && sendEmail
                     }
                   >
                     Save Order

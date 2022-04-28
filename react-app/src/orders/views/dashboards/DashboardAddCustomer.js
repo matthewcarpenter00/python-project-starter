@@ -64,8 +64,7 @@ export const DashboardAddCustomer = ({ user, userId }) => {
   // async function to create customer
   const createCustomer = async (customer) => {
     const dto = createCustomerDto(customer);
-    // const response = await fetch(`${process.env.REACT_APP_API_URL}/customers`, {
-    const response = await fetch("https://stepsolutionapi.herokuapp.com/customers", {  
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/customers`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -119,13 +118,12 @@ export const DashboardAddCustomer = ({ user, userId }) => {
               onSubmit={handleSubmit}
               validated={validated}
             >
-              <Row className='mb-3'>
+              {/* <Row className='mb-3'>
                 <Form.Group as={Col} controlId='formOrderID'>
                   <Form.Label>Customer ID</Form.Label>
-                  {/* como hacemos aqui para mostrar el proximo id disponible para el nuevo customer */}
                   <Form.Control plaintext readOnly defaultValue='001' />
                 </Form.Group>
-              </Row>
+              </Row> */}
 
               <Row className='mb-3'>
                 <Form.Group controlId='formJobName'>

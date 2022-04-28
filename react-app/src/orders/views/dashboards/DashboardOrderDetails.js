@@ -10,6 +10,8 @@ import { useState } from "react";
 import { useHistory } from "react-router";
 import emailjs from "@emailjs/browser";
 import Toast from 'react-bootstrap/Toast';
+import axios from "axios";
+import { productSelectOptions } from "../../../adapters/productAdapter";
 
 
 // redux and custom hook imports
@@ -30,16 +32,15 @@ export const DashboardOrderDetails = ({ user, userID }) => {
   const dispatch = useDispatch();
   const [validated, setValidated] = useState(false);
   const [orderdetails, setOrderDetails] = useState(null);
+  // const [orderItems, setOrderItems] = useState([]);
 
+  // calls
 
   const fetchOrder = async (orderId) => {
     const response = await fetch(
       `${process.env.REACT_APP_API_URL}/orders/${orderId}`
-      
-  
+      // `https://stepsolutionapi.herokuapp.com/orders/${orderId}`
     );
-
-      
     if (response.ok) {
       const orderdetails = await response.json();
       setOrderDetails(orderdetails);
@@ -57,6 +58,7 @@ export const DashboardOrderDetails = ({ user, userID }) => {
     fetchOrder(orderId);
   }, []);
 
+ 
 
   // email functionality
   const sendEmail = (e) => {
@@ -148,7 +150,7 @@ export const DashboardOrderDetails = ({ user, userID }) => {
 
                 <Form.Group as={Col} controlId='formOrderDate'>
                   <Form.Label>Date Placed</Form.Label>
-                  <Form.Control type='text' value={Date.parse(orderdetails?.createdAt)} />
+                  <Form.Control type='text' value={orderdetails?.createdAt} />
                 </Form.Group>
               </Row>
               <Row className='mb-3'>
@@ -207,14 +209,15 @@ export const DashboardOrderDetails = ({ user, userID }) => {
                     </tr>
                   </thead>
                   <tbody>
-                    {/* show order items */}
-                    <tr>
-                      <td>1</td>
-                      <td>Vinyl Deco Stairnose</td>
-                      <td>14</td>
-                      <td>$168</td>
-                      <td>corner edge</td>
-                    </tr>
+                        {orderdetails?.orderItems.map((orderItem, index) => (
+                          <tr key={orderItem.id}>
+                            <td>{index}</td>
+                            <td>{orderItem?.name}</td>
+                            <td>{orderItem?.quantity}</td>
+                            <td>{orderItem?.price}</td>
+                            <td>{orderItem?.notes}</td>
+                          </tr>
+                        ))}
                   </tbody>
               
                 </Table>
