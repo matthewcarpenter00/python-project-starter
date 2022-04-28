@@ -20,16 +20,13 @@ export const DashboardNewOrder = () => {
   const params = useParams();
   let { id } = useParams();
 
-
   const [customers, setCustomers] = useState([]);
   const [customer, setCustomer] = useState([]);
   const [products, setProducts] = useState([]);
   const [product, setProduct] = useState([]);
   const [poName, setPoName] = useState("");
   const [invoiceNumber, setInvoiceNumber] = useState("");
-  const [orderProducts, setOrderProducts] = useState([
-    
-  ]);
+  const [orderProducts, setOrderProducts] = useState([]);
 
   const [route, setRoute] = useState([]);
   const routes = [
@@ -53,11 +50,11 @@ export const DashboardNewOrder = () => {
   useEffect(() => {
     getCustomers();
   }, []);
-  
+
   useEffect(() => {
     getProducts();
   }, []);
-  
+
   const getCustomers = () => {
     // axios(`https://stepsolutionapi.herokuapp.com/customers`).then((res) => {
     axios(`${process.env.REACT_APP_API_URL}/customers`).then((res) => {
@@ -68,7 +65,7 @@ export const DashboardNewOrder = () => {
 
   const getProducts = () => {
     // axios(`https://stepsolutionapi.herokuapp.com/products`).then((res) => {
-      axios(`${process.env.REACT_APP_API_URL}/products`).then((res) => {
+    axios(`${process.env.REACT_APP_API_URL}/products`).then((res) => {
       const productOptions = productSelectOptions(res.data);
       setProducts(productOptions);
     });
@@ -118,11 +115,9 @@ export const DashboardNewOrder = () => {
     for (let i = 0; i < orderItemsDto.length; i++) {
       const newOrderItem = createOrderItem(orderItemsDto[i]);
       // if (!newOrderItem.id) break;
-    };
+    }
     // sendEmail(customer?.email, "order-in-production");
   };
-
- 
 
   const createOrder = async (order) => {
     const dto = createOrderDto(order);
@@ -174,8 +169,6 @@ export const DashboardNewOrder = () => {
       return ["An error occurred. Please try again."];
     }
   };
-
-
 
   return (
     <>
@@ -355,7 +348,9 @@ export const DashboardNewOrder = () => {
               </Row>
               <Row>
                 <Col md='auto'>
-                  <Button variant='secondary' href="/profile/user/orders">Cancel</Button>
+                  <Button variant='secondary' href='/profile/user/orders'>
+                    Cancel
+                  </Button>
                 </Col>
                 <Col>
                   <Button
