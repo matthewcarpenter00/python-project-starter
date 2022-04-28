@@ -16,7 +16,7 @@ export const createCustomerDto = (customer) => {
 export const customerSelectOptions = (customers) => {
   return customers.map((customer) => ({
     value: customer,
-    label: customer.name,
+    label: customer.company,
   }));
 };
 

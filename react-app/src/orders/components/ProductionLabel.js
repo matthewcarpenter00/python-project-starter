@@ -16,21 +16,8 @@ export const ProductionLabel = () => {
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
   });
-  const [products, setProducts] = useState([]);
-  const [orderProducts, setOrderProducts] = useState([
 
-  ]);
-
-  useEffect(() => {
-    getProducts();
-  }, []);
   
-  const getProducts = () => {
-    axios(`${process.env.REACT_APP_API_URL}/products`).then((res) => {
-      const productOptions = productSelectOptions(res.data);
-      setProducts(productOptions);
-    });
-  };
 
     // hooks and redux
     const dispatch = useDispatch();
@@ -41,6 +28,7 @@ export const ProductionLabel = () => {
     const fetchOrder = async (orderId) => {
       const response = await fetch(
         `${process.env.REACT_APP_API_URL}/orders/${orderId}`
+        // `https://stepsolutionapi.herokuapp.com/orders/${orderId}`
       );
   
         
@@ -63,17 +51,12 @@ export const ProductionLabel = () => {
 
   return (
     
-    <div className="mt-5 d-flex justify-content-center align-items-center">
-      <div  ref={componentRef} className="col-6 rounded  p-sm-3" >
-        <h1 className="mb-3 text-center"  >Production Label</h1>
+    // <div className="mt-5 d-flex justify-content-center align-items-center">
+      <div  ref={componentRef} className=" rounded  p-sm-3" >
+        <h1 className="mb-3 text-center border "  >{orderdetails?.customer.company}</h1>
             <Row className="mb-3">
-              <Col>Order ID</Col>
-              <Col className="fw-bold">{orderdetails?.id}</Col>
-            </Row>
-            <hr />
-            <Row className="mb-3">
-              <Col>Customer</Col>
-              <Col className="fw-bold">{orderdetails?.customer.company}</Col>
+              <Col>PO /Job Name:</Col>
+              <Col className="fw-bold">{orderdetails?.poName}</Col>
             </Row>
             <hr />
             <Row className="mb-3">
@@ -86,23 +69,7 @@ export const ProductionLabel = () => {
               <Col className="fw-bold">{orderdetails?.shippingRoute}</Col>
             </Row>
             <hr />
-            {/* <Row className="mb-3">
-              <Col>Product 1</Col>
-              <Col className="fw-bold">Vinyl Stairnose Deco</Col>
-            </Row>
-            <hr />
-
-            <Row className="mb-3">
-              <Col>Quantity</Col>
-              <Col className="fw-bold">14</Col>
-            </Row>
-            <hr />
-            <Row className="mb-3">
-              <Col>Notes</Col>
-              <Col className="fw-bold">2 inch thick</Col>
-            </Row>
-                        */}
-              <Table bordered responsive='md' className='table'>
+              <Table bordered responsive='md' className='table print-table'>
                  <thead>
                   <tr>  
                       <th scope='col'>#</th>
@@ -112,12 +79,12 @@ export const ProductionLabel = () => {
                     </tr>
                   </thead>
                   <tbody>
-                        {orderProducts.map((product, index) => (
-                          <tr key={product.id}>
+                  {orderdetails?.orderItems.map((orderItem, index) => (
+                          <tr key={orderItem.id}>
                             <td>{index}</td>
-                            <td>{product.name}</td>
-                            <td>{product.quantity}</td>
-                            <td>{product.notes}</td>
+                            <td>{orderItem?.name}</td>
+                            <td>{orderItem?.quantity}</td>
+                            <td>{orderItem?.notes}</td>
                           </tr>
                         ))}
                   </tbody>
@@ -134,7 +101,7 @@ export const ProductionLabel = () => {
               </Row>
            
       </div>
-    </div>
+    // </div>
   );
 };
 

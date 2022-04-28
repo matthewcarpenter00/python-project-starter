@@ -17,21 +17,7 @@ export const ProductLabel = () => {
     content: () => componentRef.current,
   });
 
-  const [products, setProducts] = useState([]);
-  const [orderProducts, setOrderProducts] = useState([
-   
-  ]);
 
-  useEffect(() => {
-    getProducts();
-  }, []);
-  
-  const getProducts = () => {
-    axios(`${process.env.REACT_APP_API_URL}/products`).then((res) => {
-      const productOptions = productSelectOptions(res.data);
-      setProducts(productOptions);
-    });
-  };
 
     // hooks and redux
     const dispatch = useDispatch();
@@ -41,12 +27,11 @@ export const ProductLabel = () => {
   
     const fetchOrder = async (orderId) => {
       const response = await fetch(
-        `${process.env.REACT_APP_API_URL}/orders/${orderId}`
-        // `https://stepsolutionapi.herokuapp.com/orders/${orderId}`
+        // `${process.env.REACT_APP_API_URL}/orders/${orderId}`
+        `https://stepsolutionapi.herokuapp.com/orders/${orderId}`
     
       );
-  
-        
+
       if (response.ok) {
         const orderdetails = await response.json();
         setOrderDetails(orderdetails);
@@ -66,19 +51,19 @@ export const ProductLabel = () => {
 
   return (
 
-    <div  className="mt-5 d-flex justify-content-center align-items-center">
-      <div ref={componentRef} className="col-6 rounded  p-sm-3" closeButton>
+    // <div  className="mt-5 d-flex justify-content-center align-items-center">
+      <div ref={componentRef} className=" rounded  p-sm-3" >
         
          
           <img
               alt=""
               src="https://static1.squarespace.com/static/5feb8101b5b33b527b373ebc/t/624deb72c3b55f64018575de/1649273714852/stdpsolution+icon-05.png"
-              width="100"
-              height="100"
+              width="60"
+              height="60"
               className="mb-3 mx-auto d-block"
             />
          
-        <h1 className="mb-3 text-center">Product Label</h1>
+        <h1 className="mb-3 text-center border">{orderdetails?.customer.company}</h1>
             <Row className="mb-3">
               <Col>Order ID</Col>
               <Col className="fw-bold">{orderdetails?.id}</Col>
@@ -87,11 +72,6 @@ export const ProductLabel = () => {
             <Row className="mb-3">
               <Col>Date</Col>
               <Col className="fw-bold">{orderdetails?.createdAt}</Col>
-            </Row>
-            <hr />
-            <Row className="mb-3">
-              <Col>Customer</Col>
-              <Col className="fw-bold">{orderdetails?.customer.company}</Col>
             </Row>
             <hr />
             <Row className="mb-3">
@@ -105,7 +85,7 @@ export const ProductLabel = () => {
             </Row>
             <hr />
     
-            <Table bordered responsive='md' className='table'>
+            <Table bordered responsive='md' className='table print-table'>
               <thead>
                 <tr>  
                   <th scope='col'>#</th>
@@ -115,15 +95,15 @@ export const ProductLabel = () => {
                 </tr>
               </thead>
               <tbody>
-                {orderProducts.map((product, index) => (
-                  <tr key={product.id}>
-                    <td>{index}</td>
-                    <td>{product.name}</td>
-                    <td>{product.quantity}</td>
-                    <td>{product.notes}</td>
-                  </tr>
-                ))}
-              </tbody>
+                        {orderdetails?.orderItems.map((orderItem, index) => (
+                          <tr key={orderItem.id}>
+                            <td>{index}</td>
+                            <td>{orderItem?.name}</td>
+                            <td>{orderItem?.quantity}</td>
+                            <td>{orderItem?.notes}</td>
+                          </tr>
+                        ))}
+                  </tbody>
             </Table>    
             <Row className="m-5">
               <Button 
@@ -134,7 +114,7 @@ export const ProductLabel = () => {
             </Row>
            
       </div>
-    </div>
+    // </div>
   );
 };
 

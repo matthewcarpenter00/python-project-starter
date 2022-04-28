@@ -12,10 +12,10 @@ import { useState } from "react";
 import axios from "axios";
 import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory from "react-bootstrap-table2-paginator";
-// import cellEditFactory, { Type } from "react-bootstrap-table2-editor";
+
 import filterFactory, {
   textFilter,
-  selectFilter,
+  selectFilter, Comparator
 } from "react-bootstrap-table2-filter";
 
 import { useReactToPrint } from "react-to-print";
@@ -39,7 +39,7 @@ export const TruckLoadForm = ({ user, userId }) => {
   const getData = () => {
     
     axios(`${process.env.REACT_APP_API_URL}/orders`).then((res) => {
-  
+    // axios("https://stepsolutionapi.herokuapp.com/orders").then((res) => {
       console.log(res.data);
       setData(res.data);
     });
@@ -52,11 +52,15 @@ export const TruckLoadForm = ({ user, userId }) => {
     pickup: "Pick Up",
   };
 
-  const statusOptions = {
+  const selectStatus = {
     ready: "Ready",
-    production: "In Production",
+    roduction: "In Production",
     completed: "Completed",
   };
+
+  const priceFormatter=(data,row)=>{
+    return<>${data}</>
+  }
 
   const columns = [
     {
@@ -73,13 +77,15 @@ export const TruckLoadForm = ({ user, userId }) => {
       dataField: "totalAmount",
       text: "Amount",
       sort: true,
+      formatter:priceFormatter,
     },
     {
       dataField: "shippingRoute",
       text: "Route",
       sort: true,
-      filter: textFilter({
+      filter: selectFilter({
         options: selectOptions,
+        comparator: Comparator.LIKE
       }),
     },
     {
@@ -87,17 +93,18 @@ export const TruckLoadForm = ({ user, userId }) => {
       text: "Status",
       sort: true,
       filter: selectFilter({
-        options: statusOptions,
+        options: selectStatus,
+        comparator: Comparator.LIKE
       }),
     },
   ];
 
   return (
     <>
-      <div className='w-100 d-flex p-4'>
-        <div className='w-100 h-100 p-2 rounded-3'>
-          <div className='dashboard-page' ref={componentRef}>
-            <Container>
+    
+        {/* <div className='w-100 h-100 p-2 rounded-3'> */}
+          <div className='p-3' ref={componentRef}>
+            <div>
               <Row className='justify-content-between'>
                 <Col>
                   <img
@@ -114,17 +121,13 @@ export const TruckLoadForm = ({ user, userId }) => {
                     <strong>Truck</strong>Load
                   </h1>
                 </Col>
-
-                {/* <Col>
-                  <Button variant='light'>Print View</Button>
-                </Col> */}
               </Row>
-            </Container>
+            </div>
 
             {/* Dashboard content */}
 
-            <Container>
-              <div className='h-100 p-5 bg-light border rounded-3'>
+            <div>
+              <div className=''>
                 <BootstrapTable
                   keyField='id'
                   data={data}
@@ -136,7 +139,7 @@ export const TruckLoadForm = ({ user, userId }) => {
                   filter={filterFactory()}
                 ></BootstrapTable>
               </div>
-            </Container>
+            </div>
           </div>
           <Container>
             <Col className='mt-4 text-center'>
@@ -150,8 +153,8 @@ export const TruckLoadForm = ({ user, userId }) => {
               </Button>
             </Col>
           </Container>
-        </div>
-      </div>
+        {/* </div> */}
+ 
     </>
   );
 };

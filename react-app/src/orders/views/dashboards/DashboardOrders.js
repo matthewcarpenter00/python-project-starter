@@ -30,8 +30,8 @@ export const DashboardOrders = ({ user, userId }) => {
     getData();
   }, []);
   const getData = () => {
-    // axios(`${process.env.REACT_APP_API_URL}/orders`).then((res) => {
-      axios("https://stepsolutionapi.herokuapp.com/orders").then((res) => {
+    axios(`${process.env.REACT_APP_API_URL}/orders`).then((res) => {
+      // axios("https://stepsolutionapi.herokuapp.com/orders").then((res) => {
       console.log(res.data);
       setData(res.data);
     });
@@ -51,6 +51,10 @@ export const DashboardOrders = ({ user, userId }) => {
     2: "orlando",
     3: "pickup",
   };
+
+  const priceFormatter=(data,row)=>{
+    return<>${data}</>
+  }
 
   const columns = [
     {
@@ -77,14 +81,12 @@ export const DashboardOrders = ({ user, userId }) => {
       dataField: "totalAmount",
       text: "Amount",
       sort: true,
+      formatter: priceFormatter,
     },
     {
       dataField: "shippingRoute",
       text: "Route",
       sort: true,
-      // filter: selectFilter({
-      //   options: selectOptions
-      // })
     },
     {
       dataField: "orderStatus",
@@ -102,8 +104,8 @@ export const DashboardOrders = ({ user, userId }) => {
 
   return (
     <>
-      <div className='w-100 d-flex p-4'>
-        <div className='w-100 h-100 p-2 rounded-3'>
+      {/* <div className='w-100 d-flex p-4'> */}
+        <div className='p-2 rounded-3'>
           <div className='dashboard-page'>
             {/* title section */}
 
@@ -157,7 +159,7 @@ export const DashboardOrders = ({ user, userId }) => {
             </Container>
           </div>
         </div>
-      </div>
+      {/* </div> */}
     </>
   );
 };

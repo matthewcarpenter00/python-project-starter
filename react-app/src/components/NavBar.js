@@ -25,11 +25,11 @@ const NavBar = () => {
        
           {!user && (
             <>
-              <NavLink to='/sign-up' exact={true}>
+              {/* <NavLink to='/sign-up' exact={true}>
                 <Button className='m-3' variant='outline-dark'>
                   Sign Up
                 </Button>
-              </NavLink>
+              </NavLink> */}
               <NavLink to='/login' exact={true}>
                 <Button className='m-3' variant='dark' type='submit'>
                 Login
