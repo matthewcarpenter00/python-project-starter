@@ -19,25 +19,11 @@ import { oauthClient } from "../../lib/intuit-oauth";
 export const UserHome = (props) => {
   const [oauthToken, setOauthToken] = useState("");
   const [realmId, setRealmId] = useState("");
-  const getCompanyInfo = () => {
-    const companyID = realmId;
-
-    fetch(
-      `https://sandbox-quickbooks.api.intuit.com/v3/company/${companyID}/item?minorversion=14`,
-      {
-        headers: {
-          Authorization: `Bearer ${oauthToken.access_token}`,
-        },
-      }
-    )
-      .then(function (authResponse) {
-        console.log(
-          `The response for API call is :${JSON.stringify(authResponse)}`
-        );
-      })
-      .catch(function (e) {
-        console.error(e);
-      });
+  const [companyInfo, setCompanyInfo] = useState(null);
+  const getCompanyInfo = async () => {
+    const response = await fetch("/api/auth/company-info");
+    const data = await response.json();
+    setCompanyInfo(data);
   };
 
   useEffect(() => {
@@ -105,6 +91,7 @@ export const UserHome = (props) => {
         {clickedProfile(params.profileoption)}
       </div>
       <button onClick={getCompanyInfo}>Get Company Info</button>
+      {JSON.stringify(companyInfo)}
     </>
   );
 };
