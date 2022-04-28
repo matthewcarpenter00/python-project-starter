@@ -13,8 +13,8 @@ import { customerSelectOptions } from "../../../adapters/customerAdapter";
 import { productSelectOptions } from "../../../adapters/productAdapter";
 import { createOrderDto } from "../../../adapters/orderAdapter";
 import { createOrderItemDto } from "../../../adapters/orderItemsAdapter";
-import { sendEmail } from "../../../utils/sendEmail";
 import emailjs from "@emailjs/browser";
+import { sendEmail } from "../../../lib/sendEmail";
 
 export const DashboardNewOrder = () => {
   const params = useParams();

@@ -30,7 +30,9 @@ export const DashboardOrders = ({ user, userId }) => {
     getData();
   }, []);
   const getData = () => {
+    console.log("REACT_APP_API_URL", process.env.REACT_APP_API_URL);
     axios(`${process.env.REACT_APP_API_URL}/orders`).then((res) => {
+      // axios("https://stepsolutionapi.herokuapp.com/orders").then((res) => {
       // axios("https://stepsolutionapi.herokuapp.com/orders").then((res) => {
       console.log(res.data);
       setData(res.data);
@@ -52,9 +54,9 @@ export const DashboardOrders = ({ user, userId }) => {
     3: "pickup",
   };
 
-  const priceFormatter=(data,row)=>{
-    return<>${data}</>
-  }
+  const priceFormatter = (data, row) => {
+    return <>${data}</>;
+  };
 
   const columns = [
     {
@@ -105,60 +107,60 @@ export const DashboardOrders = ({ user, userId }) => {
   return (
     <>
       {/* <div className='w-100 d-flex p-4'> */}
-        <div className='p-2 rounded-3'>
-          <div className='dashboard-page'>
-            {/* title section */}
+      <div className='p-2 rounded-3'>
+        <div className='dashboard-page'>
+          {/* title section */}
 
-            <Container>
-              <Row>
-                <Col xs={7}>
-                  <h1>Orders</h1>
-                </Col>
+          <Container>
+            <Row>
+              <Col xs={7}>
+                <h1>Orders</h1>
+              </Col>
 
-                <Col>
-                  <Link to='/truckloadform' target='_blank'>
-                    <Button variant='outline-dark' className='mb-3'>
-                      truck load form
-                    </Button>
-                  </Link>
-                </Col>
-                <Col>
-                  <Button
-                    onClick={() => {
-                      history.push(`/profile/user/${userId}/neworder`);
-                    }}
-                    variant='dark'
-                    className='mb-3 float-right'
-                  >
-                    + new order
+              <Col>
+                <Link to='/truckloadform' target='_blank'>
+                  <Button variant='outline-dark' className='mb-3'>
+                    truck load form
                   </Button>
-                </Col>
+                </Link>
+              </Col>
+              <Col>
+                <Button
+                  onClick={() => {
+                    history.push(`/profile/user/${userId}/neworder`);
+                  }}
+                  variant='dark'
+                  className='mb-3 float-right'
+                >
+                  + new order
+                </Button>
+              </Col>
 
-                {/* <Col>
+              {/* <Col>
                   <Button variant='light'>Print View</Button>
                 </Col> */}
-              </Row>
-            </Container>
+            </Row>
+          </Container>
 
-            {/* Dashboard content */}
+          {/* Dashboard content */}
 
-            <Container>
-              <div className='h-100 p-5 bg-light border rounded-3'>
-                <BootstrapTable
-                  keyField='id'
-                  rowEvents={rowEvents}
-                  data={data}
-                  columns={columns}
-                  striped
-                  hover
-                  condensed
-                  pagination={paginationFactory()}
-                  filter={filterFactory()}
-                ></BootstrapTable>
-              </div>
-            </Container>
-          </div>
+          <Container>
+            <div className='h-100 p-5 bg-light border rounded-3'>
+              <BootstrapTable
+                keyField='id'
+                rowEvents={rowEvents}
+                data={data}
+                columns={columns}
+                striped
+                hover
+                condensed
+                pagination={paginationFactory()}
+                filter={filterFactory()}
+              ></BootstrapTable>
+            </div>
+          </Container>
         </div>
+      </div>
       {/* </div> */}
     </>
   );

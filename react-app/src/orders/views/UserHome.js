@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 // import { Context } from "react";
 
 import { useHistory } from "react-router";
@@ -15,8 +15,44 @@ import { DashboardCustomerDetails } from "./dashboards/DashboardCustomerDetails"
 import { DashboardAddCustomer } from "./dashboards/DashboardAddCustomer";
 import { TruckLoadForm } from "../components/TruckLoadForm";
 import { DashboardEditCustomer } from "./dashboards/DashboardEditCustomer";
+import { oauthClient } from "../../lib/intuit-oauth";
 
 export const UserHome = (props) => {
+  const [oauthToken, setOauthToken] = useState("");
+  const [realmId, setRealmId] = useState("");
+  const [companyInfo, setCompanyInfo] = useState(null);
+  const getCompanyInfo = async () => {
+    const response = await fetch("/api/auth/company-info");
+    const data = await response.json();
+    setCompanyInfo(data);
+  };
+
+  useEffect(() => {
+    const url = new URL(window.location.href);
+    const code = url.searchParams.get("code");
+    const realmId = url.searchParams.get("realmId");
+    setRealmId(realmId);
+
+    fetch("/api/auth/oauth-token", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ code, realmId }),
+    })
+      .then((res) => res.json())
+      .then((data) => setOauthToken(data));
+    // oauthClient
+    //   .createToken(code)
+    //   .then((authResponse) =>
+    //     console.log("The Token is  " + JSON.stringify(authResponse.getJson()))
+    //   )
+    //   .catch((e) => {
+    //     console.error("The error message is :" + e.originalMessage);
+    //     console.error(e.intuit_tid);
+    //   });
+  }, []);
+
   const params = useParams();
   const history = useHistory();
 
@@ -51,10 +87,15 @@ export const UserHome = (props) => {
   };
 
   return (
-    <div className='d-flex'>
-      <SideBar />
-      {clickedProfile(params.profileoption)}
-    </div>
+    <>
+      <div className='d-flex'>
+        <SideBar />
+
+        {clickedProfile(params.profileoption)}
+      </div>
+      <button onClick={getCompanyInfo}>Get Company Info</button>
+      {JSON.stringify(companyInfo)}
+    </>
   );
 };
 
