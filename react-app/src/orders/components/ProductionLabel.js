@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { productSelectOptions } from "../../adapters/productAdapter";
+// import { format, parseISO } from "date-fns";
 
 export const ProductionLabel = () => {
 
@@ -27,8 +28,8 @@ export const ProductionLabel = () => {
   
     const fetchOrder = async (orderId) => {
       const response = await fetch(
-        `${process.env.REACT_APP_API_URL}/orders/${orderId}`
-        // `https://stepsolutionapi.herokuapp.com/orders/${orderId}`
+        // `${process.env.REACT_APP_API_URL}/orders/${orderId}`
+        `https://stepsolutionapi.herokuapp.com/orders/${orderId}`
       );
   
         
@@ -49,6 +50,8 @@ export const ProductionLabel = () => {
       fetchOrder(orderId);
     }, []);
 
+    // console.log(orderdetails?.createdAt)
+
   return (
     
     // <div className="mt-5 d-flex justify-content-center align-items-center">
@@ -61,7 +64,7 @@ export const ProductionLabel = () => {
             <hr />
             <Row className="mb-3">
               <Col>Date</Col>
-              <Col className="fw-bold">{orderdetails?.createdAt}</Col>
+              <Col className="fw-bold">{orderdetails?.createdAt} </Col>
             </Row>
             <hr />
             <Row className="mb-3">
