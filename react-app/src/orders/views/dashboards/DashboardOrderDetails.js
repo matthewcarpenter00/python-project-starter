@@ -57,16 +57,20 @@ export const DashboardOrderDetails = ({ user, userID }) => {
   }, []);
 
   const editOrder = async (newOrderStatus) => {
+    console.log(newOrderStatus);
     // const dto = createOrderDto(newOrderStatus);
     // const response = await fetch(`https://stepsolutionapi.herokuapp.com/orders`, {
 
-    const response = await fetch(`${process.env.REACT_APP_API_URL}/orders`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newOrderStatus),
-    });
+    const response = await fetch(
+      `${process.env.REACT_APP_API_URL}/orders/${orderId}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newOrderStatus),
+      }
+    );
 
     if (response.ok) {
       const data = await response.json();
@@ -304,6 +308,9 @@ export const DashboardOrderDetails = ({ user, userID }) => {
                 </Col>
                 <Col>
                   <Button
+                    onClick={() =>
+                      editOrder({ orderStatus: orderdetails?.orderStatus })
+                    }
                     variant='success'
                     // onClick={editOrder({orderStatus: orderdetails?.orderStatus})}
                   >
