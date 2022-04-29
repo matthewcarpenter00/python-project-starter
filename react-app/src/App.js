@@ -80,24 +80,24 @@ function App() {
           <ProtectedRoute path='/order-review' exact={true}>
             <OrderReview />
           </ProtectedRoute>
-          <ProtectedRoute exact path='/profile/user'>
+          <Route exact path='/profile/user'>
             <UserHome />
-          </ProtectedRoute>
-          <ProtectedRoute exact path='/profile/user/:id'>
+          </Route>
+          <Route exact path='/profile/user/:id'>
             <UserHome />
-          </ProtectedRoute>
-          <ProtectedRoute exact path='/profile/user/:id/:profileoption'>
+          </Route>
+          <Route exact path='/profile/user/:id/:profileoption'>
             <UserHome />
-          </ProtectedRoute>
-          <ProtectedRoute exact path='/profile/user/:id/:profileoption/productionlabel'>
+          </Route>
+          <Route exact path='/profile/user/:id/:profileoption/productionlabel'>
             <ProductionLabel />
-          </ProtectedRoute>
-          <ProtectedRoute exact path='/profile/user/:id/:profileoption/productlabel'>
+          </Route>
+          <Route exact path='/profile/user/:id/:profileoption/productlabel'>
             <ProductLabel />
-          </ProtectedRoute>
-          <ProtectedRoute exact path='/truckloadform'>
+          </Route>
+          <Route exact path='/truckloadform'>
             <TruckLoadForm />
-          </ProtectedRoute>
+          </Route>
         </Switch>
       </BrowserRouter>
     </div>

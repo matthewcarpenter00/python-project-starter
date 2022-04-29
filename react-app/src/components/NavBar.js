@@ -9,17 +9,17 @@ const NavBar = () => {
   const user = useSelector((state) => state.session.user);
 
   return (
-    <Navbar expand='md' variant='light' bg='light'>
+    <Navbar expand='lg' variant='light' bg='light'>
       <Container>
-        <Navbar.Brand href='/'>
+        <Navbar.Brand href='/' className='d-flex align-top'>
           <img
             alt=''
             src='https://static1.squarespace.com/static/5feb8101b5b33b527b373ebc/t/624deb72c3b55f64018575de/1649273714852/stdpsolution+icon-05.png'
-            width='30'
-            height='30'
+            width='40'
+            height='40'
             className='d-inline-block align-top'
           />{" "}
-          <strong>step</strong>solution
+          <h2><strong>step</strong>solution</h2>
         </Navbar.Brand>
         
         <Nav className='justify-content-end'>
