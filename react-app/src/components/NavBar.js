@@ -44,11 +44,14 @@ const NavBar = () => {
               <LogoutButton />
             </div>
           )}
-          <div href='#' className='mt-3'>
+          {user && (
+            <div href='#' className='mt-3'>
             <Button onClick={() => window.location.replace(authUri)}>
               Connect to Quickbooks
             </Button>
           </div>
+          )} 
+          
         </Nav>
       </Container>
     </Navbar>
