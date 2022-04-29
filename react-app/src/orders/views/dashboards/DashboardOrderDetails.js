@@ -58,7 +58,31 @@ export const DashboardOrderDetails = ({ user, userID }) => {
     fetchOrder(orderId);
   }, []);
 
- 
+  const editOrder = async (newOrderStatus) => {
+    // const dto = createOrderDto(newOrderStatus);
+    // const response = await fetch(`https://stepsolutionapi.herokuapp.com/orders`, {
+
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/orders`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newOrderStatus),
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      // call redux dispatch, it set customer also in store
+      return data;
+    } else if (response.status < 500) {
+      const data = await response.json();
+      if (data.errors) {
+        return data.errors;
+      }
+    } else {
+      return ["An error occurred. Please try again."];
+    }
+  };
 
   // email functionality
   const sendEmail = (e) => {
@@ -133,7 +157,7 @@ export const DashboardOrderDetails = ({ user, userID }) => {
             </Container>
 
             {/* Dashboard content */}
-            <Form className='h-100 p-5 border rounded-3'>
+            <Form className='h-100 p-5 border rounded-3' >
               <Row className='mb-3'>
                 <Form.Group as={Col} controlId='formOrderID'>
                   <Form.Label>Order ID</Form.Label>
@@ -224,12 +248,14 @@ export const DashboardOrderDetails = ({ user, userID }) => {
               </Row>
               <Row>
                 <Col md='auto'>
-                  <Button variant='danger' type='submit'>
+                  <Button variant='danger'>
                     Delete Order
                   </Button>
                 </Col>
                 <Col>
-                  <Button variant='success' type='submit'>
+                  <Button variant='success' 
+                  // onClick={editOrder({orderStatus: orderdetails?.orderStatus})}
+                  >
                     Update Order
                   </Button>
                 </Col>

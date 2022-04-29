@@ -15,6 +15,9 @@ import paginationFactory from "react-bootstrap-table2-paginator";
 // import cellEditFactory, { Type } from "react-bootstrap-table2-editor";
 import filterFactory, { selectFilter } from "react-bootstrap-table2-filter";
 import { orderTableData } from "../../../adapters/orderAdapter";
+// import { format, parseISO } from "date-fns";
+
+
 
 export const DashboardOrders = ({ user, userId }) => {
   const params = useParams();
@@ -31,9 +34,9 @@ export const DashboardOrders = ({ user, userId }) => {
   }, []);
   const getData = () => {
     console.log("REACT_APP_API_URL", process.env.REACT_APP_API_URL);
-    axios(`${process.env.REACT_APP_API_URL}/orders`).then((res) => {
-      // axios("https://stepsolutionapi.herokuapp.com/orders").then((res) => {
-      // axios("https://stepsolutionapi.herokuapp.com/orders").then((res) => {
+    // axios(`${process.env.REACT_APP_API_URL}/orders`).then((res) => {
+      axios("https://stepsolutionapi.herokuapp.com/orders").then((res) => {
+
       console.log(res.data);
       setData(res.data);
     });
@@ -58,6 +61,11 @@ export const DashboardOrders = ({ user, userId }) => {
     return <>${data}</>;
   };
 
+  // const dateFormatter = (data, row) => {
+  //   return<>{parseISO(`${data}`)}</>
+  // }
+
+
   const columns = [
     {
       dataField: "id",
@@ -68,6 +76,7 @@ export const DashboardOrders = ({ user, userId }) => {
       dataField: "createdAt",
       text: "Date",
       sort: true,
+      // formatter: dateFormatter,
     },
     {
       dataField: "customer.company",
@@ -145,6 +154,7 @@ export const DashboardOrders = ({ user, userId }) => {
           {/* Dashboard content */}
 
           <Container>
+
             <div className='h-100 p-5 bg-light border rounded-3'>
               <BootstrapTable
                 keyField='id'
