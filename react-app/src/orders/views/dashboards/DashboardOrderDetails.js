@@ -91,7 +91,7 @@ export const DashboardOrderDetails = ({ user, userID }) => {
     e.preventDefault();
 
     var templateParams = {
-      customer: orderdetails?.customer.email,
+      customer: orderdetails?.order?.customer.email,
     };
 
     emailjs
@@ -127,13 +127,13 @@ export const DashboardOrderDetails = ({ user, userID }) => {
               <Row className='mb-3'>
                 <Col>
                   <h2>
-                    Order #<strong> {orderdetails?.id}</strong>
+                    Order #<strong> {orderdetails?.order?.id}</strong>
                   </h2>
                 </Col>
                 <Col md='auto'>
                   <Link
                     to={{
-                      pathname: `/profile/user/${orderdetails?.id}/orderdetails/productionlabel`,
+                      pathname: `/profile/user/${orderdetails?.order?.id}/orderdetails/productionlabel`,
                       state: orderdetails,
                     }}
                     target='_blank'
@@ -147,7 +147,7 @@ export const DashboardOrderDetails = ({ user, userID }) => {
                 <Col md='auto'>
                   <Link
                     to={{
-                      pathname: `/profile/user/${orderdetails?.id}/orderdetails/productlabel`,
+                      pathname: `/profile/user/${orderdetails?.order?.id}/orderdetails/productlabel`,
                       state: orderdetails,
                     }}
                     target='_blank'
@@ -185,20 +185,23 @@ export const DashboardOrderDetails = ({ user, userID }) => {
               <Row className='mb-3'>
                 <Form.Group as={Col} controlId='formOrderID'>
                   <Form.Label>Order ID</Form.Label>
-                  <Form.Control type='text' value={orderdetails?.id} />
+                  <Form.Control type='text' value={orderdetails?.order?.id} />
                 </Form.Group>
 
                 <Form.Group as={Col} controlId='formCustomer'>
                   <Form.Label>Customer</Form.Label>
                   <Form.Control
                     type='text'
-                    value={orderdetails?.customer?.company}
+                    value={orderdetails?.order?.customer?.company}
                   />
                 </Form.Group>
 
                 <Form.Group as={Col} controlId='formOrderDate'>
                   <Form.Label>Date Placed</Form.Label>
-                  <Form.Control type='text' value={orderdetails?.createdAt} />
+                  <Form.Control
+                    type='text'
+                    value={orderdetails?.order?.createdAt}
+                  />
                 </Form.Group>
               </Row>
               <Row className='mb-3'>
@@ -206,7 +209,7 @@ export const DashboardOrderDetails = ({ user, userID }) => {
                   <Form.Label>PO/Job Name</Form.Label>
                   <Form.Control
                     type='text'
-                    value={orderdetails?.poName}
+                    value={orderdetails?.order?.poName}
                     onChange={(e) =>
                       setOrderDetails({
                         ...orderdetails,
@@ -220,7 +223,7 @@ export const DashboardOrderDetails = ({ user, userID }) => {
                   <Form.Label>Route</Form.Label>
                   <Form.Control
                     type='text'
-                    value={orderdetails?.shippingRoute}
+                    value={orderdetails?.order?.shippingRoute}
                     onChange={(e) =>
                       setOrderDetails({
                         ...orderdetails,
@@ -234,11 +237,14 @@ export const DashboardOrderDetails = ({ user, userID }) => {
                   <Form.Label>Status</Form.Label>
                   <Form.Control
                     type='text'
-                    value={orderdetails?.orderStatus}
+                    value={orderdetails?.order?.orderStatus}
                     onChange={(e) =>
                       setOrderDetails({
                         ...orderdetails,
-                        orderStatus: e.target.value,
+                        order: {
+                          ...orderdetails.order,
+                          orderStatus: e.target.value,
+                        },
                       })
                     }
                   />
@@ -249,7 +255,7 @@ export const DashboardOrderDetails = ({ user, userID }) => {
                   <Form.Label>Tier Level</Form.Label>
                   <Form.Control
                     type='text'
-                    value={orderdetails?.customer.tierLevel}
+                    value={orderdetails?.order?.customer.tierLevel}
                     onChange={(e) =>
                       setOrderDetails({
                         ...orderdetails,
@@ -263,7 +269,7 @@ export const DashboardOrderDetails = ({ user, userID }) => {
                   <Form.Label>Invoice #</Form.Label>
                   <Form.Control
                     type='text'
-                    value={orderdetails?.invoiceNumber}
+                    value={orderdetails?.order?.invoiceNumber}
                     onChange={(e) =>
                       setOrderDetails({
                         ...orderdetails,
@@ -275,7 +281,10 @@ export const DashboardOrderDetails = ({ user, userID }) => {
 
                 <Form.Group as={Col} controlId='formTotalAmount'>
                   <Form.Label>Amount</Form.Label>
-                  <Form.Control type='text' value={orderdetails?.totalAmount} />
+                  <Form.Control
+                    type='text'
+                    value={orderdetails?.order?.totalAmount}
+                  />
                 </Form.Group>
               </Row>
               <Row>
@@ -290,11 +299,13 @@ export const DashboardOrderDetails = ({ user, userID }) => {
                     </tr>
                   </thead>
                   <tbody>
-                    {orderdetails?.orderItems.map((orderItem, index) => (
+                    {orderdetails?.products.map((orderItem, index) => (
                       <tr key={orderItem.id}>
                         <td>{index}</td>
                         <td>{orderItem?.name}</td>
-                        <td>{orderItem?.quantity}</td>
+                        <td>
+                          {orderdetails.order.orderItems[index]?.quantity}
+                        </td>
                         <td>{orderItem?.price}</td>
                         <td>{orderItem?.notes}</td>
                       </tr>
@@ -309,7 +320,9 @@ export const DashboardOrderDetails = ({ user, userID }) => {
                 <Col>
                   <Button
                     onClick={() =>
-                      editOrder({ orderStatus: orderdetails?.orderStatus })
+                      editOrder({
+                        orderStatus: orderdetails?.order?.orderStatus,
+                      })
                     }
                     variant='success'
                     // onClick={editOrder({orderStatus: orderdetails?.orderStatus})}
