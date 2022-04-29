@@ -9,10 +9,9 @@ import Form from "react-bootstrap/Form";
 import { useState } from "react";
 import { useHistory } from "react-router";
 import emailjs from "@emailjs/browser";
-import Toast from 'react-bootstrap/Toast';
+import Toast from "react-bootstrap/Toast";
 import axios from "axios";
 import { productSelectOptions } from "../../../adapters/productAdapter";
-
 
 // redux and custom hook imports
 import { useForm } from "../../../hooks/useForm";
@@ -26,7 +25,6 @@ export const DashboardOrderDetails = ({ user, userID }) => {
   let { id: orderId } = useParams();
 
   const [show, setShow] = useState(false);
-
 
   // hooks and redux
   const dispatch = useDispatch();
@@ -89,17 +87,25 @@ export const DashboardOrderDetails = ({ user, userID }) => {
     e.preventDefault();
 
     var templateParams = {
-      customer: orderdetails?.customer.email, 
-  };
+      customer: orderdetails?.customer.email,
+    };
 
-    emailjs.send('service_g2ht3pj', 'order-ready', templateParams, 'kBf3wIb1lGnimy156')
-      .then((result) => {
+    emailjs
+      .send(
+        "service_g2ht3pj",
+        "order-ready",
+        templateParams,
+        "kBf3wIb1lGnimy156"
+      )
+      .then(
+        (result) => {
           console.log(result.text);
-      }, (error) => {
+        },
+        (error) => {
           console.log(error.text);
-      });
+        }
+      );
   };
-
 
   return (
     <>
@@ -115,26 +121,28 @@ export const DashboardOrderDetails = ({ user, userID }) => {
                   </h2>
                 </Col>
                 <Col md='auto'>
-                  <Link 
-                    to = {{pathname: `/profile/user/${orderdetails?.id}/orderdetails/productionlabel`, state: orderdetails }}
-                    target="_blank">
-                    <Button
-                        variant='dark'
-                        className='mb-3'
-                    >
+                  <Link
+                    to={{
+                      pathname: `/profile/user/${orderdetails?.id}/orderdetails/productionlabel`,
+                      state: orderdetails,
+                    }}
+                    target='_blank'
+                  >
+                    <Button variant='dark' className='mb-3'>
                       Print Production Label
                     </Button>
                   </Link>
                 </Col>
 
                 <Col md='auto'>
-                  <Link 
-                     to = {{pathname: `/profile/user/${orderdetails?.id}/orderdetails/productlabel`, state: orderdetails }}
-                    target="_blank">
-                    <Button
-                        variant='dark'
-                        className='mb-3'
-                    >
+                  <Link
+                    to={{
+                      pathname: `/profile/user/${orderdetails?.id}/orderdetails/productlabel`,
+                      state: orderdetails,
+                    }}
+                    target='_blank'
+                  >
+                    <Button variant='dark' className='mb-3'>
                       Print Product Label
                     </Button>
                   </Link>
@@ -142,22 +150,28 @@ export const DashboardOrderDetails = ({ user, userID }) => {
 
                 <Col md='auto'>
                   <Button
-                  onClick={sendEmail}
-                  variant='success'
-                  className='mb-3'>
+                    onClick={sendEmail}
+                    variant='success'
+                    className='mb-3'
+                  >
                     Send Order Ready Email
-                    </Button>
+                  </Button>
                 </Col>
-                {/* <Col md='auto'>
-                  <Button disabled variant='secondary' className='mb-3'>
+                <Col md='auto'>
+                  <Button
+                    onClick={() => createInvoice()}
+                    disabled
+                    variant='secondary'
+                    className='mb-3'
+                  >
                     generate invoice
                   </Button>
-                </Col> */}
+                </Col>
               </Row>
             </Container>
 
             {/* Dashboard content */}
-            <Form className='h-100 p-5 border rounded-3' >
+            <Form className='h-100 p-5 border rounded-3'>
               <Row className='mb-3'>
                 <Form.Group as={Col} controlId='formOrderID'>
                   <Form.Label>Order ID</Form.Label>
@@ -180,7 +194,16 @@ export const DashboardOrderDetails = ({ user, userID }) => {
               <Row className='mb-3'>
                 <Form.Group as={Col} controlId='formJobName'>
                   <Form.Label>PO/Job Name</Form.Label>
-                  <Form.Control type='text' value={orderdetails?.poName} onChange={(e)=>setOrderDetails({... orderdetails, poName:e.target.value})} />
+                  <Form.Control
+                    type='text'
+                    value={orderdetails?.poName}
+                    onChange={(e) =>
+                      setOrderDetails({
+                        ...orderdetails,
+                        poName: e.target.value,
+                      })
+                    }
+                  />
                 </Form.Group>
 
                 <Form.Group as={Col} controlId='formRoute'>
@@ -188,13 +211,27 @@ export const DashboardOrderDetails = ({ user, userID }) => {
                   <Form.Control
                     type='text'
                     value={orderdetails?.shippingRoute}
-                    onChange={(e)=>setOrderDetails({... orderdetails, shippingRoute:e.target.value})}
+                    onChange={(e) =>
+                      setOrderDetails({
+                        ...orderdetails,
+                        shippingRoute: e.target.value,
+                      })
+                    }
                   />
                 </Form.Group>
 
                 <Form.Group as={Col} controlId='formStatus'>
                   <Form.Label>Status</Form.Label>
-                  <Form.Control type='text' value={orderdetails?.orderStatus} onChange={(e)=>setOrderDetails({... orderdetails, orderStatus:e.target.value})} />
+                  <Form.Control
+                    type='text'
+                    value={orderdetails?.orderStatus}
+                    onChange={(e) =>
+                      setOrderDetails({
+                        ...orderdetails,
+                        orderStatus: e.target.value,
+                      })
+                    }
+                  />
                 </Form.Group>
               </Row>
               <Row className='mb-3'>
@@ -203,7 +240,12 @@ export const DashboardOrderDetails = ({ user, userID }) => {
                   <Form.Control
                     type='text'
                     value={orderdetails?.customer.tierLevel}
-                    onChange={(e)=>setOrderDetails({... orderdetails, tierLevel:e.target.value})}
+                    onChange={(e) =>
+                      setOrderDetails({
+                        ...orderdetails,
+                        tierLevel: e.target.value,
+                      })
+                    }
                   />
                 </Form.Group>
 
@@ -212,20 +254,25 @@ export const DashboardOrderDetails = ({ user, userID }) => {
                   <Form.Control
                     type='text'
                     value={orderdetails?.invoiceNumber}
-                    onChange={(e)=>setOrderDetails({... orderdetails, invoiceNumber:e.target.value})}
+                    onChange={(e) =>
+                      setOrderDetails({
+                        ...orderdetails,
+                        invoiceNumber: e.target.value,
+                      })
+                    }
                   />
                 </Form.Group>
 
                 <Form.Group as={Col} controlId='formTotalAmount'>
                   <Form.Label>Amount</Form.Label>
-                  <Form.Control type='text' value={orderdetails?.totalAmount}  />
+                  <Form.Control type='text' value={orderdetails?.totalAmount} />
                 </Form.Group>
               </Row>
               <Row>
                 <Table striped bordered hover responsive='lg' className='table'>
                   <thead className='thead-dark'>
                     <tr>
-                    <th scope='col'>#</th>
+                      <th scope='col'>#</th>
                       <th scope='col'>Product</th>
                       <th scope='col'>Qty</th>
                       <th scope='col'>Rate</th>
@@ -233,28 +280,26 @@ export const DashboardOrderDetails = ({ user, userID }) => {
                     </tr>
                   </thead>
                   <tbody>
-                        {orderdetails?.orderItems.map((orderItem, index) => (
-                          <tr key={orderItem.id}>
-                            <td>{index}</td>
-                            <td>{orderItem?.name}</td>
-                            <td>{orderItem?.quantity}</td>
-                            <td>{orderItem?.price}</td>
-                            <td>{orderItem?.notes}</td>
-                          </tr>
-                        ))}
+                    {orderdetails?.orderItems.map((orderItem, index) => (
+                      <tr key={orderItem.id}>
+                        <td>{index}</td>
+                        <td>{orderItem?.name}</td>
+                        <td>{orderItem?.quantity}</td>
+                        <td>{orderItem?.price}</td>
+                        <td>{orderItem?.notes}</td>
+                      </tr>
+                    ))}
                   </tbody>
-              
                 </Table>
               </Row>
               <Row>
                 <Col md='auto'>
-                  <Button variant='danger'>
-                    Delete Order
-                  </Button>
+                  <Button variant='danger'>Delete Order</Button>
                 </Col>
                 <Col>
-                  <Button variant='success' 
-                  // onClick={editOrder({orderStatus: orderdetails?.orderStatus})}
+                  <Button
+                    variant='success'
+                    // onClick={editOrder({orderStatus: orderdetails?.orderStatus})}
                   >
                     Update Order
                   </Button>
