@@ -22,6 +22,7 @@ import { OrderReview } from "./orders/views/OrderReview";
 import { ProductionLabel } from "./orders/components/ProductionLabel";
 import { ProductLabel } from "./orders/components/ProductLabel";
 import { TruckLoadForm } from "./orders/components/TruckLoadForm";
+import { AddAllCustomers } from "./orders/components/AddAllCustomers";
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -80,24 +81,25 @@ function App() {
           <ProtectedRoute path='/order-review' exact={true}>
             <OrderReview />
           </ProtectedRoute>
-          <Route exact path='/profile/user'>
+          <ProtectedRoute exact path='/profile/user'>
             <UserHome />
-          </Route>
-          <Route exact path='/profile/user/:id'>
+          </ProtectedRoute>
+          <ProtectedRoute exact path='/profile/user/:id'>
             <UserHome />
-          </Route>
-          <Route exact path='/profile/user/:id/:profileoption'>
+          </ProtectedRoute>
+          <ProtectedRoute exact path='/profile/user/:id/:profileoption'>
             <UserHome />
-          </Route>
-          <Route exact path='/profile/user/:id/:profileoption/productionlabel'>
+          </ProtectedRoute>
+          <ProtectedRoute exact path='/profile/user/:id/:profileoption/productionlabel'>
             <ProductionLabel />
-          </Route>
-          <Route exact path='/profile/user/:id/:profileoption/productlabel'>
+          </ProtectedRoute>
+          <ProtectedRoute exact path='/profile/user/:id/:profileoption/productlabel'>
             <ProductLabel />
-          </Route>
-          <Route exact path='/truckloadform'>
+          </ProtectedRoute>
+          <ProtectedRoute exact path='/truckloadform'>
             <TruckLoadForm />
-          </Route>
+          </ProtectedRoute>
+         
         </Switch>
       </BrowserRouter>
     </div>

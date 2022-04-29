@@ -1,47 +1,37 @@
 import React from "react";
+import { Button } from "react-bootstrap";
+
+import { useState } from "react";
+import { useHistory } from "react-router";
+import Select from "react-select";
 
 
-// redux and custom hook imports
 
-import { useDispatch, useSelector } from "react-redux";
-import { setCustomer } from "../../../store/orders";
 
+import { customersArray } from "./CusomterArray";
+
+console.log(customersArray[1]);
 
 export const AddAllCustomers = ({ user, userId }) => {
 
-  // hooks and redux
-  const customer = useSelector((state) => state.orders.customer);
-  const dispatch = useDispatch();
+customersArray.forEach(element => {
   
+}); 
 
+// const response = await fetch(`https://stepsolutionapi.herokuapp.com/customers`, {
+//   method: "POST",
+//   headers: {
+//     "Content-Type": "application/json",
+//   },
+//   body: JSON.stringify(dto),
+// });
 
-
-  // async function to create customer
-  const createCustomer = async (customerData) => {
-    // const dto = createCustomerDto(customer);
-    const response = await fetch(`${process.env.REACT_APP_API_URL}/customers`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(customerData),
-    });
-
-    if (response.ok) {
-      const data = await response.json();
-      // call redux dispatch, it set customer also in store
-      dispatch(setCustomer(dto));
-      return data;
-    } else if (response.status < 500) {
-      const data = await response.json();
-      if (data.errors) {
-        return data.errors;
-      }
-    } else {
-      return ["An error occurred. Please try again."];
-    }
-  };
 
   return (
-     <></> );
+     <>
+     <Button >
 
+       Add Customers to DB
+     </Button>
+
+     </> )};
