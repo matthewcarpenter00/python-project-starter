@@ -8,6 +8,7 @@ from flask_login import current_user, login_user, logout_user, login_required
 from intuitlib.client import AuthClient
 from intuitlib.enums import Scopes
 import requests
+import json
 
 auth_client = AuthClient( 'ABmIlDiVhP89JVXkmVEnSlPT6tJUc79ivaywv94Fk57aRwE5Qo', 'LLGiY78TKFZuNXEV5TJzUuYaIdaNeIznF7XsItyf', 'http://localhost:3000/profile/user', 'sandbox' )
 
@@ -107,5 +108,39 @@ def company_info():
     }
     response = requests.get(url, headers=headers)
     return response.json()
+
+@auth_routes.route('/create-invoice')
+def create_invoice():
+    
+    base_url = 'https://sandbox-quickbooks.api.intuit.com'
+    url = '{0}/v3/company/{1}/invoice?minorversion=14'.format(base_url, auth_client.realm_id)
+    auth_header = 'Bearer {0}'.format(auth_client.access_token)
+    headers = {
+        'Authorization': auth_header,
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+    }
+    payload = json.dumps({
+  "Line": [
+    {
+      "Amount": 100,
+      "DetailType": "SalesItemLineDetail",
+      "SalesItemLineDetail": {
+        "ItemRef": {
+          "value": "1",
+          "name": "Services"
+        }
+      }
+    }
+  ],
+  "CustomerRef": {
+    "value": "1"
+  }
+})
+    response = requests.post(url, headers=headers, data=payload)
+    print(response.json())
+    return response.json()
+
+
       
 

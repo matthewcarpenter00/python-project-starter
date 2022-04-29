@@ -4,7 +4,7 @@ export const oauthClient = new OAuthClient({
   clientId: process.env.REACT_APP_OAUTH_CLIENT_ID,
   clientSecret: process.env.REACT_APP_OAUTH_CLIENT_SECRET,
   environment: "sandbox",
-  redirectUri: "https://developer.intuit.com/v2/OAuth2Playground/RedirectUrl",
+  redirectUri: "http://localhost:3000/profile/user",
 });
 
 export const authUri = oauthClient.authorizeUri({

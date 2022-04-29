@@ -107,6 +107,12 @@ export const DashboardOrderDetails = ({ user, userID }) => {
       );
   };
 
+  const createInvoice = () => {
+    fetch("/api/auth/create-invoice")
+      .then((res) => res.json())
+      .then((data) => console.log(data));
+  };
+
   return (
     <>
       <div className='w-100 d-flex p-4'>
@@ -160,7 +166,7 @@ export const DashboardOrderDetails = ({ user, userID }) => {
                 <Col md='auto'>
                   <Button
                     onClick={() => createInvoice()}
-                    disabled
+                    // disabled
                     variant='secondary'
                     className='mb-3'
                   >
