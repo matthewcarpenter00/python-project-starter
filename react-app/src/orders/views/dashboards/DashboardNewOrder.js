@@ -4,7 +4,7 @@ import { NavLink, useParams } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { Button, Table } from "react-bootstrap";
+import { Alert, Button, Table } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import Select from "react-select";
 import axios from "axios";
@@ -116,8 +116,10 @@ export const DashboardNewOrder = () => {
       const newOrderItem = createOrderItem(orderItemsDto[i]);
       // if (!newOrderItem.id) break;
     }
-    // sendEmail(customer?.email, "order-in-production");
+    sendEmail();
+    alert ("Your Order has been created!")
   };
+  
 
   const createOrder = async (order) => {
     const dto = createOrderDto(order);
@@ -168,6 +170,30 @@ export const DashboardNewOrder = () => {
     } else {
       return ["An error occurred. Please try again."];
     }
+  };
+
+  // email functionality
+  const sendEmail = () => {
+
+    var templateParams = {
+      customer: customer?.email,
+    };
+
+    emailjs
+      .send(
+        "service_g2ht3pj",
+        "order-in-production",
+        templateParams,
+        "kBf3wIb1lGnimy156"
+      )
+      .then(
+        (result) => {
+          console.log(result.text);
+        },
+        (error) => {
+          console.log(error.text);
+        }
+      );
   };
 
   return (
@@ -366,8 +392,9 @@ export const DashboardNewOrder = () => {
                           invoiceNumber,
                         },
                         orderProducts
-                      ) && sendEmail
+                      ) 
                     }
+                    
                   >
                     Save Order
                   </Button>

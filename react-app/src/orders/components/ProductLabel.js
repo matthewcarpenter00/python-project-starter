@@ -63,25 +63,25 @@ export const ProductLabel = () => {
               className="mb-3 mx-auto d-block"
             />
          
-        <h1 className="mb-3 text-center border">{orderdetails?.customer.company}</h1>
+        <h1 className="mb-3 text-center border">{orderdetails?.order?.customer?.company}</h1>
             <Row className="mb-3">
               <Col>Order ID</Col>
-              <Col className="fw-bold">{orderdetails?.id}</Col>
+              <Col className="fw-bold">{orderdetails?.order?.id}</Col>
             </Row>
             <hr />
             <Row className="mb-3">
               <Col>Date</Col>
-              <Col className="fw-bold">{orderdetails?.createdAt}</Col>
+              <Col className="fw-bold">{orderdetails?.order?.createdAt}</Col>
             </Row>
             <hr />
             <Row className="mb-3">
               <Col>PO/Job Name</Col>
-              <Col className="fw-bold">{orderdetails?.poName}</Col>
+              <Col className="fw-bold">{orderdetails?.order?.poName}</Col>
             </Row>
             <hr />
             <Row className="mb-3">
               <Col>Route</Col>
-              <Col className="fw-bold">{orderdetails?.shippingRoute}</Col>
+              <Col className="fw-bold">{orderdetails?.order?.shippingRoute}</Col>
             </Row>
             <hr />
     
@@ -95,12 +95,12 @@ export const ProductLabel = () => {
                 </tr>
               </thead>
               <tbody>
-                        {orderdetails?.orderItems.map((orderItem, index) => (
+                        {orderdetails?.products.map((orderItem, index) => (
                           <tr key={orderItem.id}>
-                            <td>{index}</td>
+                            <td>{index + 1}</td>
                             <td>{orderItem?.name}</td>
-                            <td>{orderItem?.quantity}</td>
-                            <td>{orderItem?.notes}</td>
+                            <td>{orderdetails.order.orderItems[index]?.quantity}</td>
+                            <td>{orderdetails.order.orderItems[index]?.notes}</td>
                           </tr>
                         ))}
                   </tbody>

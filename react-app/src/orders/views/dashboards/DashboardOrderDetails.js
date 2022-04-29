@@ -24,7 +24,6 @@ export const DashboardOrderDetails = ({ user, userID }) => {
   const history = useHistory();
   let { id: orderId } = useParams();
 
-  const [show, setShow] = useState(false);
 
   // hooks and redux
   const dispatch = useDispatch();
@@ -109,6 +108,7 @@ export const DashboardOrderDetails = ({ user, userID }) => {
           console.log(error.text);
         }
       );
+      // alert ("Your Email has been sent!")
   };
 
   const createInvoice = () => {
@@ -301,13 +301,13 @@ export const DashboardOrderDetails = ({ user, userID }) => {
                   <tbody>
                     {orderdetails?.products.map((orderItem, index) => (
                       <tr key={orderItem.id}>
-                        <td>{index}</td>
+                        <td>{index + 1}</td>
                         <td>{orderItem?.name}</td>
                         <td>
                           {orderdetails.order.orderItems[index]?.quantity}
                         </td>
-                        <td>{orderItem?.price}</td>
-                        <td>{orderItem?.notes}</td>
+                        <td>${orderItem?.price}</td>
+                        <td>{orderdetails.order.orderItems[index]?.notes}</td>
                       </tr>
                     ))}
                   </tbody>

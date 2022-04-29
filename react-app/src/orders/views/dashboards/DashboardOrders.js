@@ -33,7 +33,7 @@ export const DashboardOrders = ({ user, userId }) => {
     getData();
   }, []);
   const getData = () => {
-    console.log("REACT_APP_API_URL", process.env.REACT_APP_API_URL);
+    // console.log("REACT_APP_API_URL", process.env.REACT_APP_API_URL);
     // axios(`${process.env.REACT_APP_API_URL}/orders`).then((res) => {
       axios("https://stepsolutionapi.herokuapp.com/orders").then((res) => {
 
@@ -61,10 +61,6 @@ export const DashboardOrders = ({ user, userId }) => {
     return <>${data}</>;
   };
 
-  // const dateFormatter = (data, row) => {
-  //   return<>{parseISO(`${data}`)}</>
-  // }
-
 
   const columns = [
     {
@@ -76,7 +72,6 @@ export const DashboardOrders = ({ user, userId }) => {
       dataField: "createdAt",
       text: "Date",
       sort: true,
-      // formatter: dateFormatter,
     },
     {
       dataField: "customer.company",
@@ -116,7 +111,7 @@ export const DashboardOrders = ({ user, userId }) => {
   return (
     <>
       {/* <div className='w-100 d-flex p-4'> */}
-      <div className='p-2 rounded-3'>
+      <div className='w-100 p-2 rounded-3'>
         <div className='dashboard-page'>
           {/* title section */}
 
