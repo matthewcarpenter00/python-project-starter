@@ -1,10 +1,8 @@
 const OAuthClient = require("intuit-oauth");
 
 export const oauthClient = new OAuthClient({
-  // clientId: process.env.REACT_APP_OAUTH_CLIENT_ID,
-  // clientSecret: process.env.REACT_APP_OAUTH_CLIENT_SECRET,
-  clientId: "ABmIlDiVhP89JVXkmVEnSlPT6tJUc79ivaywv94Fk57aRwE5Qo",
-  clientSecret: "LLGiY78TKFZuNXEV5TJzUuYaIdaNeIznF7XsItyf",
+  clientId: process.env.REACT_APP_OAUTH_CLIENT_ID,
+  clientSecret: process.env.REACT_APP_OAUTH_CLIENT_SECRET,
   environment: "sandbox",
   redirectUri: "http://localhost:3000/profile/user",
 });

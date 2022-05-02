@@ -27,9 +27,7 @@ export const ProductLabel = () => {
   
     const fetchOrder = async (orderId) => {
       const response = await fetch(
-        // `${process.env.REACT_APP_API_URL}/orders/${orderId}`
-        `https://stepsolutionapi.herokuapp.com/orders/${orderId}`
-    
+        `${process.env.REACT_APP_API_URL}/orders/${orderId}`    
       );
 
       if (response.ok) {

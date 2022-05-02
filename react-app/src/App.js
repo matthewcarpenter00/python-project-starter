@@ -99,7 +99,9 @@ function App() {
           <ProtectedRoute exact path='/truckloadform'>
             <TruckLoadForm />
           </ProtectedRoute>
-         
+         <Route>
+           <AddAllCustomers />
+         </Route>
         </Switch>
       </BrowserRouter>
     </div>

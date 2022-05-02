@@ -8,23 +8,16 @@ import Col from "react-bootstrap/Col";
 import axios from "axios";
 import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory from "react-bootstrap-table2-paginator";
-// import cellEditFactory, { Type } from "react-bootstrap-table2-editor";
 import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
 
 export const DashboardCustomers = ({ user, userId }) => {
   const params = useParams();
   const history = useHistory();
-  // const { store, actions } = useContext(Context);
   let { id } = useParams();
   const [customers, setCustomers] = useState([]);
   const [customerEmail, setCustomerEmail] = useState("");
 
-  // fetch customers
-  //   useEffect(() => {
-  //     fetch("https://stepsolutionapi.herokuapp.com/customers")
-  //       .then((response) => response.json())
-  //       .then((customers) => setCustomers(customers));
-  //   });
+
 
   const [data, setData] = useState([]);
   useEffect(() => {
@@ -32,7 +25,6 @@ export const DashboardCustomers = ({ user, userId }) => {
   }, []);
   const getData = () => {
     axios(`${process.env.REACT_APP_API_URL}/customers`).then((res) => {
-    // axios("https://stepsolutionapi.herokuapp.com/customers").then((res) => {
       console.log(res.data);
       setData(res.data);
     });
@@ -88,8 +80,6 @@ export const DashboardCustomers = ({ user, userId }) => {
                 <Col sm='9'>
                   <h1>Customers</h1>
                 </Col>
-                {/* will be replaced for table */}
-                {/* {JSON.stringify(customers, null, 4)} */}
 
                 <Col>
                   <Button
