@@ -5,12 +5,9 @@ import { useState } from "react";
 import { useHistory } from "react-router";
 import Select from "react-select";
 
-
-
-
 import { customersArray } from "./CusomterArray";
 
-console.log(customersArray[1]);
+console.log(customersArray);
 
 export const AddAllCustomers = ({ user, userId }) => {
 
@@ -18,13 +15,13 @@ customersArray.forEach(element => {
   
 }); 
 
-// const response = await fetch(`https://stepsolutionapi.herokuapp.com/customers`, {
-//   method: "POST",
-//   headers: {
-//     "Content-Type": "application/json",
-//   },
-//   body: JSON.stringify(dto),
-// });
+const response = await fetch(`${process.env.REACT_APP_API_URL}/customers`, {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify(dto),
+});
 
 
   return (

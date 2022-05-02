@@ -12,7 +12,6 @@ import { useState } from "react";
 import axios from "axios";
 import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory from "react-bootstrap-table2-paginator";
-// import cellEditFactory, { Type } from "react-bootstrap-table2-editor";
 import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
 
 export const DashboardProducts = ({ user, userId }) => {
@@ -25,12 +24,6 @@ export const DashboardProducts = ({ user, userId }) => {
     return<>${data}</>
   }
 
-  // fetch products
-  // useEffect(() => {
-  // 	fetch("https://stepsolutionapi.herokuapp.com/products")
-  // 	.then((response) => response.json())
-  // 	.then((products) => setProducts(products));
-  // });
 
   const [data, setData] = useState([]);
   useEffect(() => {
@@ -39,7 +32,6 @@ export const DashboardProducts = ({ user, userId }) => {
   
   const getData = () => {
     axios(`${process.env.REACT_APP_API_URL}/products`).then((res) => {
-    // axios("https://stepsolutionapi.herokuapp.com/products").then((res) => {
       console.log(res.data);
       setData(res.data);
     });

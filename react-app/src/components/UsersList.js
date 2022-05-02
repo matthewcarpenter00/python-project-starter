@@ -6,7 +6,7 @@ function UsersList() {
 
   useEffect(() => {
     async function fetchData() {
-      const response = await fetch("https://stepsolutionapi.herokuapp.com/users");
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/users`);
       const responseData = await response.json();
       setUsers(responseData.users);
     }
@@ -16,7 +16,7 @@ function UsersList() {
   const userComponents = users.map((user) => {
     return (
       <li key={user.id}>
-        <NavLink to={`https://stepsolutionapi.herokuapp.com/users/${user.id}`}>{user.username}</NavLink>
+        <NavLink to={`${process.env.REACT_APP_API_URL}/users/${user.id}`}>{user.username}</NavLink>
       </li>
     );
   });

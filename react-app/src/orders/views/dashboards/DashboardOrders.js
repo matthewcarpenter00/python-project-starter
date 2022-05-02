@@ -12,10 +12,8 @@ import { useState } from "react";
 import axios from "axios";
 import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory from "react-bootstrap-table2-paginator";
-// import cellEditFactory, { Type } from "react-bootstrap-table2-editor";
 import filterFactory, { selectFilter } from "react-bootstrap-table2-filter";
 import { orderTableData } from "../../../adapters/orderAdapter";
-// import { format, parseISO } from "date-fns";
 
 
 
@@ -33,21 +31,13 @@ export const DashboardOrders = ({ user, userId }) => {
     getData();
   }, []);
   const getData = () => {
-    // console.log("REACT_APP_API_URL", process.env.REACT_APP_API_URL);
-    // axios(`${process.env.REACT_APP_API_URL}/orders`).then((res) => {
-      axios("https://stepsolutionapi.herokuapp.com/orders").then((res) => {
+    axios(`${process.env.REACT_APP_API_URL}/orders`).then((res) => {
 
       console.log(res.data);
       setData(res.data);
     });
   };
 
-  //fetch orders
-  // useEffect(() => {
-  //   fetch("https://stepsolutionapi.herokuapp.com/orders")
-  //     .then((response) => response.json())
-  //     .then((orders) => setOrders(orders));
-  // });
 
   // filter routes
   const selectOptions = {

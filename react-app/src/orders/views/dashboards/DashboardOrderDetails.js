@@ -36,7 +36,6 @@ export const DashboardOrderDetails = ({ user, userID }) => {
   const fetchOrder = async (orderId) => {
     const response = await fetch(
       `${process.env.REACT_APP_API_URL}/orders/${orderId}`
-      // `https://stepsolutionapi.herokuapp.com/orders/${orderId}`
     );
     if (response.ok) {
       const orderdetails = await response.json();
@@ -58,7 +57,6 @@ export const DashboardOrderDetails = ({ user, userID }) => {
   const editOrder = async (newOrderStatus) => {
     console.log(newOrderStatus);
     // const dto = createOrderDto(newOrderStatus);
-    // const response = await fetch(`https://stepsolutionapi.herokuapp.com/orders`, {
 
     const response = await fetch(
       `${process.env.REACT_APP_API_URL}/orders/${orderId}`,

@@ -10,7 +10,7 @@ function User() {
       return;
     }
     (async () => {
-      const response = await fetch(`https://stepsolutionapi.herokuapp.com/users/${userId}`);
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/users/${userId}`);
       const user = await response.json();
       setUser(user);
     })();
