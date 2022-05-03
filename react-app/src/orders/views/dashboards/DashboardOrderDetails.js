@@ -9,7 +9,6 @@ import Form from "react-bootstrap/Form";
 import { useState } from "react";
 import { useHistory } from "react-router";
 import emailjs from "@emailjs/browser";
-import Toast from "react-bootstrap/Toast";
 import axios from "axios";
 import { productSelectOptions } from "../../../adapters/productAdapter";
 

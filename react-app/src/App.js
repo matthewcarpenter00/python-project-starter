@@ -22,7 +22,6 @@ import { OrderReview } from "./orders/views/OrderReview";
 import { ProductionLabel } from "./orders/components/ProductionLabel";
 import { ProductLabel } from "./orders/components/ProductLabel";
 import { TruckLoadForm } from "./orders/components/TruckLoadForm";
-import { AddAllCustomers } from "./orders/components/AddAllCustomers";
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -45,7 +44,7 @@ function App() {
 
   return (
     <div>
-      <BrowserRouter>
+      {/* <BrowserRouter>
         <NavBar />
         <Switch>
           <Route path='/' exact={true}>
@@ -99,9 +98,63 @@ function App() {
           <ProtectedRoute exact path='/truckloadform'>
             <TruckLoadForm />
           </ProtectedRoute>
-         <Route>
-           <AddAllCustomers />
-         </Route>
+        </Switch>
+      </BrowserRouter> */}
+
+      <BrowserRouter>
+        <NavBar />
+        <Switch>
+          <Route path='/' exact={true}>
+            <Redirect to='/profile/user' />
+          </Route>
+          <Route path='/login' exact={true}>
+            <LoginForm />
+          </Route>
+          <Route path='/sign-up' exact={true}>
+            <SignUpForm />
+          </Route>
+          <Route path='/users' exact={true}>
+            <UsersList />
+          </Route>
+          <Route path='/users/:userId' exact={true}>
+            <User />
+          </Route>
+          <Route path='/new-order' exact={true}>
+            <OrderForm />
+          </Route>
+          <Route path='/new-client' exact={true}>
+            <ContactForm />
+          </Route>
+          <Route path='/select-product' exact={true}>
+            <SelectProduct />
+          </Route>
+          <Route path='/product-order/delivey' exact={true}>
+            <DeliveryForm />
+          </Route>
+          <Route path='/product-order/:productId' exact={true}>
+            <SelectProductDetails />
+          </Route>
+          <Route path='/order-review' exact={true}>
+            <OrderReview />
+          </Route>
+          <Route exact path='/profile/user'>
+            <UserHome />
+          </Route>
+          <Route exact path='/profile/user/:id'>
+            <UserHome />
+          </Route>
+          <Route exact path='/profile/user/:id/:profileoption'>
+            <UserHome />
+          </Route>
+          <Route exact path='/profile/user/:id/:profileoption/productionlabel'>
+            <ProductionLabel />
+          </Route>
+          <Route exact path='/profile/user/:id/:profileoption/productlabel'>
+            <ProductLabel />
+          </Route>
+          <Route exact path='/truckloadform'>
+            <TruckLoadForm />
+          </Route>
         </Switch>
       </BrowserRouter>
     </div>
