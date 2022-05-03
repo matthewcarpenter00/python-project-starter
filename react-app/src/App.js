@@ -22,7 +22,6 @@ import { OrderReview } from "./orders/views/OrderReview";
 import { ProductionLabel } from "./orders/components/ProductionLabel";
 import { ProductLabel } from "./orders/components/ProductLabel";
 import { TruckLoadForm } from "./orders/components/TruckLoadForm";
-import { AddAllCustomers } from "./orders/components/AddAllCustomers";
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -99,9 +98,6 @@ function App() {
           <ProtectedRoute exact path='/truckloadform'>
             <TruckLoadForm />
           </ProtectedRoute>
-         <Route>
-           <AddAllCustomers />
-         </Route>
         </Switch>
       </BrowserRouter>
     </div>
