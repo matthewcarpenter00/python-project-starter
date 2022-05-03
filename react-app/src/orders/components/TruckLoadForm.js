@@ -4,30 +4,22 @@ import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-
 import { useHistory } from "react-router";
 import PropTypes from "prop-types";
 import { useState } from "react";
-
 import axios from "axios";
 import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory from "react-bootstrap-table2-paginator";
-
 import filterFactory, {
-  textFilter,
   selectFilter, Comparator
 } from "react-bootstrap-table2-filter";
-
 import { useReactToPrint } from "react-to-print";
 import { useRef } from "react";
 
-export const TruckLoadForm = ({ user, userId }) => {
-  const params = useParams();
-  const history = useHistory();
-  let { id } = useParams();
-  const [orders, setOrders] = useState([]);
-
+export const TruckLoadForm = () => {
+  
   const componentRef = useRef();
+
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
   });
@@ -36,8 +28,8 @@ export const TruckLoadForm = ({ user, userId }) => {
   useEffect(() => {
     getData();
   }, []);
+
   const getData = () => {
-    
     axios(`${process.env.REACT_APP_API_URL}/orders`).then((res) => {
       console.log(res.data);
       setData(res.data);
@@ -58,10 +50,15 @@ export const TruckLoadForm = ({ user, userId }) => {
   };
 
   const priceFormatter=(data,row)=>{
-    return<>${data}</>
+    return<>$ {data}</>
   }
 
   const columns = [
+    {
+      dataField: "id",
+      text: "Order ID",
+      sort: true,
+    },
     {
       dataField: "createdAt",
       text: "Date",
@@ -73,10 +70,9 @@ export const TruckLoadForm = ({ user, userId }) => {
       sort: true,
     },
     {
-      dataField: "totalAmount",
-      text: "Amount",
+      dataField: "invoiceNumber",
+      text: "Invoice #",
       sort: true,
-      formatter:priceFormatter,
     },
     {
       dataField: "shippingRoute",
@@ -97,6 +93,13 @@ export const TruckLoadForm = ({ user, userId }) => {
       }),
     },
   ];
+
+  const selectRow = {
+    mode: 'checkbox',
+    clickToSelect: true,
+    // hideSelectColumn: true,
+    bgColor: '#55D6BE'
+  };
 
   return (
     <>
@@ -131,6 +134,7 @@ export const TruckLoadForm = ({ user, userId }) => {
                   keyField='id'
                   data={data}
                   columns={columns}
+                  selectRow={ selectRow }
                   striped
                   hover
                   condensed
@@ -141,12 +145,10 @@ export const TruckLoadForm = ({ user, userId }) => {
             </div>
           </div>
           <Container>
-            <Col className='mt-4 text-center'>
+            <Col className='mb-5 text-center'>
               <Button
                 onClick={handlePrint}
-                variant='dark'
-                type='submit'
-                className='printer-btn'
+                variant="primary" type='submit' className="printer-btn shadow col-6"
               >
                 print this view
               </Button>

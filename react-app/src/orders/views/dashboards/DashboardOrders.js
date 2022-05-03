@@ -14,6 +14,8 @@ import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import filterFactory, { selectFilter } from "react-bootstrap-table2-filter";
 import { orderTableData } from "../../../adapters/orderAdapter";
+import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
+
 
 
 
@@ -51,6 +53,7 @@ export const DashboardOrders = ({ user, userId }) => {
     return <>${data}</>;
   };
 
+  const { SearchBar, ClearSearchButton } = Search;
 
   const columns = [
     {
@@ -73,12 +76,12 @@ export const DashboardOrders = ({ user, userId }) => {
       text: "Job / PO Name",
       sort: true,
     },
-    {
-      dataField: "totalAmount",
-      text: "Amount",
-      sort: true,
-      formatter: priceFormatter,
-    },
+    // {
+    //   dataField: "totalAmount",
+    //   text: "Amount",
+    //   sort: true,
+    //   formatter: priceFormatter,
+    // },
     {
       dataField: "shippingRoute",
       text: "Route",
@@ -139,20 +142,33 @@ export const DashboardOrders = ({ user, userId }) => {
           {/* Dashboard content */}
 
           <Container>
-
-            <div className='h-100 p-5 bg-light border rounded-3'>
-              <BootstrapTable
-                keyField='id'
-                rowEvents={rowEvents}
-                data={data}
-                columns={columns}
-                striped
-                hover
-                condensed
-                pagination={paginationFactory()}
-                filter={filterFactory()}
-              ></BootstrapTable>
-            </div>
+            <ToolkitProvider
+              keyField="id"
+              data={data}
+              columns={columns}
+              search
+            >
+              {
+              props => (
+              <div className='h-100 p-5 bg-light border rounded-3'>
+                <SearchBar { ...props.searchProps } className="mb-3" />
+                <ClearSearchButton { ...props.searchProps } className="mb-2"  />
+                <BootstrapTable 
+                  { ...props.baseProps }
+                  keyField='id'
+                  rowEvents={rowEvents}
+                  data={data}
+                  columns={columns}
+                  striped
+                  hover
+                  condensed
+                  pagination={paginationFactory()}
+                  filter={filterFactory()}
+                ></BootstrapTable>
+              </div>
+              )
+            } 
+            </ToolkitProvider>
           </Container>
         </div>
       </div>
