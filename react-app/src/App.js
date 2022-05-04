@@ -44,7 +44,7 @@ function App() {
 
   return (
     <div>
-      <BrowserRouter>
+     <BrowserRouter>
         <NavBar />
         <Switch>
           <Route path='/' exact={true}>
@@ -106,6 +106,7 @@ function App() {
           </ProtectedRoute>
         </Switch>
       </BrowserRouter>
+
     </div>
   );
 }
