@@ -2,7 +2,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useState, useEffect } from "react";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import LoginForm from "./components/auth/LoginForm";
 import SignUpForm from "./components/auth/SignUpForm";
 import NavBar from "./components/NavBar";
@@ -25,11 +25,11 @@ import { TruckLoadForm } from "./orders/components/TruckLoadForm";
 
 function App() {
   const [loaded, setLoaded] = useState(false);
+
   const dispatch = useDispatch();
 
-  console.log('REACT_APP_API_URL',process.env.REACT_APP_API_URL);
-  console.log('REACT_APP_API_URL',process.env.REACT_APP_OAUTH_CLIENT_ID);
-  
+  console.log("REACT_APP_API_URL", process.env.REACT_APP_API_URL);
+  console.log("REACT_APP_API_URL", process.env.REACT_APP_OAUTH_CLIENT_ID);
 
   useEffect(() => {
     (async () => {
@@ -89,10 +89,16 @@ function App() {
           <ProtectedRoute exact path='/profile/user/:id/:profileoption'>
             <UserHome />
           </ProtectedRoute>
-          <ProtectedRoute exact path='/profile/user/:id/:profileoption/productionlabel'>
+          <ProtectedRoute
+            exact
+            path='/profile/user/:id/:profileoption/productionlabel'
+          >
             <ProductionLabel />
           </ProtectedRoute>
-          <ProtectedRoute exact path='/profile/user/:id/:profileoption/productlabel'>
+          <ProtectedRoute
+            exact
+            path='/profile/user/:id/:profileoption/productlabel'
+          >
             <ProductLabel />
           </ProtectedRoute>
           <ProtectedRoute exact path='/truckloadform'>

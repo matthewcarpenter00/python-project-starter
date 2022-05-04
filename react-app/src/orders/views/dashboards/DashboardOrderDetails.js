@@ -21,6 +21,8 @@ import Select from "react-select";
 import { orderStatusOptions, staffOptions } from "../common";
 
 export const DashboardOrderDetails = ({ user, userID }) => {
+  const username = useSelector((state) => state.session.user.username);
+
   const params = useParams();
   const history = useHistory();
   let { id: orderId } = useParams();
@@ -192,26 +194,29 @@ export const DashboardOrderDetails = ({ user, userID }) => {
                     </Button>
                   </Link>
                 </Col>
-
-                <Col md='auto'>
-                  <Button
-                    onClick={sendEmail}
-                    variant='success'
-                    className='mb-3'
-                  >
-                    Send Order Ready Email
-                  </Button>
-                </Col>
-                <Col md='auto'>
-                  <Button
-                    onClick={() => createInvoice()}
-                    // disabled
-                    variant='secondary'
-                    className='mb-3'
-                  >
-                    generate invoice
-                  </Button>
-                </Col>
+                {!(username === "staff") && (
+                  <>
+                    <Col md='auto'>
+                      <Button
+                        onClick={sendEmail}
+                        variant='success'
+                        className='mb-3'
+                      >
+                        Send Order Ready Email
+                      </Button>
+                    </Col>
+                    <Col md='auto'>
+                      <Button
+                        onClick={() => createInvoice()}
+                        // disabled
+                        variant='secondary'
+                        className='mb-3'
+                      >
+                        generate invoice
+                      </Button>
+                    </Col>
+                  </>
+                )}
               </Row>
             </Container>
 
@@ -287,43 +292,45 @@ export const DashboardOrderDetails = ({ user, userID }) => {
                 {statusSelect()}
                 {staffSelect()}
               </Row>
-              <Row className='mb-3'>
-                <Form.Group as={Col} controlId='formTierLevel'>
-                  <Form.Label>Tier Level</Form.Label>
-                  <Form.Control
-                    type='text'
-                    value={orderdetails?.order?.customer.tierLevel}
-                    onChange={(e) =>
-                      setOrderDetails({
-                        ...orderdetails,
-                        tierLevel: e.target.value,
-                      })
-                    }
-                  />
-                </Form.Group>
+              {!(username === "staff") && (
+                <Row className='mb-3'>
+                  <Form.Group as={Col} controlId='formTierLevel'>
+                    <Form.Label>Tier Level</Form.Label>
+                    <Form.Control
+                      type='text'
+                      value={orderdetails?.order?.customer.tierLevel}
+                      onChange={(e) =>
+                        setOrderDetails({
+                          ...orderdetails,
+                          tierLevel: e.target.value,
+                        })
+                      }
+                    />
+                  </Form.Group>
 
-                <Form.Group as={Col} controlId='formTierLevel'>
-                  <Form.Label>Invoice #</Form.Label>
-                  <Form.Control
-                    type='text'
-                    value={orderdetails?.order?.invoiceNumber}
-                    onChange={(e) =>
-                      setOrderDetails({
-                        ...orderdetails,
-                        invoiceNumber: e.target.value,
-                      })
-                    }
-                  />
-                </Form.Group>
+                  <Form.Group as={Col} controlId='formTierLevel'>
+                    <Form.Label>Invoice #</Form.Label>
+                    <Form.Control
+                      type='text'
+                      value={orderdetails?.order?.invoiceNumber}
+                      onChange={(e) =>
+                        setOrderDetails({
+                          ...orderdetails,
+                          invoiceNumber: e.target.value,
+                        })
+                      }
+                    />
+                  </Form.Group>
 
-                <Form.Group as={Col} controlId='formTotalAmount'>
-                  <Form.Label>Amount</Form.Label>
-                  <Form.Control
-                    type='text'
-                    value={orderdetails?.order?.totalAmount}
-                  />
-                </Form.Group>
-              </Row>
+                  <Form.Group as={Col} controlId='formTotalAmount'>
+                    <Form.Label>Amount</Form.Label>
+                    <Form.Control
+                      type='text'
+                      value={orderdetails?.order?.totalAmount}
+                    />
+                  </Form.Group>
+                </Row>
+              )}
               <Row>
                 <Table striped bordered hover responsive='lg' className='table'>
                   <thead className='thead-dark'>

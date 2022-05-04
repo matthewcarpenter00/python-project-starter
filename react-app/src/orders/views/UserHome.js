@@ -16,8 +16,10 @@ import { DashboardAddCustomer } from "./dashboards/DashboardAddCustomer";
 import { TruckLoadForm } from "../components/TruckLoadForm";
 import { DashboardEditCustomer } from "./dashboards/DashboardEditCustomer";
 import { oauthClient } from "../../lib/intuit-oauth";
+import { useSelector } from "react-redux";
 
 export const UserHome = (props) => {
+  const user = useSelector((state) => state.session.user);
   const [oauthToken, setOauthToken] = useState("");
   const [realmId, setRealmId] = useState("");
   const [companyInfo, setCompanyInfo] = useState(null);
@@ -63,6 +65,13 @@ export const UserHome = (props) => {
   let activeUser;
 
   const clickedProfile = (profile) => {
+    if (user.username === "staff") {
+      if (profile == "orderdetails") {
+        return <DashboardOrderDetails />;
+      } else {
+        return <DashboardOrders />;
+      }
+    }
     if (profile == "myaccount") {
       return <DashboardMyAccount />;
     } else if (profile == "customers") {
