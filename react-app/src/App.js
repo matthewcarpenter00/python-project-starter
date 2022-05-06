@@ -105,7 +105,7 @@ function App() {
             <TruckLoadForm />
           </ProtectedRoute>
         </Switch>
-      </BrowserRouter>
+      </BrowserRouter> 
 
     </div>
   );
