@@ -135,4 +135,5 @@ There is a layer in the Dockerfile that will install psycopg2 (not binary) for u
 
    ```bash=3
    docker push registry.heroku.com/{NAME_OF_HEROKU_APP}/web
+
    ```
