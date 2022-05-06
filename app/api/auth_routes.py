@@ -10,7 +10,8 @@ from intuitlib.enums import Scopes
 import requests
 import json
 
-auth_client = AuthClient( 'ABmIlDiVhP89JVXkmVEnSlPT6tJUc79ivaywv94Fk57aRwE5Qo', 'LLGiY78TKFZuNXEV5TJzUuYaIdaNeIznF7XsItyf', 'http://localhost:3000/profile/user', 'sandbox' )
+# auth_client = AuthClient( 'ABmIlDiVhP89JVXkmVEnSlPT6tJUc79ivaywv94Fk57aRwE5Qo', 'LLGiY78TKFZuNXEV5TJzUuYaIdaNeIznF7XsItyf', 'http://localhost:3000/profile/user', 'sandbox' )
+auth_client = AuthClient( 'ABcfEaQfaumNy1PpUwb3tWzKRcelJQbXUZLVpNkfmWY7oY57yv', 'fFSmpmU5ryQ1Oqx9n2QREwb75zkDROACdw0Mlwc8', 'https://app.stepsolutionusa.com/profile/user', 'production' )
 
 auth_routes = Blueprint('auth', __name__)
 
@@ -109,7 +110,7 @@ def company_info():
     response = requests.get(url, headers=headers)
     return response.json()
 
-@auth_routes.route('/create-invoice')
+@auth_routes.route('/create-invoice', methods=['POST'])
 def create_invoice():
     
     base_url = 'https://sandbox-quickbooks.api.intuit.com'
@@ -120,23 +121,9 @@ def create_invoice():
         'Accept': 'application/json',
         'Content-Type': 'application/json'
     }
-    payload = json.dumps({
-  "Line": [
-    {
-      "Amount": 100,
-      "DetailType": "SalesItemLineDetail",
-      "SalesItemLineDetail": {
-        "ItemRef": {
-          "value": "1",
-          "name": "Services"
-        }
-      }
-    }
-  ],
-  "CustomerRef": {
-    "value": "1"
-  }
-})
+    data = request.json
+    print("data:", data)
+    payload = json.dumps(data)
     response = requests.post(url, headers=headers, data=payload)
     print(response.json())
     return response.json()

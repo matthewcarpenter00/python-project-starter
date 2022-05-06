@@ -147,10 +147,37 @@ export const DashboardOrderDetails = ({ user, userID }) => {
     // alert ("Your Email has been sent!")
   };
 
-  const createInvoice = () => {
-    fetch("/api/auth/create-invoice")
+  const createInvoice = ({ order, products }) => {
+    const lineItems = products.map((product, index) => {
+      return {
+        Amount: product.amount * order.orderItems[index].quantity,
+        DetailType: "SalesItemLineDetail",
+        SalesItemLineDetail: {
+          Qty: order.orderItems[index].quantity,
+          UnitPrice: product.amount,
+          ItemRef: {
+            value: products.quickbooksId,
+            name: products.name,
+          },
+        },
+      };
+    });
+    const payload = {
+      Line: lineItems,
+      CustomerRef: {
+        value: order.customer.quickbooksId,
+      },
+    };
+    fetch("/api/auth/create-invoice", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    })
       .then((res) => res.json())
-      .then((data) => console.log(data));
+      .then((data) => console.log(data))
+      .catch((error) => console.log(error));
   };
 
   return (
@@ -206,7 +233,7 @@ export const DashboardOrderDetails = ({ user, userID }) => {
                     </Col>
                     <Col md='auto'>
                       <Button
-                        onClick={() => createInvoice()}
+                        onClick={() => createInvoice(orderdetails)}
                         // disabled
                         variant='secondary'
                         className='mb-3'
