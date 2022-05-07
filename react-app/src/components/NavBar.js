@@ -8,6 +8,12 @@ import { authUri } from "../lib/intuit-oauth";
 const NavBar = () => {
   const user = useSelector((state) => state.session.user);
 
+  // const connectToQuickbooks = () => {
+  //   fetch("/api/auth/oauth")
+  //     .then((resp) => console.log(resp))
+  //     .then((err) => console.log(err));
+  // };
+
   return (
     <Navbar expand='lg' variant='light' bg='light'>
       <Container>
@@ -19,11 +25,12 @@ const NavBar = () => {
             height='40'
             className='d-inline-block align-top'
           />{" "}
-          <h2><strong>step</strong>solution</h2>
+          <h2>
+            <strong>step</strong>solution
+          </h2>
         </Navbar.Brand>
-        
+
         <Nav className='justify-content-end'>
-       
           {!user && (
             <>
               {/* <NavLink to='/sign-up' exact={true}>
@@ -33,7 +40,7 @@ const NavBar = () => {
               </NavLink> */}
               <NavLink to='/login' exact={true}>
                 <Button className='m-3' variant='dark' type='submit'>
-                Login
+                  Login
                 </Button>
               </NavLink>
             </>
@@ -46,12 +53,14 @@ const NavBar = () => {
           )}
           {user && (
             <div href='#' className='mt-3'>
-            <Button onClick={() => window.location.replace(authUri)}>
-              Connect to Quickbooks
-            </Button>
-          </div>
-          )} 
-          
+              <Button onClick={() => window.location.replace(authUri)}>
+                Connect to Quickbooks
+              </Button>
+              {/* <Button onClick={() => connectToQuickbooks()}>
+                Connect to Quickbooks
+              </Button> */}
+            </div>
+          )}
         </Nav>
       </Container>
     </Navbar>

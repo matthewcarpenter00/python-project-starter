@@ -1,5 +1,5 @@
 from os import access
-from flask import Blueprint, jsonify, session, request
+from flask import Blueprint, jsonify, session, request, redirect
 from app.models import User, db
 from app.forms import LoginForm
 from app.forms import SignUpForm
@@ -89,6 +89,12 @@ def unauthorized():
     Returns unauthorized JSON when flask-login authentication fails
     """
     return {'errors': ['Unauthorized']}, 401
+
+# @auth_routes.route('/oauth')
+# def auth():
+#     """Initiates the Authorization flow after getting the right config value"""
+#     url = auth_client.get_authorization_url([Scopes.Accountg])
+#     return redirect(url)
 
 @auth_routes.route('/oauth-token',methods=['POST'])
 def oauth_token():
