@@ -1,4 +1,5 @@
 from os import access
+import os
 from flask import Blueprint, jsonify, session, request, redirect
 from app.models import User, db
 from app.forms import LoginForm
@@ -10,8 +11,7 @@ from intuitlib.enums import Scopes
 import requests
 import json
 
-# auth_client = AuthClient( 'ABmIlDiVhP89JVXkmVEnSlPT6tJUc79ivaywv94Fk57aRwE5Qo', 'LLGiY78TKFZuNXEV5TJzUuYaIdaNeIznF7XsItyf', 'http://localhost:3000/profile/user', 'sandbox' )
-auth_client = AuthClient( 'ABcfEaQfaumNy1PpUwb3tWzKRcelJQbXUZLVpNkfmWY7oY57yv', 'fFSmpmU5ryQ1Oqx9n2QREwb75zkDROACdw0Mlwc8', 'https://app.stepsolutionusa.com/profile/user', 'production' )
+auth_client = AuthClient( os.environ.get('CLIENT_ID'), os.environ.get('CLIENT_SECRET'), 'https://app.stepsolutionusa.com/profile/user', 'production' )
 
 auth_routes = Blueprint('auth', __name__)
 

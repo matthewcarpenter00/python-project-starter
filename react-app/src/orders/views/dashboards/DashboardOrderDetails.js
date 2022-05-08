@@ -1,40 +1,30 @@
 import React, { useEffect, useState } from "react";
-import { Link, NavLink, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { Button, Table } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
-import { useHistory } from "react-router";
 import emailjs from "@emailjs/browser";
-import axios from "axios";
-import { productSelectOptions } from "../../../adapters/productAdapter";
 
 // redux and custom hook imports
-import { useForm } from "../../../hooks/useForm";
-import { useDispatch, useSelector } from "react-redux";
-import { setOrderDetails } from "../../../store/orders";
-import { createOrderDto } from "../../../adapters/orderAdapter";
+import { useSelector } from "react-redux";
 import Select from "react-select";
 import { orderStatusOptions, staffOptions } from "../common";
 
-export const DashboardOrderDetails = ({ user, userID }) => {
+export const DashboardOrderDetails = () => {
   const username = useSelector((state) => state.session.user.username);
-
-  const params = useParams();
-  const history = useHistory();
   let { id: orderId } = useParams();
 
-  // order status
-  // hooks and redux
-  const dispatch = useDispatch();
-  const [validated, setValidated] = useState(false);
+  // Current Order
   const [orderdetails, setOrderDetails] = useState("");
   const [orderStatus, setOrderStatus] = useState([]);
 
-  // staff
   const [staff, setStaff] = useState("");
+
+  // Invoice
+  const [createdInvoice, setCreatedInvoice] = useState(null);
 
   const statusSelect = () => {
     if (orderdetails) {
@@ -53,6 +43,7 @@ export const DashboardOrderDetails = ({ user, userID }) => {
       );
     } else return null;
   };
+
   const staffSelect = () => {
     if (orderdetails) {
       return (
@@ -90,12 +81,9 @@ export const DashboardOrderDetails = ({ user, userID }) => {
 
   useEffect(() => {
     fetchOrder(orderId);
-  }, []);
+  }, [orderId]);
 
-  const editOrder = async (newOrderStatus) => {
-    // const dto = createOrderDto(newOrderStatus);
-    console.log(newOrderStatus);
-
+  const editOrder = async (orderPayload) => {
     const response = await fetch(
       `${process.env.REACT_APP_API_URL}/orders/${orderId}`,
       {
@@ -103,25 +91,19 @@ export const DashboardOrderDetails = ({ user, userID }) => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(newOrderStatus),
+        body: JSON.stringify(orderPayload),
       }
     );
 
     if (response.ok) {
       const data = await response.json();
-      // call redux dispatch, it set customer also in store
       return data;
-    } else if (response.status < 500) {
-      const data = await response.json();
-      if (data.errors) {
-        return data.errors;
-      }
     } else {
       return ["An error occurred. Please try again."];
     }
   };
 
-  // email functionality
+  // Send Email
   const sendEmail = (e) => {
     e.preventDefault();
 
@@ -154,7 +136,7 @@ export const DashboardOrderDetails = ({ user, userID }) => {
         DetailType: "SalesItemLineDetail",
         SalesItemLineDetail: {
           Qty: order.orderItems[index].quantity,
-          UnitPrice: product.amount,
+          UnitPrice: product.price,
           ItemRef: {
             value: product.quickbooksId,
             name: product.name,
@@ -176,9 +158,19 @@ export const DashboardOrderDetails = ({ user, userID }) => {
       body: JSON.stringify(payload),
     })
       .then((res) => res.json())
-      .then((data) => console.log(data))
+      .then((data) => {
+        setCreatedInvoice(data);
+      })
       .catch((error) => console.log(error));
   };
+
+  useEffect(() => {
+    if (createdInvoice.DocNumber) {
+      editOrder({
+        invoiceNumber: createdInvoice.DocNumber,
+      });
+    }
+  }, [createInvoice]);
 
   return (
     <>
@@ -298,23 +290,6 @@ export const DashboardOrderDetails = ({ user, userID }) => {
                     }
                   />
                 </Form.Group>
-
-                {/* <Form.Group as={Col} controlId='formStatus'>
-                  <Form.Label>Status</Form.Label>
-                  <Form.Control
-                    type='text'
-                    value={orderdetails?.order?.orderStatus}
-                    onChange={(e) =>
-                      setOrderDetails({
-                        ...orderdetails,
-                        order: {
-                          ...orderdetails.order,
-                          orderStatus: e.target.value,
-                        },
-                      })
-                    }
-                  />
-                </Form.Group> */}
                 {statusSelect()}
                 {staffSelect()}
               </Row>
@@ -333,7 +308,6 @@ export const DashboardOrderDetails = ({ user, userID }) => {
                       }
                     />
                   </Form.Group>
-
                   <Form.Group as={Col} controlId='formTierLevel'>
                     <Form.Label>Invoice #</Form.Label>
                     <Form.Control
@@ -347,7 +321,6 @@ export const DashboardOrderDetails = ({ user, userID }) => {
                       }
                     />
                   </Form.Group>
-
                   <Form.Group as={Col} controlId='formTotalAmount'>
                     <Form.Label>Amount</Form.Label>
                     <Form.Control
@@ -396,7 +369,6 @@ export const DashboardOrderDetails = ({ user, userID }) => {
                       })
                     }
                     variant='success'
-                    // onClick={editOrder({orderStatus: orderdetails?.orderStatus})}
                   >
                     Update Order
                   </Button>
