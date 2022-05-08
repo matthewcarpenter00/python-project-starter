@@ -8,12 +8,6 @@ import { authUri } from "../lib/intuit-oauth";
 const NavBar = () => {
   const user = useSelector((state) => state.session.user);
 
-  // const connectToQuickbooks = () => {
-  //   fetch("/api/auth/oauth")
-  //     .then((resp) => console.log(resp))
-  //     .then((err) => console.log(err));
-  // };
-
   return (
     <Navbar expand='lg' variant='light' bg='light'>
       <Container>
@@ -56,9 +50,6 @@ const NavBar = () => {
               <Button onClick={() => window.location.replace(authUri)}>
                 Connect to Quickbooks
               </Button>
-              {/* <Button onClick={() => connectToQuickbooks()}>
-                Connect to Quickbooks
-              </Button> */}
             </div>
           )}
         </Nav>

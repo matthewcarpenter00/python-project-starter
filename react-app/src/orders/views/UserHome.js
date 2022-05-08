@@ -43,7 +43,9 @@ export const UserHome = (props) => {
       body: JSON.stringify({ code, realmId }),
     })
       .then((res) => res.json())
-      .then((data) => setOauthToken(data));
+      .then((data) => {
+        setOauthToken(data);
+      });
     // oauthClient
     //   .createToken(code)
     //   .then((authResponse) =>

@@ -150,14 +150,14 @@ export const DashboardOrderDetails = ({ user, userID }) => {
   const createInvoice = ({ order, products }) => {
     const lineItems = products.map((product, index) => {
       return {
-        Amount: product.amount * order.orderItems[index].quantity,
+        Amount: product.price * order.orderItems[index].quantity,
         DetailType: "SalesItemLineDetail",
         SalesItemLineDetail: {
           Qty: order.orderItems[index].quantity,
           UnitPrice: product.amount,
           ItemRef: {
-            value: products.quickbooksId,
-            name: products.name,
+            value: product.quickbooksId,
+            name: product.name,
           },
         },
       };
