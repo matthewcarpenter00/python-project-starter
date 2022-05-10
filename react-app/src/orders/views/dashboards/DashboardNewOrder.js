@@ -13,7 +13,7 @@ import { productSelectOptions } from "../../../adapters/productAdapter";
 import { createOrderDto } from "../../../adapters/orderAdapter";
 import { createOrderItemDto } from "../../../adapters/orderItemsAdapter";
 import emailjs from "@emailjs/browser";
-import { sendEmail } from "../../../lib/sendEmail";
+// import { sendEmail } from "../../../lib/sendEmail";
 
 export const DashboardNewOrder = () => {
   const params = useParams();
@@ -114,9 +114,8 @@ export const DashboardNewOrder = () => {
       // if (!newOrderItem.id) break;
     }
     sendEmail();
-    alert ("Your Order has been created!")
+    alert("Your Order has been created!");
   };
-  
 
   const createOrder = async (order) => {
     const dto = createOrderDto(order);
@@ -169,9 +168,8 @@ export const DashboardNewOrder = () => {
 
   // email functionality
   const sendEmail = () => {
-
     var templateParams = {
-      customer: customer?.email,
+      customer: customer?.value.email,
     };
 
     emailjs
@@ -387,9 +385,8 @@ export const DashboardNewOrder = () => {
                           invoiceNumber,
                         },
                         orderProducts
-                      ) 
+                      )
                     }
-                    
                   >
                     Save Order
                   </Button>
