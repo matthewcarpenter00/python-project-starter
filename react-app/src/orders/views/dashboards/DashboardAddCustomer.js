@@ -42,6 +42,19 @@ export const DashboardAddCustomer = ({ user, userId }) => {
     { value: "GA", label: "GA" },
   ];
 
+  const createQuickbooksCustomer = () => {
+    fetch("/api/auth/send-invoice", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(),
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(data))
+      .catch((error) => console.log(error));
+  };
+
   const handleSubmit = (event) => {
     const form = event.currentTarget;
     // validations

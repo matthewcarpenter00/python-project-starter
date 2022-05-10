@@ -115,8 +115,8 @@ def company_info():
 @auth_routes.route('/create-invoice', methods=['POST'])
 def create_invoice():
     
-    # base_url = 'https://quickbooks.api.intuit.com'
-    base_url = 'https://sandbox-quickbooks.api.intuit.com'
+    # base_url = 'https://sandbox-quickbooks.api.intuit.com'
+    base_url = 'https://quickbooks.api.intuit.com'
     url = '{0}/v3/company/{1}/invoice?minorversion=14'.format(base_url, auth_client.realm_id)
     auth_header = 'Bearer {0}'.format(auth_client.access_token)
     headers = {
@@ -132,9 +132,9 @@ def create_invoice():
 @auth_routes.route('/send-invoice', methods=['POST'])
 def send_invoice():
     
-    # base_url = 'https://quickbooks.api.intuit.com'
+    # base_url = 'https://sandbox-quickbooks.api.intuit.com'
+    base_url = 'https://quickbooks.api.intuit.com'
     data = request.json
-    base_url = 'https://sandbox-quickbooks.api.intuit.com'
     url = '{0}/v3/company/{1}/invoice/{2}/send?sendTo={3}&minorversion=63'.format(base_url, auth_client.realm_id, data['invoiceId'],data['email'])
     auth_header = 'Bearer {0}'.format(auth_client.access_token)
     headers = {
@@ -142,9 +142,24 @@ def send_invoice():
         'Accept': 'application/json',
         'Content-Type': 'application/octet-stream'
     }
-    # data = request.json
-    # payload = json.dumps(data)
     response = requests.post(url, headers=headers)
+    return response.json()
+
+@auth_routes.route('/create-customer', methods=['POST'])
+def create_customer():
+    
+    # base_url = 'https://sandbox-quickbooks.api.intuit.com'
+    base_url = 'https://quickbooks.api.intuit.com'
+    data = request.json
+    payload = json.dumps(data)
+    url = '{0}/v3/company/{1}/customer'.format(base_url, auth_client.realm_id)
+    auth_header = 'Bearer {0}'.format(auth_client.access_token)
+    headers = {
+        'Authorization': auth_header,
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+    }
+    response = requests.post(url, headers=headers, data=payload)
     return response.json()
 
 
