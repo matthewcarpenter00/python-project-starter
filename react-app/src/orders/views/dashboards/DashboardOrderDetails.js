@@ -309,7 +309,14 @@ export const DashboardOrderDetails = () => {
                   <Form.Label>Date Placed</Form.Label>
                   <Form.Control
                     type='text'
-                    value={orderdetails?.order?.createdAt}
+                    // value={orderdetails?.order?.createdAt}
+                    value={new Date(
+                      orderdetails?.order?.createdAt
+                    ).toLocaleDateString("en-us", {
+                      year: "numeric",
+                      month: "short",
+                      day: "numeric",
+                    })}
                   />
                 </Form.Group>
               </Row>
