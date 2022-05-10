@@ -35,23 +35,23 @@ export const DashboardOrderDetails = () => {
     flag: "danger",
   });
 
-  const dummyInvoice = {
-    Line: [
-      {
-        DetailType: "SalesItemLineDetail",
-        Amount: 200.0,
-        SalesItemLineDetail: {
-          ItemRef: {
-            name: "Services",
-            value: "1",
-          },
-        },
-      },
-    ],
-    CustomerRef: {
-      value: "1",
-    },
-  };
+  // const dummyInvoice = {
+  //   Line: [
+  //     {
+  //       DetailType: "SalesItemLineDetail",
+  //       Amount: 200.0,
+  //       SalesItemLineDetail: {
+  //         ItemRef: {
+  //           name: "Services",
+  //           value: "1",
+  //         },
+  //       },
+  //     },
+  //   ],
+  //   CustomerRef: {
+  //     value: "1",
+  //   },
+  // };
 
   const statusSelect = () => {
     if (orderdetails) {
@@ -198,7 +198,7 @@ export const DashboardOrderDetails = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(dummyInvoice),
+      body: JSON.stringify(payload),
     })
       .then((res) => res.json())
       .then((data) => {

@@ -101,8 +101,8 @@ def oauth_token():
 
 @auth_routes.route('/company-info')
 def company_info():
-    # base_url = 'https://quickbooks.api.intuit.com'
-    base_url = 'https://sandbox-quickbooks.api.intuit.com'
+    # base_url = 'https://sandbox-quickbooks.api.intuit.com'
+    base_url = 'https://quickbooks.api.intuit.com'
     url = '{0}/v3/company/{1}/companyinfo/{1}'.format(base_url, auth_client.realm_id)
     auth_header = 'Bearer {0}'.format(auth_client.access_token)
     headers = {
