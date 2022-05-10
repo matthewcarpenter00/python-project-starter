@@ -49,8 +49,14 @@ export const TruckLoadForm = () => {
     completed: "Completed",
   };
 
-  const priceFormatter=(data,row)=>{
-    return<>$ {data}</>
+  const dateFormatter=(data,row)=>{
+    return<>{new Date(
+      data
+    ).toLocaleDateString("en-us", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    })}</>
   }
 
   const columns = [
@@ -87,6 +93,7 @@ export const TruckLoadForm = () => {
       dataField: "orderStatus",
       text: "Status",
       sort: true,
+      formatter: dateFormatter,
       filter: selectFilter({
         options: selectStatus,
         comparator: Comparator.LIKE
