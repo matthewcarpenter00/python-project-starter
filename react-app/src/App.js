@@ -28,9 +28,6 @@ function App() {
 
   const dispatch = useDispatch();
 
-  console.log("REACT_APP_API_URL", process.env.REACT_APP_API_URL);
-  console.log("REACT_APP_API_URL", process.env.REACT_APP_OAUTH_CLIENT_ID);
-
   useEffect(() => {
     (async () => {
       await dispatch(authenticate());
@@ -44,7 +41,7 @@ function App() {
 
   return (
     <div>
-     <BrowserRouter>
+      <BrowserRouter>
         <NavBar />
         <Switch>
           <Route path='/' exact={true}>
@@ -105,8 +102,7 @@ function App() {
             <TruckLoadForm />
           </ProtectedRoute>
         </Switch>
-      </BrowserRouter> 
-
+      </BrowserRouter>
     </div>
   );
 }

@@ -8,6 +8,7 @@ ENV REACT_APP_BASE_URL=https://step-solution-app.herokuapp.com/
 ENV REACT_APP_API_URL=https://stepsolutionapi.herokuapp.com
 ENV REACT_APP_OAUTH_CLIENT_ID=ABcfEaQfaumNy1PpUwb3tWzKRcelJQbXUZLVpNkfmWY7oY57yv
 ENV REACT_APP_OAUTH_CLIENT_SECRET=fFSmpmU5ryQ1Oqx9n2QREwb75zkDROACdw0Mlwc8
+ENV REACT_APP_OAUTH_REDIRECT_URI=https://app.stepsolutionusa.com/profile/user
 
 # Build our React App
 RUN npm install

@@ -11,7 +11,7 @@ from intuitlib.enums import Scopes
 import requests
 import json
 
-auth_client = AuthClient( os.environ.get('CLIENT_ID'), os.environ.get('CLIENT_SECRET'), 'https://app.stepsolutionusa.com/profile/user', 'production' )
+auth_client = AuthClient( os.environ.get('CLIENT_ID'), os.environ.get('CLIENT_SECRET'), os.environ.get('REDIRECT_URI'), 'production' )
 
 auth_routes = Blueprint('auth', __name__)
 
@@ -90,11 +90,6 @@ def unauthorized():
     """
     return {'errors': ['Unauthorized']}, 401
 
-# @auth_routes.route('/oauth')
-# def auth():
-#     """Initiates the Authorization flow after getting the right config value"""
-#     url = auth_client.get_authorization_url([Scopes.Accountg])
-#     return redirect(url)
 
 @auth_routes.route('/oauth-token',methods=['POST'])
 def oauth_token():
@@ -106,7 +101,8 @@ def oauth_token():
 
 @auth_routes.route('/company-info')
 def company_info():
-    base_url = 'https://quickbooks.api.intuit.com'
+    # base_url = 'https://quickbooks.api.intuit.com'
+    base_url = 'https://sandbox-quickbooks.api.intuit.com'
     url = '{0}/v3/company/{1}/companyinfo/{1}'.format(base_url, auth_client.realm_id)
     auth_header = 'Bearer {0}'.format(auth_client.access_token)
     headers = {
@@ -119,7 +115,8 @@ def company_info():
 @auth_routes.route('/create-invoice', methods=['POST'])
 def create_invoice():
     
-    base_url = 'https://quickbooks.api.intuit.com'
+    # base_url = 'https://quickbooks.api.intuit.com'
+    base_url = 'https://sandbox-quickbooks.api.intuit.com'
     url = '{0}/v3/company/{1}/invoice?minorversion=14'.format(base_url, auth_client.realm_id)
     auth_header = 'Bearer {0}'.format(auth_client.access_token)
     headers = {
@@ -128,10 +125,26 @@ def create_invoice():
         'Content-Type': 'application/json'
     }
     data = request.json
-    print("data:", data)
     payload = json.dumps(data)
     response = requests.post(url, headers=headers, data=payload)
-    print(response.json())
+    return response.json()
+
+@auth_routes.route('/send-invoice', methods=['POST'])
+def send_invoice():
+    
+    # base_url = 'https://quickbooks.api.intuit.com'
+    data = request.json
+    base_url = 'https://sandbox-quickbooks.api.intuit.com'
+    url = '{0}/v3/company/{1}/invoice/{2}/send?sendTo={3}&minorversion=63'.format(base_url, auth_client.realm_id, data['invoiceId'],data['email'])
+    auth_header = 'Bearer {0}'.format(auth_client.access_token)
+    headers = {
+        'Authorization': auth_header,
+        'Accept': 'application/json',
+        'Content-Type': 'application/octet-stream'
+    }
+    # data = request.json
+    # payload = json.dumps(data)
+    response = requests.post(url, headers=headers)
     return response.json()
 
 

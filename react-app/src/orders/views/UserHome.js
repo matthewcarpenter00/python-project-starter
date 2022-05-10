@@ -30,7 +30,6 @@ export const UserHome = (props) => {
   };
 
   useEffect(() => {
-    console.log(process.env.NODE_ENV);
     const url = new URL(window.location.href);
     const code = url.searchParams.get("code");
     const realmId = url.searchParams.get("realmId");

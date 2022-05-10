@@ -13,6 +13,8 @@ import { useSelector } from "react-redux";
 import Select from "react-select";
 import { orderStatusOptions, staffOptions } from "../common";
 
+import Alert from "react-bootstrap/Alert";
+
 export const DashboardOrderDetails = () => {
   const username = useSelector((state) => state.session.user.username);
   let { id: orderId } = useParams();
@@ -25,6 +27,31 @@ export const DashboardOrderDetails = () => {
 
   // Invoice
   const [createdInvoice, setCreatedInvoice] = useState(null);
+
+  // Error Message
+  const [errorMessage, setErrorMessage] = useState({
+    message: "",
+    active: false,
+    flag: "danger",
+  });
+
+  const dummyInvoice = {
+    Line: [
+      {
+        DetailType: "SalesItemLineDetail",
+        Amount: 200.0,
+        SalesItemLineDetail: {
+          ItemRef: {
+            name: "Services",
+            value: "1",
+          },
+        },
+      },
+    ],
+    CustomerRef: {
+      value: "1",
+    },
+  };
 
   const statusSelect = () => {
     if (orderdetails) {
@@ -129,6 +156,22 @@ export const DashboardOrderDetails = () => {
     // alert ("Your Email has been sent!")
   };
 
+  const sendAnInvoice = (email, invoiceId) => {
+    fetch("/api/auth/send-invoice", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email,
+        invoiceId,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(data))
+      .catch((error) => console.log(error));
+  };
+
   const createInvoice = ({ order, products }) => {
     const lineItems = products.map((product, index) => {
       return {
@@ -155,22 +198,27 @@ export const DashboardOrderDetails = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(payload),
+      body: JSON.stringify(dummyInvoice),
     })
       .then((res) => res.json())
       .then((data) => {
-        setCreatedInvoice(data);
+        if (!data.Invoice)
+          setErrorMessage({
+            message: "Invoice could not be created",
+            active: true,
+          });
+        editOrder({
+          invoiceNumber: parseInt(data.Invoice.DocNumber),
+        });
+        sendAnInvoice(order.customer.email, data.Invoice.Id);
+        setErrorMessage({
+          message: "Invoice created and sent to customer",
+          active: true,
+          flag: "success",
+        });
       })
       .catch((error) => console.log(error));
   };
-
-  useEffect(() => {
-    if (createdInvoice.DocNumber) {
-      editOrder({
-        invoiceNumber: createdInvoice.DocNumber,
-      });
-    }
-  }, [createInvoice]);
 
   return (
     <>
@@ -239,6 +287,9 @@ export const DashboardOrderDetails = () => {
             </Container>
 
             {/* Dashboard content */}
+            {errorMessage.active && (
+              <Alert variant={errorMessage.flag}>{errorMessage.message}</Alert>
+            )}
             <Form className='h-100 p-5 border rounded-3'>
               <Row className='mb-3'>
                 <Form.Group as={Col} controlId='formOrderID'>

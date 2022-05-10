@@ -76,6 +76,7 @@ export const DashboardAddCustomer = ({ user, userId }) => {
       const data = await response.json();
       // call redux dispatch, it set customer also in store
       dispatch(setCustomer(dto));
+      // TODO: Create Customer in quickbooks
       return data;
     } else if (response.status < 500) {
       const data = await response.json();
