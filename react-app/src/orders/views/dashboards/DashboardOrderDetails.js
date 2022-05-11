@@ -262,7 +262,7 @@ export const DashboardOrderDetails = () => {
                 </Col>
                 {!(username === "staff") && (
                   <>
-                    <Col md='auto'>
+                    {/* <Col md='auto'>
                       <Button
                         onClick={sendEmail}
                         variant='success'
@@ -270,20 +270,28 @@ export const DashboardOrderDetails = () => {
                       >
                         Send Order Ready Email
                       </Button>
-                    </Col>
+                    </Col> */}
                     <Col md='auto'>
                       <Button
                         onClick={() => createInvoice(orderdetails)}
-                        // disabled
-                        variant='secondary'
+                        variant='success'
                         className='mb-3'
                       >
                         generate invoice
                       </Button>
                     </Col>
+                    <Col md='auto'>
+                      <Button
+                        // onClick={() => printInvoice(orderdetails)}
+                        variant='secondary'
+                        className='mb-3'
+                      >
+                        print invoice
+                      </Button>
+                    </Col>
                   </>
-                )}
-              </Row>
+                )} 
+            </Row>
             </Container>
 
             {/* Dashboard content */}
@@ -309,7 +317,6 @@ export const DashboardOrderDetails = () => {
                   <Form.Label>Date Placed</Form.Label>
                   <Form.Control
                     type='text'
-                    // value={orderdetails?.order?.createdAt}
                     value={new Date(
                       orderdetails?.order?.createdAt
                     ).toLocaleDateString("en-us", {

@@ -49,8 +49,14 @@ export const DashboardOrders = ({ user, userId }) => {
     3: "pickup",
   };
 
-  const priceFormatter = (data, row) => {
-    return <>${data}</>;
+  const dateFormatter = (data, row) => {
+    return <>{new Date(
+     data
+    ).toLocaleDateString("en-us", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    })}</>;
   };
 
   const { SearchBar, ClearSearchButton } = Search;
@@ -65,6 +71,7 @@ export const DashboardOrders = ({ user, userId }) => {
       dataField: "createdAt",
       text: "Date",
       sort: true,
+      formatter: dateFormatter,
     },
     {
       dataField: "customer.company",
@@ -76,12 +83,6 @@ export const DashboardOrders = ({ user, userId }) => {
       text: "Job / PO Name",
       sort: true,
     },
-    // {
-    //   dataField: "totalAmount",
-    //   text: "Amount",
-    //   sort: true,
-    //   formatter: priceFormatter,
-    // },
     {
       dataField: "shippingRoute",
       text: "Route",
@@ -133,9 +134,7 @@ export const DashboardOrders = ({ user, userId }) => {
                 </Button>
               </Col>
 
-              {/* <Col>
-                  <Button variant='light'>Print View</Button>
-                </Col> */}
+  
             </Row>
           </Container>
 

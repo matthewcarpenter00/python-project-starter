@@ -69,6 +69,7 @@ export const TruckLoadForm = () => {
       dataField: "createdAt",
       text: "Date",
       sort: true,
+      formatter: dateFormatter,
     },
     {
       dataField: "customer.company",
