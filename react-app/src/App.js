@@ -44,15 +44,15 @@ function App() {
       <BrowserRouter>
         <NavBar />
         <Switch>
-          <Route path='/' exact={true}>
+          <ProtectedRoute path='/' exact={true}>
             <Redirect to='/profile/user' />
-          </Route>
+          </ProtectedRoute>
           <Route path='/login' exact={true}>
             <LoginForm />
           </Route>
-          <Route path='/sign-up' exact={true}>
+          <ProtectedRoute path='/sign-up' exact={true}>
             <SignUpForm />
-          </Route>
+          </ProtectedRoute>
           <ProtectedRoute path='/users' exact={true}>
             <UsersList />
           </ProtectedRoute>

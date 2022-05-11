@@ -81,7 +81,13 @@ export const ProductionLabel = () => {
             
         <Row className="mb-5">
           <Col>Date</Col>
-          <Col className="fw-bold">{orderdetails?.order?.createdAt} </Col>
+          <Col className="fw-bold">{new Date(
+                      orderdetails?.order?.createdAt
+                    ).toLocaleDateString("en-us", {
+                      year: "numeric",
+                      month: "short",
+                      day: "numeric",
+                    })} </Col>
         </Row>
             
         <Row className="container justify-content-center">

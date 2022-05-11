@@ -85,7 +85,13 @@ export const ProductLabel = () => {
       
       <Row className="mb-3">
         <Col>Date</Col>
-        <Col className="fw-bold">{orderdetails?.order?.createdAt}</Col>
+        <Col className="fw-bold">{new Date(
+                      orderdetails?.order?.createdAt
+                    ).toLocaleDateString("en-us", {
+                      year: "numeric",
+                      month: "short",
+                      day: "numeric",
+                    })}</Col>
       </Row>
       
       <hr />
