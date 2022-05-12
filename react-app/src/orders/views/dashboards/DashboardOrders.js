@@ -63,11 +63,14 @@ export const DashboardOrders = ({ user, userId }) => {
 
   const { SearchBar, ClearSearchButton } = Search;
 
+  // const headerSortingStyle = { backgroundColor: '#c8e6c9' };
+
   const columns = [
     {
       dataField: "id",
       text: "ID",
       sort: true,
+      // headerSortingStyle
     },
     {
       dataField: "createdAt",
@@ -103,6 +106,11 @@ export const DashboardOrders = ({ user, userId }) => {
       history.push(`/profile/user/${orderId}/orderdetails/`);
     },
   };
+
+  // const defaultSorted = [{
+  //   dataField: 'orderStatus',
+  //   order: 'desc'
+  // }];
 
   return (
     <>
