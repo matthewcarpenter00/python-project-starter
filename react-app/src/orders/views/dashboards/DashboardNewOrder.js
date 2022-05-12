@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { NavLink, useParams } from "react-router-dom";
-
+import { useHistory } from "react-router";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -16,6 +16,8 @@ import emailjs from "@emailjs/browser";
 // import { sendEmail } from "../../../lib/sendEmail";
 
 export const DashboardNewOrder = () => {
+  const [orderdetails, setOrderDetails] = useState("");
+  const history = useHistory();
   const params = useParams();
   let { id } = useParams();
 
@@ -39,7 +41,6 @@ export const DashboardNewOrder = () => {
   const orderStatusOptions = [
     { value: "In Production", label: "In Production" },
     { value: "Ready", label: "Ready" },
-    { value: "Completed", label: "Completed" },
   ];
 
   const [quantity, setQuantity] = useState("");
@@ -115,6 +116,9 @@ export const DashboardNewOrder = () => {
     }
     sendEmail();
     alert("Your Order has been created!");
+    
+    history.push(`/profile/user/${newOrder.id}/orderdetails/`);
+    
   };
 
   const createOrder = async (order) => {
@@ -273,7 +277,7 @@ export const DashboardNewOrder = () => {
                   <Form.Label>Invoice #</Form.Label>
                   <Form.Control
                     type='text'
-                    placeholder='0001'
+                    placeholder='0000'
                     value={invoiceNumber}
                     onChange={(e) => setInvoiceNumber(e.target.value)}
                   />
@@ -283,22 +287,22 @@ export const DashboardNewOrder = () => {
                   <Form.Label>Total Amount</Form.Label>
                   <Form.Control
                     type='currency'
-                    placeholder='$400'
+                    placeholder='$0'
                     value={totalOrderAmount || ""}
                     onChange={setTotalOrderAmount}
                   />
                 </Form.Group>
               </Row>
               <Row>
-                <Table striped bordered hover responsive='lg' className='table'>
+                <Table striped bordered hover responsive='lg' className='table no-wrap'>
                   <thead className='thead-dark'>
                     <tr>
-                      <th scope='col'>#</th>
-                      <th scope='col'>Product</th>
-                      <th scope='col'>Qty</th>
-                      <th scope='col'>Rate</th>
-                      <th scope='col'>Notes</th>
-                      <th scope='col'></th>
+                      <th scope='col' width="20">#</th>
+                      <th scope='col'width="50">Product</th>
+                      <th scope='col' width="20">Qty</th>
+                      <th scope='col' width="20">Rate</th>
+                      <th scope='col' width="50" >Notes</th>
+                      <th scope='col' width="10" ></th>
                     </tr>
                   </thead>
                   <tbody>

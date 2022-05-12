@@ -8,6 +8,7 @@ import Col from "react-bootstrap/Col";
 import { useHistory } from "react-router";
 import PropTypes from "prop-types";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 import axios from "axios";
 import BootstrapTable from "react-bootstrap-table-next";
@@ -20,6 +21,7 @@ import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 
 
 export const DashboardOrders = ({ user, userId }) => {
+  const username = useSelector((state) => state.session.user.username);
   const params = useParams();
   const history = useHistory();
   let { id } = useParams();
@@ -114,27 +116,28 @@ export const DashboardOrders = ({ user, userId }) => {
               <Col xs={7}>
                 <h1>Orders</h1>
               </Col>
-
-              <Col>
-                <Link to='/truckloadform' target='_blank'>
-                  <Button variant='outline-dark' className='mb-3'>
-                    truck load form
+              {!(username === "staff") && (
+              <>
+                <Col>
+                  <Link to='/truckloadform' target='_blank'>
+                    <Button variant='outline-dark' className='mb-3'>
+                      truck load form
+                    </Button>
+                  </Link>
+                </Col>
+                <Col>
+                  <Button
+                    onClick={() => {
+                      history.push(`/profile/user/${userId}/neworder`);
+                    }}
+                    variant='dark'
+                    className='mb-3 float-right'
+                  >
+                    + new order
                   </Button>
-                </Link>
-              </Col>
-              <Col>
-                <Button
-                  onClick={() => {
-                    history.push(`/profile/user/${userId}/neworder`);
-                  }}
-                  variant='dark'
-                  className='mb-3 float-right'
-                >
-                  + new order
-                </Button>
-              </Col>
-
-  
+                </Col>
+              </>
+               )}
             </Row>
           </Container>
 

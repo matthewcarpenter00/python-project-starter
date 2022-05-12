@@ -67,13 +67,13 @@ export const UserHome = (props) => {
   let activeUser;
 
   const clickedProfile = (profile) => {
-    if (user.username === "staff") {
-      if (profile == "orderdetails") {
-        return <DashboardOrderDetails />;
-      } else {
-        return <DashboardOrders />;
-      }
-    }
+    // if (user.username === "staff") {
+    //   if (profile == "orderdetails") {
+    //     return <DashboardOrderDetails />;
+    //   } else {
+    //     return <DashboardOrders />;
+    //   }
+    // }
     if (profile == "myaccount") {
       return <DashboardMyAccount />;
     } else if (profile == "customers") {
