@@ -5,11 +5,12 @@ import { useHistory } from "react-router";
 import PropTypes from "prop-types";
 
 import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-export const DashboardMyAccount = ({ user, userId }) => {
+export const DashboardMyAccount = () => {
+  const username = useSelector((state) => state.session.user.username);
   const params = useParams();
   const history = useHistory();
-  let { id } = useParams();
   // const { store, actions } = useContext(Context);
 
   return (
@@ -24,7 +25,7 @@ export const DashboardMyAccount = ({ user, userId }) => {
               <Row className='mb-3'>
                 <Form.Group as={Col} controlId='forStaffId'>
                   <Form.Label>Staff ID</Form.Label>
-                  <Form.Control  type='text'  defaultValue='001' />
+                  <Form.Control  type='text'  defaultValue="001" />
                 </Form.Group>
               </Row>
 

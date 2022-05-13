@@ -12,7 +12,7 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
 export const SideBar = ({ userId }) => {
 	const history = useHistory();
 	// const { store, actions } = useContext(Context);
-	const user = useSelector((state) => state.session.user);
+	const username = useSelector((state) => state.session.user.username);
 
 	const [dropdown, setDropdown] = useState(false);
 	const [active, setActive] = useState(false);
@@ -49,27 +49,31 @@ export const SideBar = ({ userId }) => {
 						<span className="ms-4 sidebar-item ">Orders</span>
 					</a>
 				</li>
-				<li className="m-2">
-					<a
-						style={{ cursor: "pointer" }}
-						className={active ? "nav-link text-white " + activeOption : "nav-link text-white"}
-						onClick={() => {
-							history.push(`/profile/user/${userId}/customers`);
-						}}>
-						<span className="ms-4 sidebar-item">Customers</span>
-					</a>
-				</li>
+				{!(username === "staff") && (
+					<>
+						<li className="m-2">
+							<a
+								style={{ cursor: "pointer" }}
+								className={active ? "nav-link text-white " + activeOption : "nav-link text-white"}
+								onClick={() => {
+									history.push(`/profile/user/${userId}/customers`);
+								}}>
+								<span className="ms-4 sidebar-item">Customers</span>
+							</a>
+						</li>
 	
-					<li className="m-2">
-						<a
-							style={{ cursor: "pointer" }}
-							className="nav-link text-white"
-							onClick={() => {
-								history.push(`/profile/user/${userId}/products`);
-							}}>
-							<span className="ms-4 sidebar-item">Products</span>
-						</a>
-					</li>
+						<li className="m-2">
+							<a
+								style={{ cursor: "pointer" }}
+								className="nav-link text-white"
+								onClick={() => {
+									history.push(`/profile/user/${userId}/products`);
+								}}>
+								<span className="ms-4 sidebar-item">Products</span>
+							</a>
+						</li>
+					</>
+				)}
 			
 				<li className="m-2">
 					<a

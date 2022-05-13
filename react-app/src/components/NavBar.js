@@ -7,6 +7,7 @@ import { authUri } from "../lib/intuit-oauth";
 
 const NavBar = () => {
   const user = useSelector((state) => state.session.user);
+ 
 
   return (
     <Navbar expand='lg' variant='light' bg='light'>
@@ -45,13 +46,16 @@ const NavBar = () => {
               <LogoutButton />
             </div>
           )}
+
           {user && (
+           
             <div href='#' className='mt-3'>
               <Button onClick={() => window.location.replace(authUri)}>
                 Connect to Quickbooks
               </Button>
             </div>
           )}
+          
         </Nav>
       </Container>
     </Navbar>
