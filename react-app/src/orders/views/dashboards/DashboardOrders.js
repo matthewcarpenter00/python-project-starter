@@ -107,10 +107,10 @@ export const DashboardOrders = ({ user, userId }) => {
     },
   };
 
-  // const defaultSorted = [{
-  //   dataField: 'orderStatus',
-  //   order: 'desc'
-  // }];
+  const defaultSorted = [{
+    dataField: 'orderStatus',
+    order: 'asc'
+  }];
 
   return (
     <>
@@ -174,6 +174,7 @@ export const DashboardOrders = ({ user, userId }) => {
                   condensed
                   pagination={paginationFactory()}
                   filter={filterFactory()}
+                  defaultSorted={ defaultSorted } 
                 ></BootstrapTable>
               </div>
               )
