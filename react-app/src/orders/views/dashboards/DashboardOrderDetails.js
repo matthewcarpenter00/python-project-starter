@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import { useHistory } from "react-router";
 
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -14,12 +15,15 @@ import Select from "react-select";
 import { orderStatusOptions, staffOptions } from "../common";
 
 import Alert from "react-bootstrap/Alert";
+import { NewProductFormModal } from "../../components/NewProductFormModal";
 
 export const DashboardOrderDetails = () => {
+  const history = useHistory();
   const username = useSelector((state) => state.session.user.username);
   let { id: orderId } = useParams();
 
   // Current Order
+  // const { orderdetails, setOrderDetails } = useFetchOrder({ orderId });
   const [orderdetails, setOrderDetails] = useState("");
   const [orderStatus, setOrderStatus] = useState([]);
 
@@ -34,6 +38,9 @@ export const DashboardOrderDetails = () => {
     active: false,
     flag: "danger",
   });
+
+  // edit order products
+  const [showModal, setShowModal] = useState(false);
 
   // const dummyInvoice = {
   //   Line: [
@@ -79,7 +86,8 @@ export const DashboardOrderDetails = () => {
           <Select
             defaultValue={{
               value: orderdetails?.order?.staffId,
-              label: staffOptions[orderdetails?.order?.staffId - 1].label,
+              label:
+                staffOptions[orderdetails?.order?.staffId - 1]?.label || "N/A",
             }}
             onChange={setStaff}
             options={staffOptions}
@@ -127,6 +135,20 @@ export const DashboardOrderDetails = () => {
       return data;
     } else {
       return ["An error occurred. Please try again."];
+    }
+  };
+
+  const handleDelete = async (orderId) => {
+    try {
+      const response = await fetch(
+        `${process.env.REACT_APP_API_URL}/orders/${orderId}`,
+        {
+          method: "DELETE",
+        }
+      );
+      if (response.ok) await history.push(`/profile/user/`);
+    } catch (err) {
+      console.log("Order could not be deleted");
     }
   };
 
@@ -290,8 +312,8 @@ export const DashboardOrderDetails = () => {
                       </Button>
                     </Col>
                   </>
-                )} 
-            </Row>
+                )}
+              </Row>
             </Container>
 
             {/* Dashboard content */}
@@ -423,7 +445,12 @@ export const DashboardOrderDetails = () => {
               </Row>
               <Row>
                 <Col md='auto'>
-                  <Button variant='danger'>Delete Order</Button>
+                  <Button
+                    variant='danger'
+                    onClick={() => handleDelete(orderdetails?.order?.id)}
+                  >
+                    Delete Order
+                  </Button>
                 </Col>
                 <Col>
                   <Button
@@ -438,8 +465,19 @@ export const DashboardOrderDetails = () => {
                     Update Order
                   </Button>
                 </Col>
+                <Col>
+                  <Button variant='warning' onClick={() => setShowModal(true)}>
+                    Add products
+                  </Button>
+                </Col>
               </Row>
             </Form>
+            <NewProductFormModal
+              showModal={showModal}
+              setShowModal={showModal}
+              onHide={() => setShowModal(false)}
+              orderDetails={orderdetails}
+            />
           </div>
         </div>
       </div>

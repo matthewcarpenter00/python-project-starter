@@ -116,9 +116,8 @@ export const DashboardNewOrder = () => {
     }
     sendEmail();
     alert("Your Order has been created!");
-    
+
     history.push(`/profile/user/${newOrder.id}/orderdetails/`);
-    
   };
 
   const createOrder = async (order) => {
@@ -294,15 +293,31 @@ export const DashboardNewOrder = () => {
                 </Form.Group>
               </Row>
               <Row>
-                <Table striped bordered hover responsive='lg' className='table no-wrap'>
+                <Table
+                  striped
+                  bordered
+                  hover
+                  responsive='lg'
+                  className='table no-wrap'
+                >
                   <thead className='thead-dark'>
                     <tr>
-                      <th scope='col' width="20">#</th>
-                      <th scope='col'width="50">Product</th>
-                      <th scope='col' width="20">Qty</th>
-                      <th scope='col' width="20">Rate</th>
-                      <th scope='col' width="50" >Notes</th>
-                      <th scope='col' width="10" ></th>
+                      <th scope='col' width='20'>
+                        #
+                      </th>
+                      <th scope='col' width='50'>
+                        Product
+                      </th>
+                      <th scope='col' width='20'>
+                        Qty
+                      </th>
+                      <th scope='col' width='20'>
+                        Rate
+                      </th>
+                      <th scope='col' width='50'>
+                        Notes
+                      </th>
+                      <th scope='col' width='10'></th>
                     </tr>
                   </thead>
                   <tbody>
