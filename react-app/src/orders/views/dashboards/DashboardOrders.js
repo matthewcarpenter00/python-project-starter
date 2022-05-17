@@ -51,6 +51,11 @@ export const DashboardOrders = ({ user, userId }) => {
     3: "pickup",
   };
 
+  const orderFormatter = (data, row) => {
+    return (
+      <span>SS{data}</span>
+    )
+  }
   const dateFormatter = (data, row) => {
     return <>{new Date(
      data
@@ -70,7 +75,7 @@ export const DashboardOrders = ({ user, userId }) => {
       dataField: "id",
       text: "ID",
       sort: true,
-      // headerSortingStyle
+      formatter: orderFormatter,
     },
     {
       dataField: "createdAt",

@@ -15,10 +15,14 @@ import filterFactory, {
 } from "react-bootstrap-table2-filter";
 import { useReactToPrint } from "react-to-print";
 import { useRef } from "react";
+import emailjs from "@emailjs/browser";
 
 export const TruckLoadForm = () => {
   
   const componentRef = useRef();
+  const [selectedRows, setSelectedRows] = useState([])
+  const [isRowSelected, setIsRowSelected] = useState(false)
+  
 
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
@@ -46,7 +50,6 @@ export const TruckLoadForm = () => {
   const selectStatus = {
     ready: "Ready",
     roduction: "In Production",
-    completed: "Completed",
   };
 
   const dateFormatter=(data,row)=>{
@@ -94,7 +97,6 @@ export const TruckLoadForm = () => {
       dataField: "orderStatus",
       text: "Status",
       sort: true,
-      formatter: dateFormatter,
       filter: selectFilter({
         options: selectStatus,
         comparator: Comparator.LIKE
@@ -102,12 +104,58 @@ export const TruckLoadForm = () => {
     },
   ];
 
+  const handleOnSelect = (row, isSelect, rowIndex, e) => {
+    setSelectedRows([...selectedRows, row])
+    setIsRowSelected(() => isSelect)
+    return true
+  }
+
+  const handleOnSelectAll = (isSelect, rows) => {
+    setIsRowSelected(isSelect)
+    setSelectedRows(rows)
+  }
+
   const selectRow = {
     mode: 'checkbox',
     clickToSelect: true,
     // hideSelectColumn: true,
-    bgColor: '#55D6BE'
+    bgColor: '#55D6BE',
+    onSelectAll: handleOnSelectAll,
+    onSelect: handleOnSelect,
+      // add those orders to selected rows
+      // 
+    }
+  
+    console.log(selectedRows)
+  
+
+      // send email to those on the selected
+
+  const sendEmail = (e) => {
+    e.preventDefault();
+
+    var templateParams = {
+      // customer: orderdetails?.order?.customer.email,
+    };
+
+    emailjs
+      .send(
+        "service_g2ht3pj",
+        "out-for-delivery",
+        templateParams,
+        "kBf3wIb1lGnimy156"
+      )
+      .then(
+        (result) => {
+          console.log(result.text);
+        },
+        (error) => {
+          console.log(error.text);
+        }
+      );
+    alert ("Your Emails have been sent!")
   };
+
 
   return (
     <>
@@ -115,6 +163,19 @@ export const TruckLoadForm = () => {
         {/* <div className='w-100 h-100 p-2 rounded-3'> */}
           <div className='p-3' ref={componentRef}>
             <div>
+              <Container>
+                <Row>
+                  <Col>
+                    <Button
+                        onClick={sendEmail}
+                        variant='success'
+                        className='mb-3'
+                      >
+                        Notify Out for Delivery
+                    </Button>
+                  </Col>
+                </Row>
+              </Container>
               <Row className='justify-content-between'>
                 <Col>
                   <img
