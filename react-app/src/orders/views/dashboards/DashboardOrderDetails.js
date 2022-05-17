@@ -211,15 +211,15 @@ export const DashboardOrderDetails = () => {
     });
     const payload = {
       Line: lineItems,
-      CustomField: [
-        { 
-          StringValue: order.id
-      }, {
-          StringValue: order.poName
-      }, {
-          StringValue: order.shippingRoute
-      }
-    ],
+    //   CustomField: [
+    //     { 
+    //       StringValue: order.id
+    //   }, {
+    //       StringValue: order.poName
+    //   }, {
+    //       StringValue: order.shippingRoute
+    //   }
+    // ],
       CustomerRef: {
         value: order.customer.quickbooksId,
       },
