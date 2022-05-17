@@ -126,8 +126,13 @@ export const TruckLoadForm = () => {
       // 
     }
   
-    console.log(selectedRows)
-  
+    // console.log(selectedRows)
+  // loop selected rows
+
+  // selectedRows.forEach(row => {
+  //   sendEmail()
+  // }) 
+
 
       // send email to those on the selected
 
