@@ -13,7 +13,10 @@ import Select from "react-select";
 import { useForm } from "../../../hooks/useForm";
 import { useDispatch, useSelector } from "react-redux";
 import { setCustomer } from "../../../store/orders";
-import { createCustomerDto } from "../../../adapters/customerAdapter";
+import {
+  createCustomerDto,
+  createQuickbooksCustomerDto,
+} from "../../../adapters/customerAdapter";
 
 export const DashboardAddCustomer = ({ user, userId }) => {
   const history = useHistory();
@@ -42,13 +45,13 @@ export const DashboardAddCustomer = ({ user, userId }) => {
     { value: "GA", label: "GA" },
   ];
 
-  const createQuickbooksCustomer = () => {
+  const createQuickbooksCustomer = (payload) => {
     fetch("/api/auth/send-invoice", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(),
+      body: JSON.stringify(payload),
     })
       .then((res) => res.json())
       .then((data) => console.log(data))
@@ -90,6 +93,8 @@ export const DashboardAddCustomer = ({ user, userId }) => {
       // call redux dispatch, it set customer also in store
       dispatch(setCustomer(dto));
       // TODO: Create Customer in quickbooks
+      const quickBooksCustomer = createQuickbooksCustomerDto(data);
+      createQuickbooksCustomer(quickBooksCustomer);
       return data;
     } else if (response.status < 500) {
       const data = await response.json();

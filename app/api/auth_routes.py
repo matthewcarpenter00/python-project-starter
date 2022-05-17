@@ -151,6 +151,7 @@ def create_customer():
     # base_url = 'https://sandbox-quickbooks.api.intuit.com'
     base_url = 'https://quickbooks.api.intuit.com'
     data = request.json
+    print(data)
     payload = json.dumps(data)
     url = '{0}/v3/company/{1}/customer'.format(base_url, auth_client.realm_id)
     auth_header = 'Bearer {0}'.format(auth_client.access_token)

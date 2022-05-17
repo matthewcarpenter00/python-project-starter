@@ -34,3 +34,23 @@ export const editCustomerDto = (customer) => {
     zipCode: parseInt(customer.zipCode),
   };
 };
+
+export const createQuickbooksCustomerDto = (customer) => {
+  return {
+    PrimaryEmailAddr: {
+      Address: customer.email,
+    },
+    DisplayName: customer.name,
+    PrimaryPhone: {
+      FreeFormNumber: customer.phone,
+    },
+    CompanyName: customer.company,
+    BillAddr: {
+      CountrySubDivisionCode: customer.state,
+      City: customer.city,
+      PostalCode: customer.zipCode,
+      Line1: customer.address,
+    },
+    GivenName: customer.name,
+  };
+};
