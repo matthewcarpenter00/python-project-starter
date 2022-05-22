@@ -288,7 +288,6 @@ export const DashboardNewOrder = () => {
                     type='currency'
                     placeholder='$0'
                     value={totalOrderAmount || ""}
-                    onChange={setTotalOrderAmount}
                   />
                 </Form.Group>
               </Row>
@@ -368,7 +367,6 @@ export const DashboardNewOrder = () => {
                           type='text'
                           placeholder='$0'
                           value={price || ""}
-                          onChange={(e) => setPrice(e.target.value)}
                         />
                       </td>
                       <td>

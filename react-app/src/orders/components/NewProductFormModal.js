@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router";
 
 import Row from "react-bootstrap/Row";
 import Modal from "react-bootstrap/Modal";
@@ -14,6 +15,7 @@ import { Table } from "react-bootstrap";
 import { createOrderItemDto } from "../../adapters/orderItemsAdapter";
 
 export const NewProductFormModal = ({ showModal, onHide, orderDetails }) => {
+  const history = useHistory();
   const {
     product,
     quantity,
@@ -92,11 +94,12 @@ export const NewProductFormModal = ({ showModal, onHide, orderDetails }) => {
 
   const calculateNewTotal = () => {
     const newProductsTotalPrice = calculateOrderTotalPrice(newProducts);
-    const total = newProductsTotalPrice + orderDetails?.order?.totalAmount;
+    const total =
+      newProductsTotalPrice + parseFloat(orderDetails?.order?.totalAmount);
     return total;
   };
 
-  const handleAddProducts = () => {
+  const handleAddProducts = async () => {
     const orderItemsDto = createOrderItemDto(
       orderDetails?.order?.id,
       newProducts
@@ -105,9 +108,9 @@ export const NewProductFormModal = ({ showModal, onHide, orderDetails }) => {
       createOrderItem(orderItemsDto[i]);
     }
     const totalAmount = calculateNewTotal();
-    console.log(totalAmount);
-    editOrder({ totalAmount: totalAmount });
+    await editOrder({ totalAmount: totalAmount });
     onHide();
+    history.go(0);
   };
 
   const createOrderItem = async (orderItem) => {
@@ -160,12 +163,7 @@ export const NewProductFormModal = ({ showModal, onHide, orderDetails }) => {
             />
           </Col>
           <Col>
-            <Form.Control
-              type='text'
-              placeholder='$0'
-              value={price || ""}
-              onChange={(e) => setPrice(e.target.value)}
-            />
+            <Form.Control type='text' placeholder='$0' value={price || ""} />
           </Col>
           <Col>
             <Form.Control
