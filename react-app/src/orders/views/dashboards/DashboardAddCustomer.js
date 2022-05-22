@@ -79,7 +79,13 @@ export const DashboardAddCustomer = ({ user, userId }) => {
 
   // async function to create customer
   const createCustomer = async (customer) => {
-    const dto = createCustomerDto(customer);
+    const quickBooksCustomer = createQuickbooksCustomerDto(customer);
+    const quickbooks = await createQuickbooksCustomer(quickBooksCustomer);
+    const dto = createCustomerDto({
+      ...customer,
+      quickBooksId: quickbooks.Customer.Id,
+    });
+
     const response = await fetch(`${process.env.REACT_APP_API_URL}/customers`, {
       method: "POST",
       headers: {
@@ -90,11 +96,7 @@ export const DashboardAddCustomer = ({ user, userId }) => {
 
     if (response.ok) {
       const data = await response.json();
-      // call redux dispatch, it set customer also in store
       dispatch(setCustomer(dto));
-      // TODO: Create Customer in quickbooks
-      const quickBooksCustomer = createQuickbooksCustomerDto(data);
-      createQuickbooksCustomer(quickBooksCustomer);
       return data;
     } else if (response.status < 500) {
       const data = await response.json();

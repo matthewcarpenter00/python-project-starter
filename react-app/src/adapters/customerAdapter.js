@@ -10,6 +10,7 @@ export const createCustomerDto = (customer) => {
     city: customer.city,
     state: customer.state,
     zipCode: parseInt(customer.zipCode),
+    quickbooksId: customer.quickBooksId,
   };
 };
 
