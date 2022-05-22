@@ -178,6 +178,19 @@ export const DashboardOrderDetails = () => {
     // alert ("Your Email has been sent!")
   };
 
+  // const printInvoice = (invoiceID) => {
+  //   fetch(`/api/auth/invoice/${invoiceID}/pdf?minorversion=63`, {
+  //     method: "GET",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //   })
+  //     .then((res) => res.json())
+  //     .then((data) => console.log(data))
+  //     .catch((error) => console.log(error));
+  // };
+ 
+
   const sendAnInvoice = (email, invoiceId) => {
     fetch("/api/auth/send-invoice", {
       method: "POST",
@@ -211,6 +224,10 @@ export const DashboardOrderDetails = () => {
     });
     const payload = {
       Line: lineItems,
+      AllowIPNPayment: true,
+      AllowOnlinePayment: true,
+      AllowOnlineCreditCardPayment: true,
+      AllowOnlineACHPayment: true,
       CustomField: [
         { 
           DefinitionId: "1",
@@ -302,15 +319,6 @@ export const DashboardOrderDetails = () => {
                 </Col>
                 {!(username === "staff") && (
                   <>
-                    {/* <Col md='auto'>
-                      <Button
-                        onClick={sendEmail}
-                        variant='success'
-                        className='mb-3'
-                      >
-                        Send Order Ready Email
-                      </Button>
-                    </Col> */}
                     <Col md='auto'>
                       <Button
                         onClick={() => createInvoice(orderdetails)}

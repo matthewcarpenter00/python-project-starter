@@ -104,6 +104,8 @@ export const TruckLoadForm = () => {
     },
   ];
 
+  // on selects
+
   const handleOnSelect = (row, isSelect, rowIndex, e) => {
     setSelectedRows([...selectedRows, row])
     setIsRowSelected(() => isSelect)
@@ -115,6 +117,8 @@ export const TruckLoadForm = () => {
     setSelectedRows(rows)
   }
 
+  // select row from bootstrap table
+
   const selectRow = {
     mode: 'checkbox',
     clickToSelect: true,
@@ -122,27 +126,25 @@ export const TruckLoadForm = () => {
     bgColor: '#55D6BE',
     onSelectAll: handleOnSelectAll,
     onSelect: handleOnSelect,
-      // add those orders to selected rows
-      // 
     }
   
-    // console.log(selectedRows)
-  // loop selected rows
+
+
+  // send email to those on the selected
 
   // selectedRows.forEach(row => {
-  //   sendEmail()
+  //   sendEmail(row)
   // }) 
 
 
-      // send email to those on the selected
+
+    
 
   const sendEmail = (e) => {
     e.preventDefault();
-
     var templateParams = {
       // customer: orderdetails?.order?.customer.email,
     };
-
     emailjs
       .send(
         "service_g2ht3pj",
