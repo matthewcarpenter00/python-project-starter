@@ -9,6 +9,8 @@ import axios from "axios";
 import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
+import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
+
 
 export const DashboardCustomers = ({ user, userId }) => {
   const params = useParams();
@@ -29,6 +31,8 @@ export const DashboardCustomers = ({ user, userId }) => {
       setData(res.data);
     });
   };
+
+  const { SearchBar, ClearSearchButton } = Search;
 
   const columns = [
     {
@@ -98,8 +102,19 @@ export const DashboardCustomers = ({ user, userId }) => {
             {/* Dashboard content */}
 
             <Container>
+            <ToolkitProvider
+              keyField="id"
+              data={data}
+              columns={columns}
+              search
+            >
+              {
+              props => (
               <div className='h-100 p-5 bg-light border rounded-3'>
+                <SearchBar { ...props.searchProps } className="mb-3" />
+                <ClearSearchButton { ...props.searchProps } className="mb-2"  />
                 <BootstrapTable
+                 { ...props.baseProps }
                   keyField='id'
                   rowEvents={rowEvents}
                   data={data}
@@ -111,6 +126,9 @@ export const DashboardCustomers = ({ user, userId }) => {
                   // filter={filterFactory()}
                 />
               </div>
+               )
+              } 
+              </ToolkitProvider>
             </Container>
           </div>
         </div>

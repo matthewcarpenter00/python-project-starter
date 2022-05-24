@@ -180,7 +180,8 @@ export const DashboardOrders = ({ user, userId }) => {
                   pagination={paginationFactory()}
                   filter={filterFactory()}
                   defaultSorted={ defaultSorted } 
-                ></BootstrapTable>
+                >
+                </BootstrapTable>
               </div>
               )
             } 

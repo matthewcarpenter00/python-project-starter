@@ -46,7 +46,7 @@ export const DashboardAddCustomer = ({ user, userId }) => {
   ];
 
   const createQuickbooksCustomer = (payload) => {
-    fetch("/api/auth/send-invoice", {
+    fetch("/api/auth/create-customer", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -81,6 +81,7 @@ export const DashboardAddCustomer = ({ user, userId }) => {
   const createCustomer = async (customer) => {
     const quickBooksCustomer = createQuickbooksCustomerDto(customer);
     const quickbooks = await createQuickbooksCustomer(quickBooksCustomer);
+
     const dto = createCustomerDto({
       ...customer,
       quickBooksId: quickbooks.Customer.Id,
