@@ -41,7 +41,7 @@ export const createQuickbooksCustomerDto = (customer) => {
     PrimaryEmailAddr: {
       Address: customer.email,
     },
-    DisplayName: customer.name,
+    DisplayName: customer.fullName,
     PrimaryPhone: {
       FreeFormNumber: customer.phone,
     },
@@ -52,6 +52,6 @@ export const createQuickbooksCustomerDto = (customer) => {
       PostalCode: customer.zipCode,
       Line1: customer.address,
     },
-    GivenName: customer.name,
+    GivenName: customer.fullName,
   };
 };

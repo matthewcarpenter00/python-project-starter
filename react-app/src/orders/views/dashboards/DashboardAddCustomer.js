@@ -80,7 +80,9 @@ export const DashboardAddCustomer = ({ user, userId }) => {
   // async function to create customer
   const createCustomer = async (customer) => {
     const quickBooksCustomer = createQuickbooksCustomerDto(customer);
+
     const quickbooks = await createQuickbooksCustomer(quickBooksCustomer);
+
 
     const dto = createCustomerDto({
       ...customer,
