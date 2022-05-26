@@ -45,7 +45,8 @@ export const DashboardAddCustomer = ({ user, userId }) => {
     { value: "GA", label: "GA" },
   ];
 
-  const createQuickbooksCustomer = (payload) => {
+  const createQuickbooksCustomer = async (payload) => {
+    const resp = await
     fetch("/api/auth/create-customer", {
       method: "POST",
       headers: {
@@ -53,9 +54,8 @@ export const DashboardAddCustomer = ({ user, userId }) => {
       },
       body: JSON.stringify(payload),
     })
-      .then((res) => res.json())
-      .then((data) => data)
-      .catch((error) => console.log(error));
+    const data = resp.json()
+    return data
   };
 
   const handleSubmit = (event) => {
@@ -102,13 +102,13 @@ export const DashboardAddCustomer = ({ user, userId }) => {
 
   const createCustomer = async (customer) => {
     const quickBooksCustomer = createQuickbooksCustomerDto(customer);
-    createQuickbooksCustomer(quickBooksCustomer).then((quickbooks) => {
-      const dto = createCustomerDto({
+    const quickbooks = await createQuickbooksCustomer(quickBooksCustomer)
+    const dto = createCustomerDto({
         ...customer,
         quickBooksId: quickbooks.Customer.Id,
       });
       createApiCustomer(dto);
-    });
+    };
   };
 
   return (
