@@ -54,7 +54,7 @@ export const DashboardAddCustomer = ({ user, userId }) => {
       body: JSON.stringify(payload),
     })
       .then((res) => res.json())
-      .then((data) => console.log(data))
+      .then((data) => data)
       .catch((error) => console.log(error));
   };
 
@@ -81,8 +81,7 @@ export const DashboardAddCustomer = ({ user, userId }) => {
   const createCustomer = async (customer) => {
     const quickBooksCustomer = createQuickbooksCustomerDto(customer);
 
-    const quickbooks = await createQuickbooksCustomer(quickBooksCustomer);
-
+    const quickbooks = createQuickbooksCustomer(quickBooksCustomer);
 
     const dto = createCustomerDto({
       ...customer,
