@@ -77,17 +77,7 @@ export const DashboardAddCustomer = ({ user, userId }) => {
     setValidated(true);
   };
 
-  // async function to create customer
-  const createCustomer = async (customer) => {
-    const quickBooksCustomer = createQuickbooksCustomerDto(customer);
-
-    const quickbooks = createQuickbooksCustomer(quickBooksCustomer);
-
-    const dto = createCustomerDto({
-      ...customer,
-      quickBooksId: quickbooks.Customer.Id,
-    });
-
+  const createApiCustomer = async (dto) => {
     const response = await fetch(`${process.env.REACT_APP_API_URL}/customers`, {
       method: "POST",
       headers: {
@@ -108,6 +98,17 @@ export const DashboardAddCustomer = ({ user, userId }) => {
     } else {
       return ["An error occurred. Please try again."];
     }
+  };
+
+  const createCustomer = async (customer) => {
+    const quickBooksCustomer = createQuickbooksCustomerDto(customer);
+    createQuickbooksCustomer(quickBooksCustomer).then((quickbooks) => {
+      const dto = createCustomerDto({
+        ...customer,
+        quickBooksId: quickbooks.Customer.Id,
+      });
+      createApiCustomer(dto);
+    });
   };
 
   return (
