@@ -72,7 +72,6 @@ export const DashboardAddCustomer = ({ user, userId }) => {
         state: state.value,
       });
       reset();
-      history.push("/profile/user/undefined/customers");
     }
     setValidated(true);
   };
@@ -89,6 +88,7 @@ export const DashboardAddCustomer = ({ user, userId }) => {
     if (response.ok) {
       const data = await response.json();
       dispatch(setCustomer(dto));
+      history.push("/profile/user/undefined/customers");
       return data;
     } else if (response.status < 500) {
       const data = await response.json();
