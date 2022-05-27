@@ -13,6 +13,7 @@ import emailjs from "@emailjs/browser";
 import { useSelector } from "react-redux";
 import Select from "react-select";
 import { orderStatusOptions, staffOptions } from "../common";
+import { shippingRouteOptions } from "../common/shippingRouteOptions";
 
 import Alert from "react-bootstrap/Alert";
 import { NewProductFormModal } from "../../components/NewProductFormModal";
@@ -26,6 +27,7 @@ export const DashboardOrderDetails = () => {
   // const { orderdetails, setOrderDetails } = useFetchOrder({ orderId });
   const [orderdetails, setOrderDetails] = useState("");
   const [orderStatus, setOrderStatus] = useState([]);
+  const [shippingRoute, setShippingRoute] = useState([]);
 
   const [staff, setStaff] = useState("");
 
@@ -42,23 +44,23 @@ export const DashboardOrderDetails = () => {
   // edit order products
   const [showModal, setShowModal] = useState(false);
 
-  // const dummyInvoice = {
-  //   Line: [
-  //     {
-  //       DetailType: "SalesItemLineDetail",
-  //       Amount: 200.0,
-  //       SalesItemLineDetail: {
-  //         ItemRef: {
-  //           name: "Services",
-  //           value: "1",
-  //         },
-  //       },
-  //     },
-  //   ],
-  //   CustomerRef: {
-  //     value: "1",
-  //   },
-  // };
+  const routeSelect = () => {
+    if (orderdetails) {
+      return (
+        <Form.Group as={Col} controlId='formRoute'>
+          <Form.Label>Route</Form.Label>
+          <Select
+            defaultValue={{
+              value: orderdetails?.order?.shippingRoute,
+              label: orderdetails?.order?.shippingRoute,
+            }}
+            onChange={setShippingRoute}
+            options={shippingRouteOptions}
+          />
+        </Form.Group>
+      );
+    } else return null;
+  };
 
   const statusSelect = () => {
     if (orderdetails) {
@@ -175,7 +177,6 @@ export const DashboardOrderDetails = () => {
           console.log(error.text);
         }
       );
-    // alert ("Your Email has been sent!")
   };
 
   // const printInvoice = (invoiceID) => {
@@ -290,6 +291,7 @@ export const DashboardOrderDetails = () => {
                     Order #<strong> {orderdetails?.order?.id}</strong>
                   </h2>
                 </Col>
+                {!(username === "staff") && (
                 <Col md='auto'>
                   <Link
                     to={{
@@ -303,6 +305,7 @@ export const DashboardOrderDetails = () => {
                     </Button>
                   </Link>
                 </Col>
+                )}
 
                 <Col md='auto'>
                   <Link
@@ -390,7 +393,7 @@ export const DashboardOrderDetails = () => {
                   />
                 </Form.Group>
 
-                <Form.Group as={Col} controlId='formRoute'>
+                {/* <Form.Group as={Col} controlId='formRoute'>
                   <Form.Label>Route</Form.Label>
                   <Form.Control
                     type='text'
@@ -402,7 +405,8 @@ export const DashboardOrderDetails = () => {
                       })
                     }
                   />
-                </Form.Group>
+                </Form.Group> */}
+                {routeSelect()}
                 {statusSelect()}
                 {staffSelect()}
               </Row>
@@ -470,18 +474,11 @@ export const DashboardOrderDetails = () => {
                 </Table>
               </Row>
               <Row>
-                <Col md='auto'>
-                  <Button
-                    variant='danger'
-                    onClick={() => handleDelete(orderdetails?.order?.id)}
-                  >
-                    Delete Order
-                  </Button>
-                </Col>
-                <Col>
+                <Col md="auto">
                   <Button
                     onClick={() =>
                       editOrder({
+                        shippingRoute: shippingRoute.value,
                         orderStatus: orderStatus.value,
                         staffId: staff.value,
                       })
@@ -491,12 +488,26 @@ export const DashboardOrderDetails = () => {
                     Update Order
                   </Button>
                 </Col>
-                <Col>
+                {!(username === "staff") && (
+                  <>
+                <Col md="8">
                   <Button variant='warning' onClick={() => setShowModal(true)}>
                     Add products
                   </Button>
                 </Col>
+                  
+                <Col md="2">
+                  <Button
+                    variant='danger'
+                    onClick={() => handleDelete(orderdetails?.order?.id)}
+                  >
+                    Delete Order
+                  </Button>
+                </Col>
+                </>
+                )}
               </Row>
+            
             </Form>
             <NewProductFormModal
               showModal={showModal}

@@ -45,7 +45,7 @@ export const ProductionLabel = () => {
       <div  ref={componentRef} className="rounded  p-sm-5">
         <h1 className="mb-3 text-center border border-dark p-3">{orderdetails?.order?.customer?.company}</h1>
         
-        <h2 className="mb-3 text-center p-1">Order # {orderdetails?.order?.id}</h2>
+        <h2 className="mb-3 text-center p-1">Order # SS{orderdetails?.order?.id}</h2>
         
         <Table bordered responsive='md' className='table print-table'>
           <thead>
