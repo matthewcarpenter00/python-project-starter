@@ -454,7 +454,9 @@ export const DashboardOrderDetails = () => {
                       <th scope='col'>#</th>
                       <th scope='col'>Product</th>
                       <th scope='col'>Qty</th>
+                      {!(username === "staff") && (
                       <th scope='col'>Rate</th>
+                      )}
                       <th scope='col'>Notes</th>
                     </tr>
                   </thead>
@@ -466,7 +468,8 @@ export const DashboardOrderDetails = () => {
                         <td>
                           {orderdetails.order.orderItems[index]?.quantity}
                         </td>
-                        <td>${orderItem?.price}</td>
+                        {!(username === "staff") && (
+                        <td>${orderItem?.price}</td>)}
                         <td>{orderdetails.order.orderItems[index]?.notes}</td>
                       </tr>
                     ))}
