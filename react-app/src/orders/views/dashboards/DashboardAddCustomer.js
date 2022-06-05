@@ -103,11 +103,12 @@ export const DashboardAddCustomer = ({ user, userId }) => {
     const quickBooksCustomer = createQuickbooksCustomerDto(customer);
     const quickbooks = await createQuickbooksCustomer(quickBooksCustomer);
     const dto = createCustomerDto({
-      ...customer,
-      quickBooksId: quickbooks.Customer.Id,
-    });
-    createApiCustomer(dto);
-  };
+        ...customer,
+        quickBooksId: quickbooks.Customer.Id,
+      });
+      createApiCustomer(dto);
+    };
+  
 
   return (
     <>

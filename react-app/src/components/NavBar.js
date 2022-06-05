@@ -54,6 +54,7 @@ const NavBar = () => {
                 Connect to Quickbooks
               </Button>
             </div>
+           
           )}
           
         </Nav>
