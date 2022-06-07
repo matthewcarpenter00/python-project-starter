@@ -44,6 +44,23 @@ export const DashboardOrderDetails = () => {
   // edit order products
   const [showModal, setShowModal] = useState(false);
 
+  // edit order items
+  const [newOrderItems, setNewOrderItems] = useState([]);
+
+  const handleOrderItemChange = (e, index, orderItems) => {
+    const targetItem = orderdetails.order.orderItems[index];
+    const updatedOrderItems = orderItems.map((item) =>
+      item.id === targetItem.id
+        ? {
+            ...item,
+            quantity: parseInt(e.target.value),
+          }
+        : item
+    );
+    console.log(updatedOrderItems);
+    setNewOrderItems(updatedOrderItems);
+  };
+
   const routeSelect = () => {
     if (orderdetails) {
       return (
@@ -140,6 +157,26 @@ export const DashboardOrderDetails = () => {
     }
   };
 
+  const editOrderItem = async (id, orderItemPayload) => {
+    const response = await fetch(
+      `${process.env.REACT_APP_API_URL}/order-items/${id}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(orderItemPayload),
+      }
+    );
+
+    if (response.ok) {
+      const data = await response.json();
+      return data;
+    } else {
+      return ["An error occurred. Please try again."];
+    }
+  };
+
   const handleDelete = async (orderId) => {
     try {
       const response = await fetch(
@@ -190,7 +227,6 @@ export const DashboardOrderDetails = () => {
   //     .then((data) => console.log(data))
   //     .catch((error) => console.log(error));
   // };
- 
 
   const sendAnInvoice = (email, invoiceId) => {
     fetch("/api/auth/send-invoice", {
@@ -230,23 +266,25 @@ export const DashboardOrderDetails = () => {
       AllowOnlineCreditCardPayment: true,
       AllowOnlineACHPayment: true,
       CustomField: [
-        { 
+        {
           DefinitionId: "1",
           Name: "Work Order",
           Type: "StringType",
           StringValue: orderdetails.order.id,
-      }, {
+        },
+        {
           DefinitionId: "2",
           Name: "PO# / Job Name",
           Type: "StringType",
           StringValue: orderdetails.order.poName,
-      }, {
+        },
+        {
           DefinitionId: "3",
           Name: "Route",
           Type: "StringType",
           StringValue: orderdetails.order.shippingRoute,
-      }
-    ],
+        },
+      ],
       CustomerRef: {
         value: order.customer.quickbooksId,
       },
@@ -278,6 +316,19 @@ export const DashboardOrderDetails = () => {
       .catch((error) => console.log(error));
   };
 
+  const handleEditOrder = async () => {
+    editOrder({
+      shippingRoute: shippingRoute.value,
+      orderStatus: orderStatus.value,
+      staffId: staff.value,
+    });
+    console.log(newOrderItems);
+    for (let i = 0; i < newOrderItems.length; i++) {
+      console.log(newOrderItems[i]);
+      editOrderItem(newOrderItems[i].id, newOrderItems[i]);
+    }
+  };
+
   return (
     <>
       <div className='w-100 d-flex p-4'>
@@ -292,19 +343,19 @@ export const DashboardOrderDetails = () => {
                   </h2>
                 </Col>
                 {!(username === "staff") && (
-                <Col md='auto'>
-                  <Link
-                    to={{
-                      pathname: `/profile/user/${orderdetails?.order?.id}/orderdetails/productionlabel`,
-                      state: orderdetails,
-                    }}
-                    target='_blank'
-                  >
-                    <Button variant='dark' className='mb-3'>
-                      Print Production Label
-                    </Button>
-                  </Link>
-                </Col>
+                  <Col md='auto'>
+                    <Link
+                      to={{
+                        pathname: `/profile/user/${orderdetails?.order?.id}/orderdetails/productionlabel`,
+                        state: orderdetails,
+                      }}
+                      target='_blank'
+                    >
+                      <Button variant='dark' className='mb-3'>
+                        Print Production Label
+                      </Button>
+                    </Link>
+                  </Col>
                 )}
 
                 <Col md='auto'>
@@ -454,9 +505,7 @@ export const DashboardOrderDetails = () => {
                       <th scope='col'>#</th>
                       <th scope='col'>Product</th>
                       <th scope='col'>Qty</th>
-                      {!(username === "staff") && (
-                      <th scope='col'>Rate</th>
-                      )}
+                      {!(username === "staff") && <th scope='col'>Rate</th>}
                       <th scope='col'>Notes</th>
                     </tr>
                   </thead>
@@ -466,10 +515,24 @@ export const DashboardOrderDetails = () => {
                         <td>{index + 1}</td>
                         <td>{orderItem?.name}</td>
                         <td>
-                          {orderdetails.order.orderItems[index]?.quantity}
+                          <Form.Control
+                            type='text'
+                            placeholder={
+                              orderdetails.order.orderItems[index]?.quantity
+                            }
+                            onChange={(e) =>
+                              handleOrderItemChange(
+                                e,
+                                index,
+                                orderdetails.order.orderItems
+                              )
+                            }
+                          />
+                          {/* {orderdetails.order.orderItems[index]?.quantity} */}
                         </td>
                         {!(username === "staff") && (
-                        <td>${orderItem?.price}</td>)}
+                          <td>${orderItem?.price}</td>
+                        )}
                         <td>{orderdetails.order.orderItems[index]?.notes}</td>
                       </tr>
                     ))}
@@ -477,15 +540,16 @@ export const DashboardOrderDetails = () => {
                 </Table>
               </Row>
               <Row>
-                <Col md="auto">
+                <Col md='auto'>
                   <Button
-                    onClick={() =>
-                      editOrder({
-                        shippingRoute: shippingRoute.value,
-                        orderStatus: orderStatus.value,
-                        staffId: staff.value,
-                      })
-                    }
+                    onClick={handleEditOrder}
+                    // onClick={() =>
+                    //   editOrder({
+                    //     shippingRoute: shippingRoute.value,
+                    //     orderStatus: orderStatus.value,
+                    //     staffId: staff.value,
+                    //   })
+                    // }
                     variant='success'
                   >
                     Update Order
@@ -493,24 +557,26 @@ export const DashboardOrderDetails = () => {
                 </Col>
                 {!(username === "staff") && (
                   <>
-                <Col md="8">
-                  <Button variant='warning' onClick={() => setShowModal(true)}>
-                    Add products
-                  </Button>
-                </Col>
-                  
-                <Col md="2">
-                  <Button
-                    variant='danger'
-                    onClick={() => handleDelete(orderdetails?.order?.id)}
-                  >
-                    Delete Order
-                  </Button>
-                </Col>
-                </>
+                    <Col md='8'>
+                      <Button
+                        variant='warning'
+                        onClick={() => setShowModal(true)}
+                      >
+                        Add products
+                      </Button>
+                    </Col>
+
+                    <Col md='2'>
+                      <Button
+                        variant='danger'
+                        onClick={() => handleDelete(orderdetails?.order?.id)}
+                      >
+                        Delete Order
+                      </Button>
+                    </Col>
+                  </>
                 )}
               </Row>
-            
             </Form>
             <NewProductFormModal
               showModal={showModal}
