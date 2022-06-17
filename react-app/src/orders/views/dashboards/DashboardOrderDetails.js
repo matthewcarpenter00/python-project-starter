@@ -257,7 +257,16 @@ export const DashboardOrderDetails = () => {
             name: product.name,
           },
         },
-      };
+
+        // discount line needs to go inside Line array
+          DetailType: "DiscountLineDetail",   
+          Amount: "100.0", //aqui poner order.discount
+          Description: "Less discount", 
+          DiscountLineDetail: {
+              PercentBased: false, 
+          },
+        
+      }     
     });
     const payload = {
       Line: lineItems,
@@ -382,14 +391,18 @@ export const DashboardOrderDetails = () => {
                         generate invoice
                       </Button>
                     </Col>
-                    <Col md='auto'>
-                      <Button
-                        // onClick={() => printInvoice(orderdetails)}
-                        variant='secondary'
-                        className='mb-3'
-                      >
-                        print invoice
-                      </Button>
+                    <Col>
+                    <Link
+                    to={{
+                      pathname: `/profile/user/${orderdetails?.order?.id}/orderdetails/packing-slip`,
+                      state: orderdetails,
+                    }}
+                    target='_blank'
+                  >
+                    <Button variant='dark' className='mb-3'>
+                    print invoice
+                    </Button>
+                      </Link>
                     </Col>
                   </>
                 )}
@@ -444,19 +457,6 @@ export const DashboardOrderDetails = () => {
                   />
                 </Form.Group>
 
-                {/* <Form.Group as={Col} controlId='formRoute'>
-                  <Form.Label>Route</Form.Label>
-                  <Form.Control
-                    type='text'
-                    value={orderdetails?.order?.shippingRoute}
-                    onChange={(e) =>
-                      setOrderDetails({
-                        ...orderdetails,
-                        shippingRoute: e.target.value,
-                      })
-                    }
-                  />
-                </Form.Group> */}
                 {routeSelect()}
                 {statusSelect()}
                 {staffSelect()}
@@ -489,11 +489,19 @@ export const DashboardOrderDetails = () => {
                       }
                     />
                   </Form.Group>
-                  <Form.Group as={Col} controlId='formTotalAmount'>
-                    <Form.Label>Amount</Form.Label>
+                  
+                  <Form.Group as={Col} controlId='formDiscount'>
+                    <Form.Label>Discount</Form.Label>
                     <Form.Control
                       type='text'
-                      value={orderdetails?.order?.totalAmount}
+                      // value={`$ ${}`}
+                    />
+                  </Form.Group>
+                  <Form.Group as={Col} controlId='formTotalAmount'>
+                    <Form.Label>Amount </Form.Label>
+                    <Form.Control
+                      type='text'
+                      value= {`$ ${orderdetails?.order?.totalAmount}`}
                     />
                   </Form.Group>
                 </Row>
