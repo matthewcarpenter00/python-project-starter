@@ -168,7 +168,7 @@ export const TruckLoadForm = () => {
     <>
     
         {/* <div className='w-100 h-100 p-2 rounded-3'> */}
-          <div className='p-3' ref={componentRef}>
+          <div className='p-3' >
             <div>
               <Container>
                 <Row>
@@ -183,43 +183,47 @@ export const TruckLoadForm = () => {
                   </Col>
                 </Row>
               </Container>
-              <Row className='justify-content-between'>
-                <Col>
-                  <img
-                    alt=''
-                    src='/./../Step-Solution-Logo-Dark.png'
-                    width='330'
-                    height='auto'
-                    className='d-inline-block align-center'
-                  />{" "}
-                </Col>
-
-                <Col>
-                  <h1 className='text-end align-text-bottom'>
-                    <strong>Truck</strong>Load
-                  </h1>
-                </Col>
-              </Row>
             </div>
+            <div ref={componentRef}> 
+              <div>
+                <Row className='justify-content-between'>
+                  <Col>
+                    <img
+                      alt=''
+                      src='/./../Step-Solution-Logo-Dark.png'
+                      width='330'
+                      height='auto'
+                      className='d-inline-block align-center'
+                    />{" "}
+                  </Col>
 
-            {/* Dashboard content */}
+                  <Col>
+                    <h1 className='text-end align-text-bottom'>
+                      <strong>Truck</strong>Load
+                    </h1>
+                  </Col>
+                </Row>
+              </div>
 
-            <div>
+                {/* Dashboard content */}
+
               <div className=''>
-                <BootstrapTable
-                  keyField='id'
-                  data={data}
-                  columns={columns}
-                  selectRow={ selectRow }
-                  striped
-                  hover
-                  condensed
-                  pagination={paginationFactory()}
-                  filter={filterFactory()}
-                ></BootstrapTable>
+                  <BootstrapTable
+                    keyField='id'
+                    data={data}
+                    columns={columns}
+                    selectRow={ selectRow }
+                    striped
+                    hover
+                    condensed
+                    pagination={paginationFactory()}
+                    filter={filterFactory()}
+                  ></BootstrapTable>
               </div>
             </div>
+
           </div>
+        
           <Container>
             <Col className='mb-5 text-center'>
               <Button
