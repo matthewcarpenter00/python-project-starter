@@ -41,8 +41,8 @@ export const PackingSlip = () => {
   }, []);
 
   return (
-    <div  ref={componentRef} className="p-3">
-       <Container fluid>
+    <div  className="p-3">
+       <Container fluid ref={componentRef} className="p-3">
         <Row className="slip-header mb-3">
             <Col>
                 <h3>step solutions llc</h3>
@@ -51,12 +51,12 @@ export const PackingSlip = () => {
                 admin@stepsolutionusa.com<br></br>
                 www.stepsolutionusa.com</p>
             </Col>
-            <Col>
+            <Col className="text-end text-md-right mx-5">
             <img
           alt=""
           src="https://static1.squarespace.com/static/5feb8101b5b33b527b373ebc/t/624deb72c3b55f64018575de/1649273714852/stdpsolution+icon-05.png"
-          width="150"
-          height="150"
+          width="100"
+          height="100"
           
         />
         <h3 ><strong>packing</strong>slip</h3>
@@ -71,7 +71,7 @@ export const PackingSlip = () => {
                 {orderdetails?.order?.customer?.address2}<br></br>
                 {orderdetails?.order?.customer?.city},{orderdetails?.order?.customer?.state} {orderdetails?.order?.customer?.zipCode}                </p>
             </Col>
-            <Col md="auto">
+            <Col className="text-end text-md-right mx-5">
                 <h5>INVOICE</h5><p>{orderdetails?.order?.invoiceNumber}</p>
                 <h5>DATE</h5><p>{new Date(
                       orderdetails?.order?.createdAt
@@ -83,7 +83,7 @@ export const PackingSlip = () => {
             </Col>
         </Row>
 
-        <Row className="slip-item-details mb-3">
+        <Row className="slip-item-details mb-3 mx-2">
             <Table bordered responsive='md' className='table print-table'>
                 <thead>
                     <tr>  
@@ -106,12 +106,12 @@ export const PackingSlip = () => {
         </Row>
    
         <Row className="slip-footer justify-content-center">
-            <Col md="auto">
+            <Col className="text-center">
             <h2>Thank you for choosing <strong>step</strong>solution!</h2>
             </Col>
         </Row>
         </Container>
-        <Row className="container justify-content-center">
+        <Row className="justify-content-center">
           <Button 
             onClick={handlePrint}
             variant="primary"

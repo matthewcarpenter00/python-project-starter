@@ -388,7 +388,7 @@ export const DashboardOrderDetails = () => {
                         variant='success'
                         className='mb-3'
                       >
-                        generate invoice
+                        Generate Invoice
                       </Button>
                     </Col>
                     <Col>
@@ -399,8 +399,8 @@ export const DashboardOrderDetails = () => {
                     }}
                     target='_blank'
                   >
-                    <Button variant='dark' className='mb-3'>
-                    print invoice
+                    <Button variant='secondary' className='mb-3'>
+                    Print Packing Slip
                     </Button>
                       </Link>
                     </Col>

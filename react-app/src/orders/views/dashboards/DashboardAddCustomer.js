@@ -141,13 +141,7 @@ export const DashboardAddCustomer = ({ user, userId }) => {
               onSubmit={handleSubmit}
               validated={validated}
             >
-              {/* <Row className='mb-3'>
-                <Form.Group as={Col} controlId='formOrderID'>
-                  <Form.Label>Customer ID</Form.Label>
-                  <Form.Control plaintext readOnly defaultValue='001' />
-                </Form.Group>
-              </Row> */}
-
+        
               <Row className='mb-3'>
                 <Form.Group controlId='formJobName'>
                   <Form.Label>Company</Form.Label>
