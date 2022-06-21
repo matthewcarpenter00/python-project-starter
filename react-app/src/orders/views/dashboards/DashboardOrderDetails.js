@@ -259,12 +259,12 @@ export const DashboardOrderDetails = () => {
         },
 
         // discount line needs to go inside Line array
-          DetailType: "DiscountLineDetail",   
-          Amount: "100.0", //aqui poner order.discount
-          Description: "Less discount", 
-          DiscountLineDetail: {
-              PercentBased: false, 
-          },
+          // DetailType: "DiscountLineDetail",   
+          // Amount: "100.0", //aqui poner order.discount
+          // Description: "Less discount", 
+          // DiscountLineDetail: {
+          //     PercentBased: false, 
+          // },
         
       }     
     });
