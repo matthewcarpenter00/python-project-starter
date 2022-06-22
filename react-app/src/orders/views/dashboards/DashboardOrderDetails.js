@@ -244,7 +244,20 @@ export const DashboardOrderDetails = () => {
       .catch((error) => console.log(error));
   };
 
+  
+
   const createInvoice = ({ order, products }) => {
+
+    const discountline = {
+      DetailType: "DiscountLineDetail",   
+      // Amount: orderdetails.order.discount, 
+      Amount:"0",
+      Description: "Less discount", 
+      DiscountLineDetail: {
+          PercentBased: false, 
+      }
+    };
+
     const lineItems = products.map((product, index) => {
       return {
         Amount: product.price * order.orderItems[index].quantity,
@@ -257,19 +270,11 @@ export const DashboardOrderDetails = () => {
             name: product.name,
           },
         },
-
-        // discount line needs to go inside Line array
-          // DetailType: "DiscountLineDetail",   
-          // Amount: "100.0", //aqui poner order.discount
-          // Description: "Less discount", 
-          // DiscountLineDetail: {
-          //     PercentBased: false, 
-          // },
-        
       }     
     });
+
     const payload = {
-      Line: lineItems,
+      Line: [...lineItems, discountline],
       AllowIPNPayment: true,
       AllowOnlinePayment: true,
       AllowOnlineCreditCardPayment: true,
@@ -494,7 +499,7 @@ export const DashboardOrderDetails = () => {
                     <Form.Label>Discount</Form.Label>
                     <Form.Control
                       type='text'
-                      // value={`$ ${}`}
+                      // value={`$ ${orderdetails?.order?.discount}`}
                     />
                   </Form.Group>
                   <Form.Group as={Col} controlId='formTotalAmount'>

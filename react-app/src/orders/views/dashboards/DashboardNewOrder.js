@@ -281,7 +281,14 @@ export const DashboardNewOrder = () => {
                     onChange={(e) => setInvoiceNumber(e.target.value)}
                   />
                 </Form.Group>
-
+                <Form.Group as={Col} controlId='formDiscount'>
+                    <Form.Label>Discount</Form.Label>
+                    <Form.Control
+                      type='text'
+                      placeholder='$0'
+                      // value={`$ ${orderdetails?.order?.discount}`}
+                    />
+                  </Form.Group>
                 <Form.Group as={Col} controlId='formCustomer'>
                   <Form.Label>Total Amount</Form.Label>
                   <Form.Control
